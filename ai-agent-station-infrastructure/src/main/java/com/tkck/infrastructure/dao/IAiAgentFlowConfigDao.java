@@ -1,6 +1,7 @@
 package com.tkck.infrastructure.dao;
 
-import cn.bugstack.ai.infrastructure.dao.po.AiAgentFlowConfig;
+
+import com.tkck.infrastructure.dao.po.AiAgentFlowConfig;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
