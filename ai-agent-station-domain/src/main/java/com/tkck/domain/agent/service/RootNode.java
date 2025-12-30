@@ -29,12 +29,9 @@ public class RootNode extends AbstractArmorySupport {
         // 获取命令；不同的命令类型，对应不同的数据加载策略
         String commandType = requestParameter.getCommandType();
 
-        // 获取策略
-        AiAgentEnumVO aiAgentEnumVO = AiAgentEnumVO.getByCode(commandType);
-        String loadDataStrategyKey = aiAgentEnumVO.getLoadDataStrategy();
 
         // 加载数据
-        ILoadDataStrategy loadDataStrategy = loadDataStrategyMap.get(loadDataStrategyKey);
+        ILoadDataStrategy loadDataStrategy = loadDataStrategyMap.get(requestParameter.getLoadDataStrategy());
         loadDataStrategy.loadData(requestParameter, dynamicContext);
     }
 

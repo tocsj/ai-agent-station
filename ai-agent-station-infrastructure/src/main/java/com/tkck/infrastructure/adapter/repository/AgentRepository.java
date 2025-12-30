@@ -2,6 +2,8 @@ package com.tkck.infrastructure.adapter.repository;
 
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tkck.domain.agent.model.aggregate.repository.IAgentRepository;
 import com.tkck.domain.agent.model.valobj.*;
 import com.tkck.infrastructure.dao.*;
@@ -10,13 +12,9 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-import static com.tkck.domain.agent.model.valobj.AiAgentEnumVO.AI_CLIENT;
-import static com.tkck.domain.agent.model.valobj.AiAgentEnumVO.AI_CLIENT_MODEL;
+import static com.tkck.domain.agent.model.valobj.AiAgentEnumVO.*;
 
 
 /**
@@ -127,12 +125,22 @@ public class AgentRepository implements IAgentRepository {
                     // 2. 通过modelId查询模型配置
                     AiClientModel model = aiClientModelDao.queryByModelId(modelId);
                     if (model != null && model.getStatus() == 1) {
-                        // 3. 转换为VO对象
+                        // 3. 查询该模型关联的tool_mcp配置
+                        List<AiClientConfig> toolMcpConfigs = aiClientConfigDao.queryBySourceTypeAndId(AI_CLIENT_MODEL.getCode(), modelId);
+                        List<String> toolMcpIds = new ArrayList<>();
+
+                        for (AiClientConfig toolMcpConfig : toolMcpConfigs) {
+                            if (AI_CLIENT_TOOL_MCP.getCode().equals(toolMcpConfig.getTargetType()) && toolMcpConfig.getStatus() == 1) {
+                                toolMcpIds.add(toolMcpConfig.getTargetId());
+                            }
+                        }
+                        // 4. 转换为VO对象
                         AiClientModelVO modelVO = AiClientModelVO.builder()
                                 .modelId(model.getModelId())
                                 .apiId(model.getApiId())
                                 .modelName(model.getModelName())
                                 .modelType(model.getModelType())
+                                .toolMcpIds(toolMcpIds)
                                 .build();
                         
                         // 避免重复添加相同的模型配置
@@ -152,44 +160,77 @@ public class AgentRepository implements IAgentRepository {
         if (clientIdList == null || clientIdList.isEmpty()) {
             return List.of();
         }
-    
+
         List<AiClientToolMcpVO> result = new ArrayList<>();
         Set<String> processedMcpIds = new HashSet<>();
-    
+
         for (String clientId : clientIdList) {
-            // 1. 通过clientId查询关联的tool_mcp配置
-            List<AiClientConfig> configs = aiClientConfigDao.queryBySourceTypeAndId(AI_CLIENT.getCode(), clientId);
-    
-            for (AiClientConfig config : configs) {
-                if ("tool_mcp".equals(config.getTargetType()) && config.getStatus() == 1) {
-                    String mcpId = config.getTargetId();
-    
-                    // 避免重复处理相同的mcpId
-                    if (processedMcpIds.contains(mcpId)) {
-                        continue;
-                    }
-                    processedMcpIds.add(mcpId);
-    
-                    // 2. 通过mcpId查询ai_client_tool_mcp表获取MCP工具配置
-                    AiClientToolMcp toolMcp = aiClientToolMcpDao.queryByMcpId(mcpId);
-                    if (toolMcp != null && toolMcp.getStatus() == 1) {
-                        // 3. 转换为VO对象
-                        AiClientToolMcpVO mcpVO = AiClientToolMcpVO.builder()
-                                .mcpId(toolMcp.getMcpId())
-                                .mcpName(toolMcp.getMcpName())
-                                .transportType(toolMcp.getTransportType())
-                                .transportConfig(toolMcp.getTransportConfig())
-                                .requestTimeout(toolMcp.getRequestTimeout())
-                                .build();
-    
-                        result.add(mcpVO);
+            // 1. 通过clientId查询关联的model配置
+            List<AiClientConfig> clientConfigs = aiClientConfigDao.queryBySourceTypeAndId(AI_CLIENT.getCode(), clientId);
+
+            for (AiClientConfig clientConfig : clientConfigs) {
+                if (AI_CLIENT_MODEL.getCode().equals(clientConfig.getTargetType()) && clientConfig.getStatus() == 1) {
+                    String modelId = clientConfig.getTargetId();
+
+                    // 2. 通过modelId查询关联的tool_mcp配置
+                    List<AiClientConfig> modelConfigs = aiClientConfigDao.queryBySourceTypeAndId(AI_CLIENT_MODEL.getCode(), modelId);
+
+                    for (AiClientConfig modelConfig : modelConfigs) {
+                        if (AI_CLIENT_TOOL_MCP.getCode().equals(modelConfig.getTargetType()) && modelConfig.getStatus() == 1) {
+                            String mcpId = modelConfig.getTargetId();
+
+                            // 避免重复处理相同的mcpId
+                            if (processedMcpIds.contains(mcpId)) {
+                                continue;
+                            }
+                            processedMcpIds.add(mcpId);
+
+                            // 3. 通过mcpId查询ai_client_tool_mcp表获取MCP工具配置
+                            AiClientToolMcp toolMcp = aiClientToolMcpDao.queryByMcpId(mcpId);
+                            if (toolMcp != null && toolMcp.getStatus() == 1) {
+                                // 4. 转换为VO对象
+                                AiClientToolMcpVO mcpVO = AiClientToolMcpVO.builder()
+                                        .mcpId(toolMcp.getMcpId())
+                                        .mcpName(toolMcp.getMcpName())
+                                        .transportType(toolMcp.getTransportType())
+                                        .transportConfig(toolMcp.getTransportConfig())
+                                        .requestTimeout(toolMcp.getRequestTimeout())
+                                        .build();
+
+                                String transportConfig = toolMcp.getTransportConfig();
+                                String transportType = toolMcp.getTransportType();
+
+                                try {
+                                    if ("sse".equals(transportType)) {
+                                        // 解析SSE配置
+                                        ObjectMapper objectMapper = new ObjectMapper();
+                                        AiClientToolMcpVO.TransportConfigSse transportConfigSse = objectMapper.readValue(transportConfig, AiClientToolMcpVO.TransportConfigSse.class);
+                                        mcpVO.setTransportConfigSse(transportConfigSse);
+                                    } else if ("stdio".equals(transportType)) {
+                                        // 解析STDIO配置
+                                        Map<String, AiClientToolMcpVO.TransportConfigStdio.Stdio> stdio = JSON.parseObject(transportConfig,
+                                                new TypeReference<>() {
+                                                });
+
+                                        AiClientToolMcpVO.TransportConfigStdio transportConfigStdio = new AiClientToolMcpVO.TransportConfigStdio();
+                                        transportConfigStdio.setStdio(stdio);
+
+                                        mcpVO.setTransportConfigStdio(transportConfigStdio);
+                                    }
+                                } catch (Exception e) {
+                                    log.error("解析传输配置失败: {}", e.getMessage(), e);
+                                }
+                                result.add(mcpVO);
+                            }
+                        }
                     }
                 }
             }
         }
-    
+
         return result;
     }
+
 
     @Override
     public List<AiClientSystemPromptVO> AiClientSystemPromptVOByClientIds(List<String> clientIdList) {
