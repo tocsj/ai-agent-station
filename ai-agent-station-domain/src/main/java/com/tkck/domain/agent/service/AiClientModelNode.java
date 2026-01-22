@@ -14,12 +14,16 @@ import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
 @Service
 public class AiClientModelNode extends AbstractArmorySupport{
+
+    @Resource
+    private AiClientAdvisorNode aiClientAdvisorNode;
     @Override
     protected String doApply(ArmoryCommandEntity requestParameter, DefaultArmoryStrategyFactory.DynamicContext dynamicContext) throws Exception {
         log.info("Ai Agent 构建节点，Mode 对话模型{}", JSON.toJSONString(requestParameter));
@@ -65,6 +69,15 @@ public class AiClientModelNode extends AbstractArmorySupport{
 
     @Override
     public StrategyHandler<ArmoryCommandEntity, DefaultArmoryStrategyFactory.DynamicContext, String> get(ArmoryCommandEntity armoryCommandEntity, DefaultArmoryStrategyFactory.DynamicContext dynamicContext) throws Exception {
-        return defaultStrategyHandler;
+        return aiClientAdvisorNode;
+    }
+    @Override
+    protected String beanName(String beanId) {
+        return AiAgentEnumVO.AI_CLIENT_MODEL.getBeanName(beanId);
+    }
+
+    @Override
+    protected String dataName() {
+        return AiAgentEnumVO.AI_CLIENT_MODEL.getDataName();
     }
 }

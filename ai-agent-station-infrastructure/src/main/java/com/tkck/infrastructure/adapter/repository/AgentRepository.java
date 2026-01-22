@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.tkck.domain.agent.model.valobj.AiAgentEnumVO.*;
 
@@ -274,6 +275,24 @@ public class AgentRepository implements IAgentRepository {
     
         return result;
     }
+    @Override
+    public Map<String, AiClientSystemPromptVO> queryAiClientSystemPromptVOByClientIds(List<String> clientIdList) {
+        List<AiClientSystemPromptVO> aiClientSystemPromptVOS = AiClientSystemPromptVOByClientIds(clientIdList);
+        if(aiClientSystemPromptVOS==null||aiClientSystemPromptVOS.isEmpty()){
+            return Collections.emptyMap();
+        }
+        return aiClientSystemPromptVOS.stream()
+                .map(prompt -> AiClientSystemPromptVO.builder()
+                        .promptId(prompt.getPromptId())
+                        .promptContent(prompt.getPromptContent())
+                        .build())
+                .collect(Collectors.toMap(
+                        AiClientSystemPromptVO::getPromptId,  // key: id
+                        prompt -> prompt,               // value: AiClientSystemPromptVO对象
+                        (existing, replacement) -> existing  // 如果有重复key，保留第一个
+                ));
+
+    }
 
     @Override
     public List<AiClientAdvisorVO> AiClientAdvisorVOByClientIds(List<String> clientIdList) {
@@ -474,5 +493,7 @@ public class AgentRepository implements IAgentRepository {
         
         return result;
     }
+
+
 
 }

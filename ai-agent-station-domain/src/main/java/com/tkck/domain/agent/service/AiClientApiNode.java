@@ -7,6 +7,7 @@ import com.tkck.domain.agent.model.entity.ArmoryCommandEntity;
 import com.tkck.domain.agent.model.valobj.AiAgentEnumVO;
 import com.tkck.domain.agent.model.valobj.AiClientApiVO;
 import com.tkck.domain.agent.service.armory.factory.DefaultArmoryStrategyFactory;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,8 @@ import java.util.List;
 @Slf4j
 @Service
 public class AiClientApiNode extends AbstractArmorySupport {
+    @Resource
+    private AiClientToolMcpNode aiClientToolMcpNode;
 
     @Override
     protected String doApply(ArmoryCommandEntity requestParameter, DefaultArmoryStrategyFactory.DynamicContext dynamicContext) throws Exception {
@@ -52,7 +55,7 @@ public class AiClientApiNode extends AbstractArmorySupport {
 
     @Override
     public StrategyHandler<ArmoryCommandEntity, DefaultArmoryStrategyFactory.DynamicContext, String> get(ArmoryCommandEntity armoryCommandEntity, DefaultArmoryStrategyFactory.DynamicContext dynamicContext) throws Exception {
-        return defaultStrategyHandler;
+        return aiClientToolMcpNode;
     }
 
 }

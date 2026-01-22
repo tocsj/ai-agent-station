@@ -5,6 +5,7 @@ package com.tkck.domain.agent.model.aggregate.repository;
 import com.tkck.domain.agent.model.valobj.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * AiAgent 仓储接口
@@ -30,4 +31,5 @@ public interface IAgentRepository {
 
     List<AiClientModelVO> AiClientModelVOByModelIds(List<String> modelIdList);
 
+    Map<String, AiClientSystemPromptVO> queryAiClientSystemPromptVOByClientIds(List<String> clientIdList);
 }
