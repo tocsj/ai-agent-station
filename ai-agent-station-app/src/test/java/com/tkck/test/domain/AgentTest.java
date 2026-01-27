@@ -3,7 +3,7 @@ package com.tkck.test.domain;
 
 import cn.bugstack.wrench.design.framework.tree.StrategyHandler;
 import com.tkck.domain.agent.model.entity.ArmoryCommandEntity;
-import com.tkck.domain.agent.model.valobj.AiAgentEnumVO;
+import com.tkck.domain.agent.model.valobj.enums.AiAgentEnumVO;
 import com.tkck.domain.agent.service.armory.factory.DefaultArmoryStrategyFactory;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

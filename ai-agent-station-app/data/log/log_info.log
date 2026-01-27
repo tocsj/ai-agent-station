@@ -1,334 +1,300 @@
-25-12-29.20:21:51.137 [main            ] INFO  AgentTest              - Starting AgentTest using Java 22 with PID 27476 (started by Lenovo in D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app)
-25-12-29.20:21:51.140 [main            ] INFO  AgentTest              - The following 1 profile is active: "dev"
-25-12-29.20:21:54.908 [main            ] WARN  GenericWebApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'defaultArmoryStrategyFactory' defined in file [D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-domain\target\classes\com\tkck\domain\agent\service\armory\factory\DefaultArmoryStrategyFactory.class]: Unsatisfied dependency expressed through constructor parameter 0: No qualifying bean of type 'com.tkck.domain.agent.service.RootNode' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
-25-12-29.20:21:54.963 [main            ] INFO  ConditionEvaluationReportLogger - 
-
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-25-12-29.20:21:55.045 [main            ] ERROR LoggingFailureAnalysisReporter - 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-Parameter 0 of constructor in com.tkck.domain.agent.service.armory.factory.DefaultArmoryStrategyFactory required a bean of type 'com.tkck.domain.agent.service.RootNode' that could not be found.
-
-
-Action:
-
-Consider defining a bean of type 'com.tkck.domain.agent.service.RootNode' in your configuration.
-
-25-12-29.20:21:55.058 [main            ] WARN  TestContextManager     - Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener] to prepare test instance [com.tkck.test.domain.AgentTest@7493d937]
-java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@c497a55 testClass = com.tkck.test.domain.AgentTest, locations = [], classes = [com.tkck.Application], contextInitializerClasses = [], activeProfiles = [], propertySourceDescriptors = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@5745ca0e, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@15a34df2, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@6a8658ff, org.springframework.boot.test.web.reactive.server.WebTestClientContextCustomizer@4d14b6c2, org.springframework.boot.test.web.reactor.netty.DisableReactorResourceFactoryGlobalResourcesContextCustomizerFactory$DisableReactorResourceFactoryGlobalResourcesContextCustomizerCustomizer@624ea235, org.springframework.boot.test.autoconfigure.OnFailureConditionReportContextCustomizerFactory$OnFailureConditionReportContextCustomizer@23f5b5dc, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@66ea810, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@0, org.springframework.boot.test.context.SpringBootTestAnnotation@fefab912], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:180)
-	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:130)
-	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:200)
-	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:139)
-	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:260)
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:228)
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:247)
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97)
-	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
-	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
-	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
-	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:191)
-	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
-	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:69)
-	at com.intellij.rt.junit.IdeaTestRunner$Repeater$1.execute(IdeaTestRunner.java:38)
-	at com.intellij.rt.execution.junit.TestsRepeater.repeat(TestsRepeater.java:11)
-	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:35)
-	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:232)
-	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:55)
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'defaultArmoryStrategyFactory' defined in file [D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-domain\target\classes\com\tkck\domain\agent\service\armory\factory\DefaultArmoryStrategyFactory.class]: Unsatisfied dependency expressed through constructor parameter 0: No qualifying bean of type 'com.tkck.domain.agent.service.RootNode' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
-	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1381)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1218)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1155)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1121)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1056)
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
-	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137)
-	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58)
-	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46)
-	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1461)
-	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:553)
-	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137)
-	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108)
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:225)
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:152)
-	... 27 common frames omitted
-Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.tkck.domain.agent.service.RootNode' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:2177)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1627)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1552)
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913)
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
-	... 53 common frames omitted
-25-12-29.20:23:08.665 [main            ] INFO  AgentTest              - Starting AgentTest using Java 22 with PID 33608 (started by Lenovo in D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app)
-25-12-29.20:23:08.667 [main            ] INFO  AgentTest              - The following 1 profile is active: "dev"
-25-12-29.20:23:11.687 [main            ] WARN  GenericWebApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'defaultArmoryStrategyFactory' defined in file [D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-domain\target\classes\com\tkck\domain\agent\service\armory\factory\DefaultArmoryStrategyFactory.class]: Unsatisfied dependency expressed through constructor parameter 0: No qualifying bean of type 'com.tkck.domain.agent.service.RootNode' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
-25-12-29.20:23:11.737 [main            ] INFO  ConditionEvaluationReportLogger - 
-
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-25-12-29.20:23:11.829 [main            ] ERROR LoggingFailureAnalysisReporter - 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-Parameter 0 of constructor in com.tkck.domain.agent.service.armory.factory.DefaultArmoryStrategyFactory required a bean of type 'com.tkck.domain.agent.service.RootNode' that could not be found.
-
-
-Action:
-
-Consider defining a bean of type 'com.tkck.domain.agent.service.RootNode' in your configuration.
-
-25-12-29.20:23:11.845 [main            ] WARN  TestContextManager     - Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener] to prepare test instance [com.tkck.test.domain.AgentTest@2864f887]
-java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@2347b7af testClass = com.tkck.test.domain.AgentTest, locations = [], classes = [com.tkck.Application], contextInitializerClasses = [], activeProfiles = [], propertySourceDescriptors = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@17bffc17, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@4722ef0c, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@55de24cc, org.springframework.boot.test.web.reactive.server.WebTestClientContextCustomizer@25df00a0, org.springframework.boot.test.web.reactor.netty.DisableReactorResourceFactoryGlobalResourcesContextCustomizerFactory$DisableReactorResourceFactoryGlobalResourcesContextCustomizerCustomizer@23f5b5dc, org.springframework.boot.test.autoconfigure.OnFailureConditionReportContextCustomizerFactory$OnFailureConditionReportContextCustomizer@821330f, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@2254127a, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@0, org.springframework.boot.test.context.SpringBootTestAnnotation@fbdbcf65], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:180)
-	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:130)
-	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:200)
-	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:139)
-	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:260)
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:228)
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:247)
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97)
-	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
-	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
-	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
-	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:191)
-	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
-	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:69)
-	at com.intellij.rt.junit.IdeaTestRunner$Repeater$1.execute(IdeaTestRunner.java:38)
-	at com.intellij.rt.execution.junit.TestsRepeater.repeat(TestsRepeater.java:11)
-	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:35)
-	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:232)
-	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:55)
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'defaultArmoryStrategyFactory' defined in file [D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-domain\target\classes\com\tkck\domain\agent\service\armory\factory\DefaultArmoryStrategyFactory.class]: Unsatisfied dependency expressed through constructor parameter 0: No qualifying bean of type 'com.tkck.domain.agent.service.RootNode' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
-	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1381)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1218)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1155)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1121)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1056)
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
-	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137)
-	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58)
-	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46)
-	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1461)
-	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:553)
-	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137)
-	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108)
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:225)
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:152)
-	... 27 common frames omitted
-Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.tkck.domain.agent.service.RootNode' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:2177)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1627)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1552)
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913)
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
-	... 53 common frames omitted
-25-12-29.20:23:22.645 [main            ] INFO  AgentTest              - Starting AgentTest using Java 22 with PID 9164 (started by Lenovo in D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app)
-25-12-29.20:23:22.649 [main            ] INFO  AgentTest              - The following 1 profile is active: "dev"
-25-12-29.20:23:25.781 [main            ] WARN  GenericWebApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'defaultArmoryStrategyFactory' defined in file [D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-domain\target\classes\com\tkck\domain\agent\service\armory\factory\DefaultArmoryStrategyFactory.class]: Unsatisfied dependency expressed through constructor parameter 0: No qualifying bean of type 'com.tkck.domain.agent.service.RootNode' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
-25-12-29.20:23:25.823 [main            ] INFO  ConditionEvaluationReportLogger - 
-
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-25-12-29.20:23:25.914 [main            ] ERROR LoggingFailureAnalysisReporter - 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-Parameter 0 of constructor in com.tkck.domain.agent.service.armory.factory.DefaultArmoryStrategyFactory required a bean of type 'com.tkck.domain.agent.service.RootNode' that could not be found.
-
-
-Action:
-
-Consider defining a bean of type 'com.tkck.domain.agent.service.RootNode' in your configuration.
-
-25-12-29.20:23:25.934 [main            ] WARN  TestContextManager     - Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener] to prepare test instance [com.tkck.test.domain.AgentTest@2864f887]
-java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@2347b7af testClass = com.tkck.test.domain.AgentTest, locations = [], classes = [com.tkck.Application], contextInitializerClasses = [], activeProfiles = [], propertySourceDescriptors = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@5f8e8a9d, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@6e535154, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@3feb2dda, org.springframework.boot.test.web.reactive.server.WebTestClientContextCustomizer@69c81773, org.springframework.boot.test.web.reactor.netty.DisableReactorResourceFactoryGlobalResourcesContextCustomizerFactory$DisableReactorResourceFactoryGlobalResourcesContextCustomizerCustomizer@6b09fb41, org.springframework.boot.test.autoconfigure.OnFailureConditionReportContextCustomizerFactory$OnFailureConditionReportContextCustomizer@782859e, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@14dd7b39, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@0, org.springframework.boot.test.context.SpringBootTestAnnotation@4f74f1a8], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:180)
-	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:130)
-	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:200)
-	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:139)
-	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:260)
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:228)
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:247)
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97)
-	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
-	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
-	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
-	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:191)
-	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
-	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:69)
-	at com.intellij.rt.junit.IdeaTestRunner$Repeater$1.execute(IdeaTestRunner.java:38)
-	at com.intellij.rt.execution.junit.TestsRepeater.repeat(TestsRepeater.java:11)
-	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:35)
-	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:232)
-	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:55)
-Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'defaultArmoryStrategyFactory' defined in file [D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-domain\target\classes\com\tkck\domain\agent\service\armory\factory\DefaultArmoryStrategyFactory.class]: Unsatisfied dependency expressed through constructor parameter 0: No qualifying bean of type 'com.tkck.domain.agent.service.RootNode' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
-	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1381)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1218)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1155)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1121)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1056)
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
-	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137)
-	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58)
-	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46)
-	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1461)
-	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:553)
-	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137)
-	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108)
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:225)
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:152)
-	... 27 common frames omitted
-Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.tkck.domain.agent.service.RootNode' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.raiseNoMatchingBeanFound(DefaultListableBeanFactory.java:2177)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1627)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1552)
-	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913)
-	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
-	... 53 common frames omitted
-25-12-29.20:24:41.663 [main            ] INFO  AgentTest              - Starting AgentTest using Java 22 with PID 3180 (started by Lenovo in D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app)
-25-12-29.20:24:41.666 [main            ] INFO  AgentTest              - The following 1 profile is active: "dev"
-25-12-29.20:24:46.066 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
-25-12-29.20:24:46.075 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
-25-12-29.20:24:46.076 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
-25-12-29.20:24:46.860 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
-25-12-29.20:24:47.980 [main            ] INFO  AgentTest              - Started AgentTest in 7.069 seconds (process running for 8.745)
-25-12-29.20:47:11.380 [main            ] INFO  AgentTest              - Starting AgentTest using Java 22 with PID 33340 (started by Lenovo in D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app)
-25-12-29.20:47:11.385 [main            ] INFO  AgentTest              - The following 1 profile is active: "dev"
-25-12-29.20:47:15.896 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
-25-12-29.20:47:15.907 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
-25-12-29.20:47:15.907 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
-25-12-29.20:47:16.881 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
-25-12-29.20:47:18.160 [main            ] INFO  AgentTest              - Started AgentTest in 7.544 seconds (process running for 9.213)
-25-12-29.20:49:26.770 [main            ] INFO  AgentTest              - Starting AgentTest using Java 22 with PID 6332 (started by Lenovo in D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app)
-25-12-29.20:49:26.773 [main            ] INFO  AgentTest              - The following 1 profile is active: "dev"
-25-12-29.20:49:31.046 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
-25-12-29.20:49:31.053 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
-25-12-29.20:49:31.053 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
-25-12-29.20:49:31.805 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
-25-12-29.20:49:32.980 [main            ] INFO  AgentTest              - Started AgentTest in 6.969 seconds (process running for 8.751)
-25-12-29.20:50:12.763 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [3001]
-25-12-29.20:50:12.765 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [3001]
-25-12-29.20:50:12.766 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [3001]
-25-12-29.20:50:12.768 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [3001]
-25-12-29.20:50:12.770 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [3001]
-25-12-29.20:50:12.771 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [3001]
-25-12-29.20:50:12.816 [pool-2-thread-5 ] INFO  HikariDataSource       - MainHikariPool - Starting...
-25-12-29.20:50:13.432 [pool-2-thread-5 ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@3af9d51
-25-12-29.20:50:13.437 [pool-2-thread-5 ] INFO  HikariDataSource       - MainHikariPool - Start completed.
-25-12-29.20:51:10.677 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown initiated...
-25-12-29.20:51:10.704 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown completed.
-25-12-29.20:52:14.669 [main            ] INFO  AgentTest              - Starting AgentTest using Java 22 with PID 32172 (started by Lenovo in D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app)
-25-12-29.20:52:14.671 [main            ] INFO  AgentTest              - The following 1 profile is active: "dev"
-25-12-29.20:52:19.032 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
-25-12-29.20:52:19.039 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
-25-12-29.20:52:19.039 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
-25-12-29.20:52:19.839 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
-25-12-29.20:52:21.004 [main            ] INFO  AgentTest              - Started AgentTest in 7.106 seconds (process running for 8.816)
-25-12-29.20:52:25.781 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [3001]
-25-12-29.20:52:25.782 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [3001]
-25-12-29.20:52:25.782 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [3001]
-25-12-29.20:52:25.784 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [3001]
-25-12-29.20:52:25.785 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [3001]
-25-12-29.20:52:25.786 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [3001]
-25-12-29.20:52:25.851 [pool-2-thread-2 ] INFO  HikariDataSource       - MainHikariPool - Starting...
-25-12-29.20:52:26.483 [pool-2-thread-2 ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@1b9448ef
-25-12-29.20:52:26.488 [pool-2-thread-2 ] INFO  HikariDataSource       - MainHikariPool - Start completed.
-25-12-29.20:53:37.339 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=1m10s747ms619µs500ns).
-25-12-29.20:53:37.379 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown initiated...
-25-12-29.20:53:37.390 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown completed.
-25-12-29.20:55:36.292 [main            ] INFO  AgentTest              - Starting AgentTest using Java 22 with PID 2008 (started by Lenovo in D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app)
-25-12-29.20:55:36.295 [main            ] INFO  AgentTest              - The following 1 profile is active: "dev"
-25-12-29.20:55:40.451 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
-25-12-29.20:55:40.459 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
-25-12-29.20:55:40.459 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
-25-12-29.20:55:41.227 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
-25-12-29.20:55:42.368 [main            ] INFO  AgentTest              - Started AgentTest in 6.831 seconds (process running for 8.601)
-25-12-29.20:55:46.051 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [3001]
-25-12-29.20:55:46.051 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [3001]
-25-12-29.20:55:46.053 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [3001]
-25-12-29.20:55:46.055 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [3001]
-25-12-29.20:55:46.056 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [3001]
-25-12-29.20:55:46.057 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [3001]
-25-12-29.20:55:46.083 [pool-2-thread-1 ] INFO  HikariDataSource       - MainHikariPool - Starting...
-25-12-29.20:55:46.636 [pool-2-thread-1 ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@69103cec
-25-12-29.20:55:46.641 [pool-2-thread-1 ] INFO  HikariDataSource       - MainHikariPool - Start completed.
-25-12-29.20:55:53.382 [main            ] INFO  RootNode               - Ai Agent 构建，数据加载节点 {"commandIdList":["3001"],"commandType":"client"}
-25-12-29.20:55:57.020 [main            ] INFO  AiClientApiNode        - Ai Agent 构建，API 构建节点 {"commandIdList":["3001"],"commandType":"client"}
-25-12-29.20:56:06.523 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_api_1001
-25-12-29.20:56:10.242 [main            ] INFO  AgentTest              - 测试结果：org.springframework.ai.openai.api.OpenAiApi@76c9588a
-25-12-29.20:56:10.269 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown initiated...
-25-12-29.20:56:10.290 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown completed.
+26-01-27.10:41:39.506 [main            ] INFO  AutoAgentTest          - Starting AutoAgentTest using Java 22 with PID 10480 (started by Lenovo in D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app)
+26-01-27.10:41:39.507 [main            ] INFO  AutoAgentTest          - The following 1 profile is active: "dev"
+26-01-27.10:41:42.662 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
+26-01-27.10:41:42.670 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
+26-01-27.10:41:42.670 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
+26-01-27.10:41:43.257 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+26-01-27.10:41:43.932 [main            ] INFO  AutoAgentTest          - Started AutoAgentTest in 5.17 seconds (process running for 7.008)
+26-01-27.10:41:44.751 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [3101, 3102, 3103]
+26-01-27.10:41:44.751 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [3101, 3102, 3103]
+26-01-27.10:41:44.751 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [3101, 3102, 3103]
+26-01-27.10:41:44.751 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [3101, 3102, 3103]
+26-01-27.10:41:44.753 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [3101, 3102, 3103]
+26-01-27.10:41:44.753 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [3101, 3102, 3103]
+26-01-27.10:41:44.775 [pool-2-thread-5 ] INFO  HikariDataSource       - MainHikariPool - Starting...
+26-01-27.10:41:45.087 [pool-2-thread-5 ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@183e1ce
+26-01-27.10:41:45.089 [pool-2-thread-5 ] INFO  HikariDataSource       - MainHikariPool - Start completed.
+26-01-27.10:41:45.397 [main            ] INFO  RootNode               - Ai Agent 构建，数据加载节点 {"commandIdList":["3101","3102","3103"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-27.10:41:45.398 [main            ] INFO  AiClientApiNode        - Ai Agent 构建，API 构建节点 {"commandIdList":["3101","3102","3103"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-27.10:41:45.406 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_api_1001
+26-01-27.10:41:45.407 [main            ] INFO  AiClientToolMcpNode    - Ai Agent 构建节点，Tool MCP 工具配置{"commandIdList":["3101","3102","3103"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-27.10:41:45.789 [HttpClient-12-Worker-0] INFO  McpAsyncClient         - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[completions=null, experimental={}, logging=null, prompts=PromptCapabilities[listChanged=false], resources=ResourceCapabilities[subscribe=false, listChanged=false], tools=ToolCapabilities[listChanged=false]], Info: Implementation[name=AIsearch, version=1.4.1] and Instructions null
+26-01-27.10:41:45.861 [main            ] INFO  AiClientToolMcpNode    - Tool SSE MCP Initialized InitializeResult[protocolVersion=2024-11-05, capabilities=ServerCapabilities[completions=null, experimental={}, logging=null, prompts=PromptCapabilities[listChanged=false], resources=ResourceCapabilities[subscribe=false, listChanged=false], tools=ToolCapabilities[listChanged=false]], serverInfo=Implementation[name=AIsearch, version=1.4.1], instructions=null]
+26-01-27.10:41:45.864 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_tool_mcp_5006
+26-01-27.10:41:45.864 [main            ] INFO  AiClientModelNode      - Ai Agent 构建节点，Mode 对话模型{"commandIdList":["3101","3102","3103"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-27.10:41:45.982 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_model_2001
+26-01-27.10:41:45.982 [main            ] INFO  AiClientAdvisorNode    - Ai Agent 构建，Advisor 顾问角色{"commandIdList":["3101","3102","3103"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-27.10:41:45.995 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_advisor_4001
+26-01-27.10:41:45.995 [main            ] INFO  AiClientNode           - Ai Agent 构建节点，客户端{"commandIdList":["3101","3102","3103"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-27.10:41:46.070 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_3101
+26-01-27.10:41:46.137 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_3102
+26-01-27.10:41:46.196 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_3103
+26-01-27.10:41:46.197 [main            ] INFO  AutoAgentTest          - 客户端构建:org.springframework.ai.chat.client.DefaultChatClient@64cca296
+26-01-27.10:41:46.198 [main            ] INFO  RootNode               - === 动态多轮执行测试开始 ====
+26-01-27.10:41:46.198 [main            ] INFO  RootNode               - 用户输入: 搜索小傅哥，技术项目列表。编写成一份文档，说明不同项目的学习目标，以及不同阶段的伙伴应该学习哪个项目。
+26-01-27.10:41:46.198 [main            ] INFO  RootNode               - 最大执行步数: 3
+26-01-27.10:41:46.198 [main            ] INFO  RootNode               - 会话ID: session-id-1769481706198
+26-01-27.10:41:46.206 [main            ] INFO  Step1AnalyzerNode      - 
+🎯 === 执行第 1 步 ===
+26-01-27.10:41:46.206 [main            ] INFO  Step1AnalyzerNode      - 
+📊 阶段1: 任务状态分析
+26-01-27.10:41:50.544 [main            ] INFO  Step1AnalyzerNode      - 
+📊 === 第 1 步分析结果 ===
+26-01-27.10:41:50.544 [main            ] INFO  Step1AnalyzerNode      - 
+🎯 任务状态分析:
+26-01-27.10:41:50.544 [main            ] INFO  Step1AnalyzerNode      -    📋 当前任务的目标是搜索小傅哥的技术项目列表，并编写一份文档，详细说明不同项目的学习目标和各个阶段的学习建议。目前，执行步骤已处于第1步，但尚未开始具体搜索或编写文档。
+26-01-27.10:41:50.544 [main            ] INFO  Step1AnalyzerNode      - 
+📈 执行历史评估:
+26-01-27.10:41:50.544 [main            ] INFO  Step1AnalyzerNode      -    📊 由于目前仅有首次执行，并未进行任何实质性工作，因此无法对已完成工作的质量和效果进行评估。当前处于任务初期，尚未积累任何可参考的进展和成果。
+26-01-27.10:41:50.544 [main            ] INFO  Step1AnalyzerNode      - 
+🚀 下一步策略:
+26-01-27.10:41:50.544 [main            ] INFO  Step1AnalyzerNode      -    🎯 1. **执行搜索**: 使用相关关键词如“小傅哥 技术项目”进行搜索，获取小傅哥的技术项目列表。
+26-01-27.10:41:50.544 [main            ] INFO  Step1AnalyzerNode      -    🎯 2. **项目分析**: 针对搜索到的项目列表，进行每个项目的学习目标分析，包括适合的学习阶段和建议。
+26-01-27.10:41:50.544 [main            ] INFO  Step1AnalyzerNode      -    🎯 3. **文档编写**: 将以上信息整理成一份结构清晰的文档，分项目列出学习目标和学习建议。
+26-01-27.10:41:50.544 [main            ] INFO  Step1AnalyzerNode      - 
+📊 完成度评估: ** 10% (因为已识别任务目标，但尚未开始具体执行)
+26-01-27.10:41:50.544 [main            ] INFO  Step1AnalyzerNode      - 
+🔄 任务状态: 继续执行
+26-01-27.10:41:50.544 [main            ] INFO  Step2PrecisionExecutorNode - 
+⚡ 阶段2: 精准任务执行
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode - 
+⚡ === 第 1 步执行结果 ===
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode - 
+🎯 执行目标:
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    🎯 搜索小傅哥的技术项目列表，并通过分析整理出不同项目的学习目标和各个阶段的学习建议。
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode - 
+🔧 执行过程:
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ 1. **执行搜索**: 使用关键词“小傅哥 技术项目”进行搜索。
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ 2. **获取数据**: 从搜索结果中提取有关小傅哥的技术项目列表与学习目标信息。
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ 3. **整理信息**: 将提取到的内容分类整理，涵盖不同项目的学习目标及推荐的学习阶段。
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode - 
+📈 执行结果:
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    📊 根据搜索结果，获得了以下小傅哥技术项目及学习目标：
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    📊 ### 小傅哥技术项目列表与学习目标说明
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    📊 #### 一、基础规范与框架原理
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    📊 1. **《CodeGuide: 程序员编码指南》**
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **技术栈**：Java、设计模式、编码规范、文档撰写
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **学习目标**：掌握企业级代码规范（命名、注释、异常处理）和项目文档编写
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **推荐阶段**：新手入门 → 中级开发者
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    📊 2. **《SpringBoot手撸框架》**
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **技术栈**：Spring、SpringBoot、Bean生命周期、自动配置
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **学习目标**：理解SpringBoot启动流程与自动配置机制
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **推荐阶段**：中级开发者
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    📊 #### 二、网络编程与底层原理
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    📊 3. **《Netty实战: 从零手写网络框架》**
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **技术栈**：Netty、NIO、TCP/UDP
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **学习目标**：掌握Netty线程模型与事件驱动机制
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **推荐阶段**：中级 → 高级开发者
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    📊 4. **《MyBatis手写源码》**
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **技术栈**：MyBatis、反射、动态代理
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **学习目标**：理解ORM框架映射机制，实现自定义SQL解析器
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **推荐阶段**：高级开发者
+26-01-27.10:43:05.855 [main            ] INFO  Step2PrecisionExecutorNode -    📊 #### 三、分布式系统与微服务
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 5. **《SpringCloudAlibaba实战》**
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **技术栈**：Nacos、Sentinel
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **学习目标**：掌握微服务注册发现与分布式事务
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **推荐阶段**：高级开发者
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 6. **动态线程池组件**
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **技术栈**：线程池、动态调参
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **学习目标**：实现线程池参数动态调整
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **推荐阶段**：中级开发者
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 #### 四、AI工程化实践
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 7. **《AI Agent 智能体：拖拉拽编排》**
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **技术栈**：Spring AI、RAG、MCP
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **学习目标**：实现可视化链路编排
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **推荐阶段**：全阶段开发者（需Java基础）
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 8. **OpenAI代码自动评审组件**
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **技术栈**：GPT模型
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **学习目标**：实现提交前自动检测代码规范
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **推荐阶段**：中级开发者
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 #### 五、业务架构与中间件
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 9. **支付FDK设计与开发**
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **技术栈**：支付网关
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **学习目标**：理解支付系统核心流程，掌握对账文件解析
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **推荐阶段**：中级开发者
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 10. **透视业务监控系统**
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **技术栈**：Prometheus、ELK
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **学习目标**：实现业务指标监控
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 - **推荐阶段**：中级开发者
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 ### 学习路径建议
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 | 技术阶段       | 推荐项目组合                                                                      |
+26-01-27.10:43:05.857 [main            ] INFO  Step2PrecisionExecutorNode -    📊 |----------------|-----------------------------------------------------------------------------------|
+26-01-27.10:43:05.858 [main            ] INFO  Step2PrecisionExecutorNode -    📊 | **新手入门**   | CodeGuide + 支付FDK (理解业务与规范)                                             |
+26-01-27.10:43:05.858 [main            ] INFO  Step2PrecisionExecutorNode -    📊 | **初级进阶**   | SpringBoot手撸框架 + 动态线程池 (掌握框架与并发)                                |
+26-01-27.10:43:05.858 [main            ] INFO  Step2PrecisionExecutorNode -    📊 | **中级提升**   | Netty实战 + 透视监控系统 (网络与运维能力)                                       |
+26-01-27.10:43:05.858 [main            ] INFO  Step2PrecisionExecutorNode -    📊 | **高级进阶**   | MyBatis源码 + SpringCloudAlibaba + AI Agent (分布式与AI工程化)                 |
+26-01-27.10:43:05.858 [main            ] INFO  Step2PrecisionExecutorNode - 
+🔍 质量检查:
+26-01-27.10:43:05.858 [main            ] INFO  Step2PrecisionExecutorNode -    ✅ 执行结果的质量较高，信息完整且结构清晰。所提取的项目信息涵盖了不同技术领域，并附有明确的学习目标和建议，适合各个学习阶段的开发者。整体执行符合最初的任务要求，成功收集到必要的资料，为后续的文档编写打下了良好的基础。
+26-01-27.10:43:05.858 [main            ] INFO  Step3QualitySupervisorNode - 
+🔍 阶段3: 质量监督检查
+26-01-27.10:43:11.473 [main            ] INFO  Step3QualitySupervisorNode - 
+🔍 === 第 1 步监督结果 ===
+26-01-27.10:43:11.474 [main            ] INFO  Step3QualitySupervisorNode - 
+📊 质量评估:
+26-01-27.10:43:11.474 [main            ] INFO  Step3QualitySupervisorNode -    📋 执行结果很好地满足了用户需求，成功搜索到小傅哥的技术项目并详细列出各项目的学习目标及适合的学习阶段。信息内容丰富且结构清晰，形成了有效的学习路径建议。整体信息的准确性和完整性较高，符合预期。
+26-01-27.10:43:11.474 [main            ] INFO  Step3QualitySupervisorNode - 
+⚠️ 问题识别:
+26-01-27.10:43:11.474 [main            ] INFO  Step3QualitySupervisorNode -    ⚠️ 1. **信息来源未列明**: 对于提取的数据，未明确其来源，可能会影响信息的可信度。
+26-01-27.10:43:11.474 [main            ] INFO  Step3QualitySupervisorNode -    ⚠️ 2. **缺乏适用性说明**: 虽然列出了学习推荐阶段，但缺乏对每个项目的具体适用场景的深入解释，可能导致初学者的选择困难。
+26-01-27.10:43:11.474 [main            ] INFO  Step3QualitySupervisorNode -    ⚠️ 3. **学习路径建议简单**: 提供的学习路径组合较为单一，可能无法适应不同用户的具体需要。
+26-01-27.10:43:11.474 [main            ] INFO  Step3QualitySupervisorNode - 
+💡 改进建议:
+26-01-27.10:43:11.474 [main            ] INFO  Step3QualitySupervisorNode -    💡 1. **添加信息来源**: 在文档中添加数据的来源链接，以增加透明度和可信性。
+26-01-27.10:43:11.474 [main            ] INFO  Step3QualitySupervisorNode -    💡 2. **丰富适用性说明**: 在每个项目的学习目标后增加适用场景，比如这个项目解决了什么样的问题，适合哪种背景的学习者。
+26-01-27.10:43:11.474 [main            ] INFO  Step3QualitySupervisorNode -    💡 3. **增强学习路径的灵活性**: 提供更多不同学习路径组合的建议，以适应不同背景和需求的用户，同时可以提供一些案例或者推荐的学习资源。
+26-01-27.10:43:11.474 [main            ] INFO  Step3QualitySupervisorNode - 
+📊 质量评分: ** 8分
+26-01-27.10:43:11.474 [main            ] INFO  Step3QualitySupervisorNode - 
+🔧 检查结果: 需要优化
+26-01-27.10:43:11.474 [main            ] INFO  Step3QualitySupervisorNode - ✅ 质量检查通过
+26-01-27.10:43:11.474 [main            ] INFO  Step4LogExecutionSummaryNode - 
+📊 === 执行第 2 步 ===
+26-01-27.10:43:11.474 [main            ] INFO  Step4LogExecutionSummaryNode - 
+📊 阶段4: 执行总结分析
+26-01-27.10:43:11.474 [main            ] INFO  Step4LogExecutionSummaryNode - 
+📊 === 动态多轮执行总结 ====
+26-01-27.10:43:11.475 [main            ] INFO  Step4LogExecutionSummaryNode - 📈 总执行步数: 2 步
+26-01-27.10:43:11.475 [main            ] INFO  Step4LogExecutionSummaryNode - ✅ 任务完成状态: 已完成
+26-01-27.10:43:11.475 [main            ] INFO  Step4LogExecutionSummaryNode - 📊 执行效率: {:.1f}%
+26-01-27.10:43:11.475 [main            ] INFO  Step4LogExecutionSummaryNode - 
+🏁 === 动态多轮执行测试结束 ====
+26-01-27.10:43:11.475 [main            ] INFO  AutoAgentTest          - 测试结果:ai agent execution summary completed!
+26-01-27.10:43:11.488 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown initiated...
+26-01-27.10:43:11.507 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown completed.
+26-01-27.10:46:36.929 [main            ] INFO  AutoAgentTest          - Starting AutoAgentTest using Java 22 with PID 8436 (started by Lenovo in D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app)
+26-01-27.10:46:36.931 [main            ] INFO  AutoAgentTest          - The following 1 profile is active: "dev"
+26-01-27.10:46:39.558 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
+26-01-27.10:46:39.564 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
+26-01-27.10:46:39.564 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
+26-01-27.10:46:40.132 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+26-01-27.10:46:41.012 [main            ] INFO  AutoAgentTest          - Started AutoAgentTest in 4.756 seconds (process running for 6.246)
+26-01-27.10:46:41.749 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [3101, 3102, 3103]
+26-01-27.10:46:41.749 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [3101, 3102, 3103]
+26-01-27.10:46:41.749 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [3101, 3102, 3103]
+26-01-27.10:46:41.750 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [3101, 3102, 3103]
+26-01-27.10:46:41.750 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [3101, 3102, 3103]
+26-01-27.10:46:41.750 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [3101, 3102, 3103]
+26-01-27.10:46:41.772 [pool-2-thread-5 ] INFO  HikariDataSource       - MainHikariPool - Starting...
+26-01-27.10:46:42.024 [pool-2-thread-5 ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@457f942e
+26-01-27.10:46:42.026 [pool-2-thread-5 ] INFO  HikariDataSource       - MainHikariPool - Start completed.
+26-01-27.10:46:42.317 [main            ] INFO  RootNode               - Ai Agent 构建，数据加载节点 {"commandIdList":["3101","3102","3103"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-27.10:46:42.317 [main            ] INFO  AiClientApiNode        - Ai Agent 构建，API 构建节点 {"commandIdList":["3101","3102","3103"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-27.10:46:42.324 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_api_1001
+26-01-27.10:46:42.325 [main            ] INFO  AiClientToolMcpNode    - Ai Agent 构建节点，Tool MCP 工具配置{"commandIdList":["3101","3102","3103"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-27.10:46:42.609 [HttpClient-12-Worker-1] INFO  McpAsyncClient         - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[completions=null, experimental={}, logging=null, prompts=PromptCapabilities[listChanged=false], resources=ResourceCapabilities[subscribe=false, listChanged=false], tools=ToolCapabilities[listChanged=false]], Info: Implementation[name=AIsearch, version=1.4.1] and Instructions null
+26-01-27.10:46:42.671 [main            ] INFO  AiClientToolMcpNode    - Tool SSE MCP Initialized InitializeResult[protocolVersion=2024-11-05, capabilities=ServerCapabilities[completions=null, experimental={}, logging=null, prompts=PromptCapabilities[listChanged=false], resources=ResourceCapabilities[subscribe=false, listChanged=false], tools=ToolCapabilities[listChanged=false]], serverInfo=Implementation[name=AIsearch, version=1.4.1], instructions=null]
+26-01-27.10:46:42.673 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_tool_mcp_5006
+26-01-27.10:46:42.674 [main            ] INFO  AiClientModelNode      - Ai Agent 构建节点，Mode 对话模型{"commandIdList":["3101","3102","3103"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-27.10:46:42.759 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_model_2001
+26-01-27.10:46:42.759 [main            ] INFO  AiClientAdvisorNode    - Ai Agent 构建，Advisor 顾问角色{"commandIdList":["3101","3102","3103"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-27.10:46:42.773 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_advisor_4001
+26-01-27.10:46:42.773 [main            ] INFO  AiClientNode           - Ai Agent 构建节点，客户端{"commandIdList":["3101","3102","3103"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-27.10:46:42.829 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_3101
+26-01-27.10:46:42.880 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_3102
+26-01-27.10:46:42.937 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_3103
+26-01-27.10:46:42.937 [main            ] INFO  AutoAgentTest          - 客户端构建:org.springframework.ai.chat.client.DefaultChatClient@2a1dcbd4
+26-01-27.10:46:42.939 [main            ] INFO  RootNode               - === 动态多轮执行测试开始 ====
+26-01-27.10:46:42.940 [main            ] INFO  RootNode               - 用户输入: 搜索小傅哥，技术项目列表。编写成一份文档，说明不同项目的学习目标，以及不同阶段的伙伴应该学习哪个项目。
+26-01-27.10:46:42.940 [main            ] INFO  RootNode               - 最大执行步数: 3
+26-01-27.10:46:42.940 [main            ] INFO  RootNode               - 会话ID: session-id-1769482002939
+26-01-27.10:46:42.946 [main            ] INFO  Step1AnalyzerNode      - 
+🎯 === 执行第 1 步 ===
+26-01-27.10:46:42.947 [main            ] INFO  Step1AnalyzerNode      - 
+📊 阶段1: 任务状态分析
+26-01-27.10:46:46.685 [main            ] INFO  Step1AnalyzerNode      - 
+📊 === 第 1 步分析结果 ===
+26-01-27.10:46:46.685 [main            ] INFO  Step1AnalyzerNode      - 
+🎯 任务状态分析:
+26-01-27.10:46:46.685 [main            ] INFO  Step1AnalyzerNode      -    📋 当前任务是寻找和整理“小傅哥”的技术项目列表，已知任务的首次执行已开始，但尚未完成任何具体的搜索或信息收集。任务的完成依赖于对项目学习目标的理解以及根据伙伴的不同阶段提供相应的学习建议。由于目前只进行了首次搜索执行，因此没有项目数据可供分析。
+26-01-27.10:46:46.685 [main            ] INFO  Step1AnalyzerNode      - 
+📈 执行历史评估:
+26-01-27.10:46:46.685 [main            ] INFO  Step1AnalyzerNode      -    📊 由于仅有一次首次执行的记录，尚无执行质量和效果的评估。需要在当前基础上收集更多的信息来评估任务的进展。
+26-01-27.10:46:46.686 [main            ] INFO  Step1AnalyzerNode      - 
+🚀 下一步策略:
+26-01-27.10:46:46.686 [main            ] INFO  Step1AnalyzerNode      -    🎯 1. 执行搜索：“小傅哥 技术项目列表”以收集相关的项目数据。
+26-01-27.10:46:46.686 [main            ] INFO  Step1AnalyzerNode      -    🎯 2. 分析整理获得的项目列表，明确每个项目的学习目标。
+26-01-27.10:46:46.686 [main            ] INFO  Step1AnalyzerNode      -    🎯 3. 确定不同阶段伙伴的学习项目推荐，编写成最终文档。
+26-01-27.10:46:46.686 [main            ] INFO  Step1AnalyzerNode      -    🎯 建议使用下面的搜索查询来找到相关信息：
+26-01-27.10:46:46.686 [main            ] INFO  Step1AnalyzerNode      -    🎯 - “小傅哥 技术项目 列表”
+26-01-27.10:46:46.686 [main            ] INFO  Step1AnalyzerNode      -    🎯 - “小傅哥 教学 计划”
+26-01-27.10:46:46.686 [main            ] INFO  Step1AnalyzerNode      -    🎯 - “小傅哥 项目 学习目标”
+26-01-27.10:46:46.686 [main            ] INFO  Step1AnalyzerNode      -    🎯 该搜索可以利用专门的知识库或网络资源以获得更全面的信息，并确保列举的项目具有实用性。
+26-01-27.10:46:46.686 [main            ] INFO  Step1AnalyzerNode      - 
+📊 完成度评估: ** 10%
+26-01-27.10:46:46.686 [main            ] INFO  Step1AnalyzerNode      - 
+🔄 任务状态: 继续执行
+26-01-27.10:46:46.686 [main            ] INFO  Step2PrecisionExecutorNode - 
+⚡ 阶段2: 精准任务执行
+26-01-27.10:46:55.948 [main            ] INFO  Step2PrecisionExecutorNode - 
+⚡ === 第 1 步执行结果 ===
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode - 
+🎯 执行目标:
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    🎯 收集“小傅哥”的技术项目列表，并整理出每个项目的学习目标及适合的学习阶段。
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode - 
+🔧 执行过程:
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ 1. 使用搜索工具，通过关键词“小傅哥 技术项目 列表”进行信息检索。
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ 2. 收集到的相关信息如下：
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ - 项目1: 《CodeGuide:程序员编码指南》
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ - 技术栈: Java、设计模式、编码规范、文档撰写
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ - 学习目标: 培养规范编码习惯、掌握企业级项目文档编写方法、提升代码可维护性
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ - 推荐阶段: 新手入门 → 中级
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ - 项目2: 《Netty实战:从零手写网络框架》
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ - 技术栈: Netty、NIO、TCP/UDP、RPC通信
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ - 学习目标: 深入理解Netty架构、掌握网络通信底层原理
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ - 推荐阶段: 中级 → 高级
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ - 项目3: 《SpringBoot手撸框架》
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ - 技术栈: Spring、SpringBoot
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ - 学习目标: 理解SpringBoot核心原理、掌握自动配置与Starter机制
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ - 推荐阶段: 中级
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ - 项目4: 《SpringCloudAlibaba实战》
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ - 技术栈: Nacos、Sentinel、Seata
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ - 学习目标: 掌握微服务治理体系
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ - 推荐阶段: 高级
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ - 项目5: 《MyBatis手写源码》
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ - 技术栈: MyBatis、反射
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ - 学习目标: 深入理解ORM框架原理
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ - 推荐阶段: 高级
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ⚙️ 3. 记录每个项目的详细介绍及其推荐学习阶段，以便后续编写文档。
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode - 
+📈 执行结果:
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    📊 成功收集并记录了多个“小傅哥”相关的技术项目及其学习目标、技术栈和适合学习的阶段。这些项目包括《CodeGuide》、《Netty实战》等，共计5个项目，信息详尽且有助于不同阶段的学习者选择合适的学习资源。
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode - 
+🔍 质量检查:
+26-01-27.10:46:55.949 [main            ] INFO  Step2PrecisionExecutorNode -    ✅ 经过搜索收集到的项目及信息完整且准确，符合初步分析的预期，确保了学习目标及推荐阶段明晰。下一步将基于此信息进行详细的文档编写，确保文档内容准确而全面。执行质量评估为90%。
+26-01-27.10:46:55.949 [main            ] INFO  Step3QualitySupervisorNode - 
+🔍 阶段3: 质量监督检查
+26-01-27.10:47:00.157 [main            ] INFO  Step3QualitySupervisorNode - 
+🔍 === 第 1 步监督结果 ===
+26-01-27.10:47:00.158 [main            ] INFO  Step3QualitySupervisorNode - 
+📊 质量评估:
+26-01-27.10:47:00.158 [main            ] INFO  Step3QualitySupervisorNode -    📋 该执行结果整体良好，成功收集了“小傅哥”相关的技术项目列表，并且详细记录了每个项目的学习目标和适合的学习阶段。信息的准确性和完整性较高，且各项目之间的信息相对清晰、易读，符合用户需求。
+26-01-27.10:47:00.158 [main            ] INFO  Step3QualitySupervisorNode - 
+⚠️ 问题识别:
+26-01-27.10:47:00.158 [main            ] INFO  Step3QualitySupervisorNode -    ⚠️ 1. 项目推荐阶段的划分可能稍显模糊，部分项目的学习阶段界定不够明确，可能让用户在选择学习路径时产生困惑。
+26-01-27.10:47:00.158 [main            ] INFO  Step3QualitySupervisorNode -    ⚠️ 2. 缺乏对每个项目实际应用场景或案例的描述，这可能会限制学习者对项目内容的理解和兴趣。
+26-01-27.10:47:00.158 [main            ] INFO  Step3QualitySupervisorNode -    ⚠️ 3. 不同物件间的相关性和优先级未做更深入的分析，项目之间如何相辅相成的解释缺失。
+26-01-27.10:47:00.158 [main            ] INFO  Step3QualitySupervisorNode - 
+💡 改进建议:
+26-01-27.10:47:00.158 [main            ] INFO  Step3QualitySupervisorNode -    💡 1. 对每个项目的推荐学习阶段进行更明确的说明，考虑增加具体的技能点或知识要求，使得学习阶段划分更具人性化。
+26-01-27.10:47:00.158 [main            ] INFO  Step3QualitySupervisorNode -    💡 2. 在文档中增加每个项目实际应用场景或相关的案例研究，帮助学习者更好地理解项目的重要性。
+26-01-27.10:47:00.158 [main            ] INFO  Step3QualitySupervisorNode -    💡 3. 尝试对项目间的相互关系进行描述，比如哪些项目可以结合学习，或者完成某个项目后建议学习下一个项目，以增强学习路径的连贯性。
+26-01-27.10:47:00.158 [main            ] INFO  Step3QualitySupervisorNode - 
+📊 质量评分: ** 8分
+26-01-27.10:47:00.158 [main            ] INFO  Step3QualitySupervisorNode - 
+🔧 检查结果: 需要优化
+26-01-27.10:47:00.158 [main            ] INFO  Step3QualitySupervisorNode - ✅ 质量检查通过
+26-01-27.10:47:00.158 [main            ] INFO  Step4LogExecutionSummaryNode - 
+📊 === 执行第 2 步 ===
+26-01-27.10:47:00.158 [main            ] INFO  Step4LogExecutionSummaryNode - 
+📊 阶段4: 执行总结分析
+26-01-27.10:47:00.158 [main            ] INFO  Step4LogExecutionSummaryNode - 
+📊 === 动态多轮执行总结 ====
+26-01-27.10:47:00.158 [main            ] INFO  Step4LogExecutionSummaryNode - 📈 总执行步数: 2 步
+26-01-27.10:47:00.158 [main            ] INFO  Step4LogExecutionSummaryNode - ✅ 任务完成状态: 已完成
+26-01-27.10:47:00.158 [main            ] INFO  Step4LogExecutionSummaryNode - 📊 执行效率: {:.1f}%
+26-01-27.10:47:00.158 [main            ] INFO  Step4LogExecutionSummaryNode - 
+🏁 === 动态多轮执行测试结束 ====
+26-01-27.10:47:00.158 [main            ] INFO  AutoAgentTest          - 测试结果:ai agent execution summary completed!
+26-01-27.10:47:00.172 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown initiated...
+26-01-27.10:47:00.185 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown completed.

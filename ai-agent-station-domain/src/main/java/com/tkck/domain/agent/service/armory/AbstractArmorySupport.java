@@ -1,4 +1,4 @@
-package com.tkck.domain.agent.service;
+package com.tkck.domain.agent.service.armory;
 
 
 import cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter;

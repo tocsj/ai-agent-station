@@ -1,5 +1,6 @@
-package com.tkck.domain.agent.model.valobj;
+package com.tkck.domain.agent.model.valobj.enums;
 
+import com.tkck.domain.agent.model.valobj.AiClientAdvisorVO;
 import com.tkck.domain.agent.service.armory.factory.element.RagAnswerAdvisor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
