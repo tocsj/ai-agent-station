@@ -45,6 +45,10 @@ spring:
     openai:
       base-url: https://free.v36.cm
       api-key: sk-sWHsslEqPOEvcSGMFf2788C1AcD84109Bf46Ed964c229b73
+    agent:
+      auto-config:
+        enabled: true
+        client-ids: 3101,3102,3103,3104
 # MyBatis 配置【如需使用记得打开】
 #mybatis:
 #  mapper-locations: classpath:/mybatis/mapper/*.xml

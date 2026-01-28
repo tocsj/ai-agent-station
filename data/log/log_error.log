@@ -1,0 +1,354 @@
+26-01-28.11:30:07.072 [main            ] ERROR AiAgentAutoConfiguration - AI Agent 自动装配失败
+java.util.concurrent.CompletionException: org.mybatis.spring.MyBatisSystemException: 
+### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+	at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:315)
+	at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:320)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1770)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: org.mybatis.spring.MyBatisSystemException: 
+### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:99)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:347)
+	at jdk.proxy2/jdk.proxy2.$Proxy78.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:194)
+	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:147)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:80)
+	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:141)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)
+	at jdk.proxy2/jdk.proxy2.$Proxy84.queryBySourceTypeAndId(Unknown Source)
+	at com.tkck.infrastructure.adapter.repository.AgentRepository.queryAiClientApiVOListByClientIds(AgentRepository.java:74)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727)
+	at com.tkck.infrastructure.adapter.repository.AgentRepository$$SpringCGLIB$$0.queryAiClientApiVOListByClientIds(<generated>)
+	at com.tkck.domain.agent.service.armory.business.data.impl.AiClientLoadDataStrategy.lambda$0(AiClientLoadDataStrategy.java:41)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
+	... 3 common frames omitted
+Caused by: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+	at org.apache.ibatis.binding.MapperMethod$ParamMap.get(MapperMethod.java:210)
+	at org.apache.ibatis.reflection.wrapper.MapWrapper.get(MapWrapper.java:46)
+	at org.apache.ibatis.reflection.MetaObject.getValue(MetaObject.java:115)
+	at org.apache.ibatis.executor.BaseExecutor.createCacheKey(BaseExecutor.java:225)
+	at org.apache.ibatis.executor.CachingExecutor.createCacheKey(CachingExecutor.java:149)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:154)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:142)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:333)
+	... 24 common frames omitted
+26-01-28.11:32:53.290 [main            ] ERROR AiAgentAutoConfiguration - AI Agent 自动装配失败
+java.util.concurrent.CompletionException: org.mybatis.spring.MyBatisSystemException: 
+### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+	at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:315)
+	at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:320)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1770)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+Caused by: org.mybatis.spring.MyBatisSystemException: 
+### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:99)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:347)
+	at jdk.proxy2/jdk.proxy2.$Proxy78.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:194)
+	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:147)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:80)
+	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:141)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)
+	at jdk.proxy2/jdk.proxy2.$Proxy84.queryBySourceTypeAndId(Unknown Source)
+	at com.tkck.infrastructure.adapter.repository.AgentRepository.queryAiClientApiVOListByClientIds(AgentRepository.java:74)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727)
+	at com.tkck.infrastructure.adapter.repository.AgentRepository$$SpringCGLIB$$0.queryAiClientApiVOListByClientIds(<generated>)
+	at com.tkck.domain.agent.service.armory.business.data.impl.AiClientLoadDataStrategy.lambda$loadData$0(AiClientLoadDataStrategy.java:41)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
+	... 3 common frames omitted
+Caused by: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+	at org.apache.ibatis.binding.MapperMethod$ParamMap.get(MapperMethod.java:210)
+	at org.apache.ibatis.reflection.wrapper.MapWrapper.get(MapWrapper.java:46)
+	at org.apache.ibatis.reflection.MetaObject.getValue(MetaObject.java:115)
+	at org.apache.ibatis.executor.BaseExecutor.createCacheKey(BaseExecutor.java:225)
+	at org.apache.ibatis.executor.CachingExecutor.createCacheKey(CachingExecutor.java:149)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:154)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:142)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:333)
+	... 22 common frames omitted
+26-01-28.11:38:48.453 [main            ] ERROR AiAgentAutoConfiguration - AI Agent 自动装配失败
+java.util.concurrent.CompletionException: org.mybatis.spring.MyBatisSystemException: 
+### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+	at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:315)
+	at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:320)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1770)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+Caused by: org.mybatis.spring.MyBatisSystemException: 
+### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:99)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:347)
+	at jdk.proxy2/jdk.proxy2.$Proxy78.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:194)
+	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:147)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:80)
+	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:141)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)
+	at jdk.proxy2/jdk.proxy2.$Proxy84.queryBySourceTypeAndId(Unknown Source)
+	at com.tkck.infrastructure.adapter.repository.AgentRepository.queryAiClientApiVOListByClientIds(AgentRepository.java:74)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727)
+	at com.tkck.infrastructure.adapter.repository.AgentRepository$$SpringCGLIB$$0.queryAiClientApiVOListByClientIds(<generated>)
+	at com.tkck.domain.agent.service.armory.business.data.impl.AiClientLoadDataStrategy.lambda$loadData$0(AiClientLoadDataStrategy.java:41)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
+	... 3 common frames omitted
+Caused by: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+	at org.apache.ibatis.binding.MapperMethod$ParamMap.get(MapperMethod.java:210)
+	at org.apache.ibatis.reflection.wrapper.MapWrapper.get(MapWrapper.java:46)
+	at org.apache.ibatis.reflection.MetaObject.getValue(MetaObject.java:115)
+	at org.apache.ibatis.executor.BaseExecutor.createCacheKey(BaseExecutor.java:225)
+	at org.apache.ibatis.executor.CachingExecutor.createCacheKey(CachingExecutor.java:149)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:154)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:142)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:333)
+	... 22 common frames omitted
+26-01-28.11:41:06.704 [main            ] ERROR AiAgentAutoConfiguration - AI Agent 自动装配失败
+java.util.concurrent.CompletionException: org.mybatis.spring.MyBatisSystemException: 
+### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+	at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:315)
+	at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:320)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1770)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+Caused by: org.mybatis.spring.MyBatisSystemException: 
+### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:99)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:347)
+	at jdk.proxy2/jdk.proxy2.$Proxy78.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:194)
+	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:147)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:80)
+	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:141)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)
+	at jdk.proxy2/jdk.proxy2.$Proxy84.queryBySourceTypeAndId(Unknown Source)
+	at com.tkck.infrastructure.adapter.repository.AgentRepository.queryAiClientApiVOListByClientIds(AgentRepository.java:74)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727)
+	at com.tkck.infrastructure.adapter.repository.AgentRepository$$SpringCGLIB$$0.queryAiClientApiVOListByClientIds(<generated>)
+	at com.tkck.domain.agent.service.armory.business.data.impl.AiClientLoadDataStrategy.lambda$loadData$0(AiClientLoadDataStrategy.java:41)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1768)
+	... 4 common frames omitted
+Caused by: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+	at org.apache.ibatis.binding.MapperMethod$ParamMap.get(MapperMethod.java:210)
+	at org.apache.ibatis.reflection.wrapper.MapWrapper.get(MapWrapper.java:46)
+	at org.apache.ibatis.reflection.MetaObject.getValue(MetaObject.java:115)
+	at org.apache.ibatis.executor.BaseExecutor.createCacheKey(BaseExecutor.java:225)
+	at org.apache.ibatis.executor.CachingExecutor.createCacheKey(CachingExecutor.java:149)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:154)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:142)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:333)
+	... 23 common frames omitted
+26-01-28.11:42:20.093 [main            ] ERROR AiAgentAutoConfiguration - AI Agent 自动装配失败
+java.util.concurrent.CompletionException: org.mybatis.spring.MyBatisSystemException: 
+### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+	at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:315)
+	at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:320)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1770)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+Caused by: org.mybatis.spring.MyBatisSystemException: 
+### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:99)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:347)
+	at jdk.proxy2/jdk.proxy2.$Proxy78.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:194)
+	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:147)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:80)
+	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:141)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)
+	at jdk.proxy2/jdk.proxy2.$Proxy84.queryBySourceTypeAndId(Unknown Source)
+	at com.tkck.infrastructure.adapter.repository.AgentRepository.queryAiClientApiVOListByClientIds(AgentRepository.java:74)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727)
+	at com.tkck.infrastructure.adapter.repository.AgentRepository$$SpringCGLIB$$0.queryAiClientApiVOListByClientIds(<generated>)
+	at com.tkck.domain.agent.service.armory.business.data.impl.AiClientLoadDataStrategy.lambda$loadData$0(AiClientLoadDataStrategy.java:41)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1768)
+	... 4 common frames omitted
+Caused by: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+	at org.apache.ibatis.binding.MapperMethod$ParamMap.get(MapperMethod.java:210)
+	at org.apache.ibatis.reflection.wrapper.MapWrapper.get(MapWrapper.java:46)
+	at org.apache.ibatis.reflection.MetaObject.getValue(MetaObject.java:115)
+	at org.apache.ibatis.executor.BaseExecutor.createCacheKey(BaseExecutor.java:225)
+	at org.apache.ibatis.executor.CachingExecutor.createCacheKey(CachingExecutor.java:149)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:154)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:142)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:333)
+	... 23 common frames omitted
+26-01-28.11:43:14.958 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=1m24s112ms837µs500ns).
+26-01-28.11:44:32.386 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=1m17s428ms41µs800ns).
+26-01-28.11:45:57.265 [main            ] ERROR AiAgentAutoConfiguration - AI Agent 自动装配失败
+java.util.concurrent.CompletionException: org.mybatis.spring.MyBatisSystemException: 
+### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+	at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:315)
+	at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:320)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1770)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+Caused by: org.mybatis.spring.MyBatisSystemException: 
+### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:99)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:347)
+	at jdk.proxy2/jdk.proxy2.$Proxy78.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:194)
+	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:147)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:80)
+	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:141)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)
+	at jdk.proxy2/jdk.proxy2.$Proxy84.queryBySourceTypeAndId(Unknown Source)
+	at com.tkck.infrastructure.adapter.repository.AgentRepository.queryAiClientApiVOListByClientIds(AgentRepository.java:74)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727)
+	at com.tkck.infrastructure.adapter.repository.AgentRepository$$SpringCGLIB$$0.queryAiClientApiVOListByClientIds(<generated>)
+	at com.tkck.domain.agent.service.armory.business.data.impl.AiClientLoadDataStrategy.lambda$loadData$0(AiClientLoadDataStrategy.java:41)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1768)
+	... 4 common frames omitted
+Caused by: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+	at org.apache.ibatis.binding.MapperMethod$ParamMap.get(MapperMethod.java:210)
+	at org.apache.ibatis.reflection.wrapper.MapWrapper.get(MapWrapper.java:46)
+	at org.apache.ibatis.reflection.MetaObject.getValue(MetaObject.java:115)
+	at org.apache.ibatis.executor.BaseExecutor.createCacheKey(BaseExecutor.java:225)
+	at org.apache.ibatis.executor.CachingExecutor.createCacheKey(CachingExecutor.java:149)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:154)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:142)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:333)
+	... 23 common frames omitted
+26-01-28.11:48:23.692 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=2m55s842ms253µs100ns).
+26-01-28.16:15:36.265 [main            ] ERROR AiAgentAutoConfiguration - AI Agent 自动装配失败
+java.util.concurrent.CompletionException: org.mybatis.spring.MyBatisSystemException: 
+### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+	at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:315)
+	at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:320)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1770)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+Caused by: org.mybatis.spring.MyBatisSystemException: 
+### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:99)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:347)
+	at jdk.proxy2/jdk.proxy2.$Proxy78.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:194)
+	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:147)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:80)
+	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:141)
+	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)
+	at jdk.proxy2/jdk.proxy2.$Proxy84.queryBySourceTypeAndId(Unknown Source)
+	at com.tkck.infrastructure.adapter.repository.AgentRepository.queryAiClientApiVOListByClientIds(AgentRepository.java:74)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727)
+	at com.tkck.infrastructure.adapter.repository.AgentRepository$$SpringCGLIB$$0.queryAiClientApiVOListByClientIds(<generated>)
+	at com.tkck.domain.agent.service.armory.business.data.impl.AiClientLoadDataStrategy.lambda$loadData$0(AiClientLoadDataStrategy.java:41)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
+	... 3 common frames omitted
+Caused by: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+	at org.apache.ibatis.binding.MapperMethod$ParamMap.get(MapperMethod.java:210)
+	at org.apache.ibatis.reflection.wrapper.MapWrapper.get(MapWrapper.java:46)
+	at org.apache.ibatis.reflection.MetaObject.getValue(MetaObject.java:115)
+	at org.apache.ibatis.executor.BaseExecutor.createCacheKey(BaseExecutor.java:225)
+	at org.apache.ibatis.executor.CachingExecutor.createCacheKey(CachingExecutor.java:149)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:154)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:142)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:333)
+	... 22 common frames omitted
+26-01-28.18:38:46.577 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=1h54m6s435ms676µs).

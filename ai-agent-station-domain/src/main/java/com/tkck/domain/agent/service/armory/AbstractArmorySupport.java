@@ -2,7 +2,7 @@ package com.tkck.domain.agent.service.armory;
 
 
 import cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter;
-import com.tkck.domain.agent.model.aggregate.repository.IAgentRepository;
+import com.tkck.domain.agent.adapter.repository.IAgentRepository;
 import com.tkck.domain.agent.model.entity.ArmoryCommandEntity;
 import com.tkck.domain.agent.service.armory.factory.DefaultArmoryStrategyFactory;
 import jakarta.annotation.Resource;

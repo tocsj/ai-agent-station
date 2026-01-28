@@ -1,0 +1,222 @@
+26-01-17.11:54:47.544 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=3m25s409ms531µs800ns).
+26-01-17.11:55:15.841 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=45s623ms131µs700ns).
+26-01-17.11:59:01.835 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=3m8s775ms691µs600ns).
+26-01-17.11:59:57.503 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=55s668ms730µs).
+26-01-17.12:00:34.623 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=53s879ms210µs700ns).
+26-01-17.12:00:50.617 [boundedElastic-1] ERROR Operators              - Operator called default onErrorDropped
+reactor.core.Exceptions$ErrorCallbackNotImplemented: java.lang.RuntimeException: Failed to start process with command: [npx, -y, @modelcontextprotocol/server-filesystem, /Users/fuzhengwei/Desktop, /Users/fuzhengwei/Desktop]
+Caused by: java.lang.RuntimeException: Failed to start process with command: [npx, -y, @modelcontextprotocol/server-filesystem, /Users/fuzhengwei/Desktop, /Users/fuzhengwei/Desktop]
+	at io.modelcontextprotocol.client.transport.StdioClientTransport.lambda$connect$1(StdioClientTransport.java:132)
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Assembly trace from producer [reactor.core.publisher.MonoSubscribeOnCallable] :
+	reactor.core.publisher.Mono.subscribeOn(Mono.java:4625)
+	io.modelcontextprotocol.client.transport.StdioClientTransport.connect(StdioClientTransport.java:145)
+Error has been observed at the following site(s):
+	*__Mono.subscribeOn ⇢ at io.modelcontextprotocol.client.transport.StdioClientTransport.connect(StdioClientTransport.java:145)
+Original Stack Trace:
+		at io.modelcontextprotocol.client.transport.StdioClientTransport.lambda$connect$1(StdioClientTransport.java:132)
+		at reactor.core.publisher.MonoRunnable.call(MonoRunnable.java:73)
+		at reactor.core.publisher.MonoRunnable.call(MonoRunnable.java:32)
+		at reactor.core.publisher.FluxSubscribeOnCallable$CallableSubscribeOnSubscription.run(FluxSubscribeOnCallable.java:228)
+		at reactor.core.scheduler.SchedulerTask.call(SchedulerTask.java:68)
+		at reactor.core.scheduler.SchedulerTask.call(SchedulerTask.java:28)
+		at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+		at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+		at java.base/java.lang.Thread.run(Thread.java:1570)
+Caused by: java.io.IOException: Cannot run program "npx": CreateProcess error=2, 系统找不到指定的文件。
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1170)
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1089)
+	at io.modelcontextprotocol.client.transport.StdioClientTransport.lambda$connect$1(StdioClientTransport.java:129)
+	at reactor.core.publisher.MonoRunnable.call(MonoRunnable.java:73)
+	at reactor.core.publisher.MonoRunnable.call(MonoRunnable.java:32)
+	at reactor.core.publisher.MonoCallableOnAssembly.call(MonoCallableOnAssembly.java:91)
+	at reactor.core.publisher.FluxSubscribeOnCallable$CallableSubscribeOnSubscription.run(FluxSubscribeOnCallable.java:228)
+	at reactor.core.scheduler.SchedulerTask.call(SchedulerTask.java:68)
+	at reactor.core.scheduler.SchedulerTask.call(SchedulerTask.java:28)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+Caused by: java.io.IOException: CreateProcess error=2, 系统找不到指定的文件。
+	at java.base/java.lang.ProcessImpl.create(Native Method)
+	at java.base/java.lang.ProcessImpl.<init>(ProcessImpl.java:500)
+	at java.base/java.lang.ProcessImpl.start(ProcessImpl.java:159)
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1126)
+	... 14 common frames omitted
+26-01-17.12:01:52.077 [main            ] WARN  AiClientToolMcpNode    - 没有需要被初始化的 ai client tool mcp
+26-01-17.12:03:13.844 [pool-2-thread-3 ] ERROR AgentRepository        - 解析传输配置失败: unclosed.str.lit U
+com.alibaba.fastjson.JSONException: unclosed.str.lit U
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:574)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:488)
+	at com.tkck.infrastructure.adapter.repository.AgentRepository.AiClientToolMcpVOByClientIds(AgentRepository.java:212)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727)
+	at com.tkck.infrastructure.adapter.repository.AgentRepository$$SpringCGLIB$$0.AiClientToolMcpVOByClientIds(<generated>)
+	at com.tkck.domain.agent.service.armory.business.data.impl.AiClientLoadDataStrategy.lambda$loadData$2(AiClientLoadDataStrategy.java:50)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+Caused by: com.alibaba.fastjson2.JSONException: unclosed.str.lit U
+	at com.alibaba.fastjson2.JSONReader.char1(JSONReader.java:331)
+	at com.alibaba.fastjson2.JSONReaderASCII.readString(JSONReaderASCII.java:1397)
+	at com.alibaba.fastjson2.reader.ORG_2_3_Stdio.readObject(Unknown Source)
+	at com.alibaba.fastjson2.reader.ObjectReaderImplMapTyped.readObject(ObjectReaderImplMapTyped.java:344)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:564)
+	... 17 common frames omitted
+26-01-17.12:04:18.087 [pool-2-thread-3 ] ERROR AgentRepository        - 解析传输配置失败: unclosed.str.lit U
+com.alibaba.fastjson.JSONException: unclosed.str.lit U
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:574)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:488)
+	at com.tkck.infrastructure.adapter.repository.AgentRepository.AiClientToolMcpVOByClientIds(AgentRepository.java:212)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727)
+	at com.tkck.infrastructure.adapter.repository.AgentRepository$$SpringCGLIB$$0.AiClientToolMcpVOByClientIds(<generated>)
+	at com.tkck.domain.agent.service.armory.business.data.impl.AiClientLoadDataStrategy.lambda$loadData$2(AiClientLoadDataStrategy.java:50)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+Caused by: com.alibaba.fastjson2.JSONException: unclosed.str.lit U
+	at com.alibaba.fastjson2.JSONReader.char1(JSONReader.java:331)
+	at com.alibaba.fastjson2.JSONReaderASCII.readString(JSONReaderASCII.java:1397)
+	at com.alibaba.fastjson2.reader.ORG_2_3_Stdio.readObject(Unknown Source)
+	at com.alibaba.fastjson2.reader.ObjectReaderImplMapTyped.readObject(ObjectReaderImplMapTyped.java:344)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:564)
+	... 17 common frames omitted
+26-01-17.12:06:10.962 [pool-2-thread-3 ] ERROR AgentRepository        - 解析传输配置失败: unclosed.str.lit U
+com.alibaba.fastjson.JSONException: unclosed.str.lit U
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:574)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:488)
+	at com.tkck.infrastructure.adapter.repository.AgentRepository.AiClientToolMcpVOByClientIds(AgentRepository.java:212)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727)
+	at com.tkck.infrastructure.adapter.repository.AgentRepository$$SpringCGLIB$$0.AiClientToolMcpVOByClientIds(<generated>)
+	at com.tkck.domain.agent.service.armory.business.data.impl.AiClientLoadDataStrategy.lambda$loadData$2(AiClientLoadDataStrategy.java:50)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1768)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+Caused by: com.alibaba.fastjson2.JSONException: unclosed.str.lit U
+	at com.alibaba.fastjson2.JSONReader.char1(JSONReader.java:331)
+	at com.alibaba.fastjson2.JSONReaderASCII.readString(JSONReaderASCII.java:1397)
+	at com.alibaba.fastjson2.reader.ORG_2_3_Stdio.readObject(Unknown Source)
+	at com.alibaba.fastjson2.reader.ObjectReaderImplMapTyped.readObject(ObjectReaderImplMapTyped.java:344)
+	at com.alibaba.fastjson.JSON.parseObject(JSON.java:564)
+	... 17 common frames omitted
+26-01-17.12:12:22.262 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=6m23s435ms389µs400ns).
+26-01-17.12:13:41.074 [boundedElastic-1] ERROR Operators              - Operator called default onErrorDropped
+reactor.core.Exceptions$ErrorCallbackNotImplemented: java.lang.RuntimeException: Failed to start process with command: [npx, -y, @modelcontextprotocol/server-filesystem, /Users/Lenovo/Desktop, /Users/Lenovo/Desktop]
+Caused by: java.lang.RuntimeException: Failed to start process with command: [npx, -y, @modelcontextprotocol/server-filesystem, /Users/Lenovo/Desktop, /Users/Lenovo/Desktop]
+	at io.modelcontextprotocol.client.transport.StdioClientTransport.lambda$connect$1(StdioClientTransport.java:132)
+	at reactor.core.publisher.MonoRunnable.call(MonoRunnable.java:73)
+	at reactor.core.publisher.MonoRunnable.call(MonoRunnable.java:32)
+	at reactor.core.publisher.FluxSubscribeOnCallable$CallableSubscribeOnSubscription.run(FluxSubscribeOnCallable.java:228)
+	at reactor.core.scheduler.SchedulerTask.call(SchedulerTask.java:68)
+	at reactor.core.scheduler.SchedulerTask.call(SchedulerTask.java:28)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+Caused by: java.io.IOException: Cannot run program "npx": CreateProcess error=2, 系统找不到指定的文件。
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1170)
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1089)
+	at io.modelcontextprotocol.client.transport.StdioClientTransport.lambda$connect$1(StdioClientTransport.java:129)
+	... 11 common frames omitted
+Caused by: java.io.IOException: CreateProcess error=2, 系统找不到指定的文件。
+	at java.base/java.lang.ProcessImpl.create(Native Method)
+	at java.base/java.lang.ProcessImpl.<init>(ProcessImpl.java:500)
+	at java.base/java.lang.ProcessImpl.start(ProcessImpl.java:159)
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1126)
+	... 13 common frames omitted
+26-01-17.12:18:32.163 [boundedElastic-1] ERROR Operators              - Operator called default onErrorDropped
+reactor.core.Exceptions$ErrorCallbackNotImplemented: java.lang.RuntimeException: Failed to start process with command: [npx, -y, @modelcontextprotocol/server-filesystem, /Users/Lenovo/Desktop, /Users/Lenovo/Desktop]
+Caused by: java.lang.RuntimeException: Failed to start process with command: [npx, -y, @modelcontextprotocol/server-filesystem, /Users/Lenovo/Desktop, /Users/Lenovo/Desktop]
+	at io.modelcontextprotocol.client.transport.StdioClientTransport.lambda$connect$1(StdioClientTransport.java:132)
+	at reactor.core.publisher.MonoRunnable.call(MonoRunnable.java:73)
+	at reactor.core.publisher.MonoRunnable.call(MonoRunnable.java:32)
+	at reactor.core.publisher.FluxSubscribeOnCallable$CallableSubscribeOnSubscription.run(FluxSubscribeOnCallable.java:228)
+	at reactor.core.scheduler.SchedulerTask.call(SchedulerTask.java:68)
+	at reactor.core.scheduler.SchedulerTask.call(SchedulerTask.java:28)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+Caused by: java.io.IOException: Cannot run program "npx": CreateProcess error=2, 系统找不到指定的文件。
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1170)
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1089)
+	at io.modelcontextprotocol.client.transport.StdioClientTransport.lambda$connect$1(StdioClientTransport.java:129)
+	... 11 common frames omitted
+Caused by: java.io.IOException: CreateProcess error=2, 系统找不到指定的文件。
+	at java.base/java.lang.ProcessImpl.create(Native Method)
+	at java.base/java.lang.ProcessImpl.<init>(ProcessImpl.java:500)
+	at java.base/java.lang.ProcessImpl.start(ProcessImpl.java:159)
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1126)
+	... 13 common frames omitted
+26-01-17.12:18:58.917 [boundedElastic-1] ERROR Operators              - Operator called default onErrorDropped
+reactor.core.Exceptions$ErrorCallbackNotImplemented: java.lang.RuntimeException: Failed to start process with command: [npx, D:\nodejs\npx.cmd, -y, @modelcontextprotocol/server-filesystem, C:\Users\Lenovo\Desktop, C:\Users\Lenovo\Desktop]
+Caused by: java.lang.RuntimeException: Failed to start process with command: [npx, D:\nodejs\npx.cmd, -y, @modelcontextprotocol/server-filesystem, C:\Users\Lenovo\Desktop, C:\Users\Lenovo\Desktop]
+	at io.modelcontextprotocol.client.transport.StdioClientTransport.lambda$connect$1(StdioClientTransport.java:132)
+	at reactor.core.publisher.MonoRunnable.call(MonoRunnable.java:73)
+	at reactor.core.publisher.MonoRunnable.call(MonoRunnable.java:32)
+	at reactor.core.publisher.FluxSubscribeOnCallable$CallableSubscribeOnSubscription.run(FluxSubscribeOnCallable.java:228)
+	at reactor.core.scheduler.SchedulerTask.call(SchedulerTask.java:68)
+	at reactor.core.scheduler.SchedulerTask.call(SchedulerTask.java:28)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+Caused by: java.io.IOException: Cannot run program "npx": CreateProcess error=2, 系统找不到指定的文件。
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1170)
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1089)
+	at io.modelcontextprotocol.client.transport.StdioClientTransport.lambda$connect$1(StdioClientTransport.java:129)
+	... 11 common frames omitted
+Caused by: java.io.IOException: CreateProcess error=2, 系统找不到指定的文件。
+	at java.base/java.lang.ProcessImpl.create(Native Method)
+	at java.base/java.lang.ProcessImpl.<init>(ProcessImpl.java:500)
+	at java.base/java.lang.ProcessImpl.start(ProcessImpl.java:159)
+	at java.base/java.lang.ProcessBuilder.start(ProcessBuilder.java:1126)
+	... 13 common frames omitted
+26-01-17.12:23:54.645 [main            ] WARN  AiClientModelNode      - 没有需要被初始化的 ai client model
+26-01-17.12:25:54.422 [main            ] WARN  AiClientModelNode      - 没有需要被初始化的 ai client model
+26-01-17.12:41:39.183 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=50s376ms22µs300ns).
+26-01-17.12:44:36.687 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=2m57s505ms3µs200ns).
+26-01-17.12:45:29.490 [main            ] WARN  AiClientModelNode      - 没有需要被初始化的 ai client model
+26-01-17.12:48:26.861 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=56s234ms710µs100ns).
+26-01-17.12:48:49.355 [main            ] WARN  AiClientApiNode        - 没有需要被初始化的 ai client api
+26-01-17.12:49:54.854 [main            ] WARN  AiClientModelNode      - 没有需要被初始化的 ai client model
+26-01-17.12:54:00.420 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=1m38s635ms883µs600ns).
+26-01-17.12:54:39.824 [main            ] WARN  AiClientModelNode      - 没有需要被初始化的 ai client model
+26-01-17.12:56:33.943 [main            ] WARN  AiClientModelNode      - 没有需要被初始化的 ai client model

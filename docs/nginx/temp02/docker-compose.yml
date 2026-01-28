@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: auto-agent-frontend
+    ports:
+      - "8088:8088"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./dist:/usr/share/nginx/html:ro
+    restart: unless-stopped

@@ -1,7 +1,7 @@
 package com.tkck.domain.agent.service.armory.business.data.impl;
 
 
-import com.tkck.domain.agent.model.aggregate.repository.IAgentRepository;
+import com.tkck.domain.agent.adapter.repository.IAgentRepository;
 import com.tkck.domain.agent.model.entity.ArmoryCommandEntity;
 import com.tkck.domain.agent.model.valobj.*;
 import com.tkck.domain.agent.model.valobj.enums.AiAgentEnumVO;

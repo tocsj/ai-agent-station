@@ -1,0 +1,298 @@
+26-01-22.10:01:23.079 [main            ] INFO  AgentTest              - Starting AgentTest using Java 22 with PID 6612 (started by Lenovo in D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app)
+26-01-22.10:01:23.080 [main            ] INFO  AgentTest              - The following 1 profile is active: "dev"
+26-01-22.10:01:26.281 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
+26-01-22.10:01:26.288 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
+26-01-22.10:01:26.289 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
+26-01-22.10:01:27.073 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+26-01-22.10:01:27.929 [main            ] INFO  AgentTest              - Started AgentTest in 5.632 seconds (process running for 7.572)
+26-01-22.10:01:28.734 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [3001]
+26-01-22.10:01:28.734 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [3001]
+26-01-22.10:01:28.734 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [3001]
+26-01-22.10:01:28.734 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [3001]
+26-01-22.10:01:28.735 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [3001]
+26-01-22.10:01:28.735 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [3001]
+26-01-22.10:01:28.786 [pool-2-thread-5 ] INFO  HikariDataSource       - MainHikariPool - Starting...
+26-01-22.10:01:29.166 [pool-2-thread-5 ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@5e78464f
+26-01-22.10:01:29.168 [pool-2-thread-5 ] INFO  HikariDataSource       - MainHikariPool - Start completed.
+26-01-22.10:01:29.521 [main            ] INFO  RootNode               - Ai Agent 构建，数据加载节点 {"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:01:29.522 [main            ] INFO  AiClientApiNode        - Ai Agent 构建，API 构建节点 {"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:01:29.530 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_api_1001
+26-01-22.10:01:29.530 [main            ] INFO  AiClientToolMcpNode    - Ai Agent 构建节点，Tool MCP 工具配置{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:01:33.021 [pool-6-thread-1 ] INFO  StdioClientTransport   - STDERR Message received: Secure MCP Filesystem Server running on stdio
+26-01-22.10:01:33.084 [pool-3-thread-1 ] INFO  McpAsyncClient         - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[completions=null, experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=secure-filesystem-server, version=0.2.0] and Instructions null
+26-01-22.10:01:33.096 [pool-6-thread-1 ] INFO  StdioClientTransport   - STDERR Message received: Client does not support MCP Roots, using allowed directories set from server args: [ 'C:\\Users\\Lenovo\\Desktop', 'C:\\Users\\Lenovo\\Desktop' ]
+26-01-22.10:01:33.094 [main            ] INFO  AiClientToolMcpNode    - Tool Stdio MCP Initialized InitializeResult[protocolVersion=2024-11-05, capabilities=ServerCapabilities[completions=null, experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], serverInfo=Implementation[name=secure-filesystem-server, version=0.2.0], instructions=null]
+26-01-22.10:01:33.097 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_tool_mcp_5003
+26-01-22.10:01:33.097 [main            ] INFO  AiClientModelNode      - Ai Agent 构建节点，Mode 对话模型{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:01:33.097 [main            ] WARN  AiClientModelNode      - 没有需要被初始化的 ai client model
+26-01-22.10:01:33.097 [main            ] INFO  AiClientAdvisorNode    - Ai Agent 构建，Advisor 顾问角色{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:01:33.122 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown initiated...
+26-01-22.10:01:33.144 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown completed.
+26-01-22.10:02:59.434 [main            ] INFO  AgentTest              - Starting AgentTest using Java 22 with PID 25648 (started by Lenovo in D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app)
+26-01-22.10:02:59.439 [main            ] INFO  AgentTest              - The following 1 profile is active: "dev"
+26-01-22.10:03:04.120 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
+26-01-22.10:03:04.128 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
+26-01-22.10:03:04.128 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
+26-01-22.10:03:05.188 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+26-01-22.10:03:06.596 [main            ] INFO  AgentTest              - Started AgentTest in 7.941 seconds (process running for 10.146)
+26-01-22.10:03:08.217 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [3001]
+26-01-22.10:03:08.217 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [3001]
+26-01-22.10:03:08.218 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [3001]
+26-01-22.10:03:08.220 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [3001]
+26-01-22.10:03:08.221 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [3001]
+26-01-22.10:03:08.246 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [3001]
+26-01-22.10:03:12.069 [pool-2-thread-3 ] INFO  HikariDataSource       - MainHikariPool - Starting...
+26-01-22.10:03:12.849 [pool-2-thread-3 ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@1cd99923
+26-01-22.10:03:12.855 [pool-2-thread-3 ] INFO  HikariDataSource       - MainHikariPool - Start completed.
+26-01-22.10:03:23.014 [main            ] INFO  RootNode               - Ai Agent 构建，数据加载节点 {"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:03:26.946 [main            ] INFO  AiClientApiNode        - Ai Agent 构建，API 构建节点 {"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:03:26.955 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_api_1001
+26-01-22.10:03:26.955 [main            ] INFO  AiClientToolMcpNode    - Ai Agent 构建节点，Tool MCP 工具配置{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:03:37.325 [pool-6-thread-1 ] INFO  StdioClientTransport   - STDERR Message received: Secure MCP Filesystem Server running on stdio
+26-01-22.10:03:37.387 [pool-3-thread-1 ] INFO  McpAsyncClient         - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[completions=null, experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=secure-filesystem-server, version=0.2.0] and Instructions null
+26-01-22.10:03:37.399 [pool-6-thread-1 ] INFO  StdioClientTransport   - STDERR Message received: Client does not support MCP Roots, using allowed directories set from server args: [ 'C:\\Users\\Lenovo\\Desktop', 'C:\\Users\\Lenovo\\Desktop' ]
+26-01-22.10:03:37.398 [main            ] INFO  AiClientToolMcpNode    - Tool Stdio MCP Initialized InitializeResult[protocolVersion=2024-11-05, capabilities=ServerCapabilities[completions=null, experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], serverInfo=Implementation[name=secure-filesystem-server, version=0.2.0], instructions=null]
+26-01-22.10:03:37.400 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_tool_mcp_5003
+26-01-22.10:03:37.400 [main            ] INFO  AiClientModelNode      - Ai Agent 构建节点，Mode 对话模型{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:03:37.400 [main            ] WARN  AiClientModelNode      - 没有需要被初始化的 ai client model
+26-01-22.10:03:46.086 [main            ] INFO  AiClientAdvisorNode    - Ai Agent 构建，Advisor 顾问角色{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:07:15.971 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=2m10s836ms220µs400ns).
+26-01-22.10:07:15.999 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown initiated...
+26-01-22.10:07:16.014 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown completed.
+26-01-22.10:07:24.298 [main            ] INFO  AgentTest              - Starting AgentTest using Java 22 with PID 18780 (started by Lenovo in D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app)
+26-01-22.10:07:24.299 [main            ] INFO  AgentTest              - The following 1 profile is active: "dev"
+26-01-22.10:07:26.875 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
+26-01-22.10:07:26.880 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
+26-01-22.10:07:26.881 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
+26-01-22.10:07:27.538 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+26-01-22.10:07:28.172 [main            ] INFO  AgentTest              - Started AgentTest in 4.529 seconds (process running for 6.047)
+26-01-22.10:07:28.832 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [3001]
+26-01-22.10:07:28.833 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [3001]
+26-01-22.10:07:28.833 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [3001]
+26-01-22.10:07:28.833 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [3001]
+26-01-22.10:07:28.833 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [3001]
+26-01-22.10:07:28.833 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [3001]
+26-01-22.10:07:28.855 [pool-2-thread-1 ] INFO  HikariDataSource       - MainHikariPool - Starting...
+26-01-22.10:07:29.141 [pool-2-thread-1 ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@12d9582e
+26-01-22.10:07:29.144 [pool-2-thread-1 ] INFO  HikariDataSource       - MainHikariPool - Start completed.
+26-01-22.10:07:29.382 [main            ] INFO  RootNode               - Ai Agent 构建，数据加载节点 {"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:07:29.382 [main            ] INFO  AiClientApiNode        - Ai Agent 构建，API 构建节点 {"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:07:29.391 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_api_1001
+26-01-22.10:07:29.392 [main            ] INFO  AiClientToolMcpNode    - Ai Agent 构建节点，Tool MCP 工具配置{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:07:31.754 [pool-6-thread-1 ] INFO  StdioClientTransport   - STDERR Message received: Secure MCP Filesystem Server running on stdio
+26-01-22.10:07:31.810 [pool-3-thread-1 ] INFO  McpAsyncClient         - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[completions=null, experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=secure-filesystem-server, version=0.2.0] and Instructions null
+26-01-22.10:07:31.822 [pool-6-thread-1 ] INFO  StdioClientTransport   - STDERR Message received: Client does not support MCP Roots, using allowed directories set from server args: [ 'C:\\Users\\Lenovo\\Desktop', 'C:\\Users\\Lenovo\\Desktop' ]
+26-01-22.10:07:31.819 [main            ] INFO  AiClientToolMcpNode    - Tool Stdio MCP Initialized InitializeResult[protocolVersion=2024-11-05, capabilities=ServerCapabilities[completions=null, experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], serverInfo=Implementation[name=secure-filesystem-server, version=0.2.0], instructions=null]
+26-01-22.10:07:31.822 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_tool_mcp_5003
+26-01-22.10:07:31.823 [main            ] INFO  AiClientModelNode      - Ai Agent 构建节点，Mode 对话模型{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:07:31.823 [main            ] WARN  AiClientModelNode      - 没有需要被初始化的 ai client model
+26-01-22.10:07:31.823 [main            ] INFO  AiClientAdvisorNode    - Ai Agent 构建，Advisor 顾问角色{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:07:31.830 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_advisor_4001
+26-01-22.10:07:31.831 [main            ] INFO  AiClientNode           - Ai Agent 构建节点，客户端{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:07:31.850 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown initiated...
+26-01-22.10:07:31.868 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown completed.
+26-01-22.10:09:52.806 [main            ] INFO  AgentTest              - Starting AgentTest using Java 22 with PID 25172 (started by Lenovo in D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app)
+26-01-22.10:09:52.808 [main            ] INFO  AgentTest              - The following 1 profile is active: "dev"
+26-01-22.10:09:55.647 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
+26-01-22.10:09:55.652 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
+26-01-22.10:09:55.653 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
+26-01-22.10:09:56.358 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+26-01-22.10:09:57.216 [main            ] INFO  AgentTest              - Started AgentTest in 5.155 seconds (process running for 6.815)
+26-01-22.10:09:58.012 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [3001]
+26-01-22.10:09:58.012 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [3001]
+26-01-22.10:09:58.013 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [3001]
+26-01-22.10:09:58.013 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [3001]
+26-01-22.10:09:58.013 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [3001]
+26-01-22.10:09:58.013 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [3001]
+26-01-22.10:09:58.043 [pool-2-thread-6 ] INFO  HikariDataSource       - MainHikariPool - Starting...
+26-01-22.10:09:58.353 [pool-2-thread-6 ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@4db0aada
+26-01-22.10:09:58.355 [pool-2-thread-6 ] INFO  HikariDataSource       - MainHikariPool - Start completed.
+26-01-22.10:09:58.703 [main            ] INFO  RootNode               - Ai Agent 构建，数据加载节点 {"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:09:58.704 [main            ] INFO  AiClientApiNode        - Ai Agent 构建，API 构建节点 {"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:09:58.714 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_api_1001
+26-01-22.10:09:58.715 [main            ] INFO  AiClientToolMcpNode    - Ai Agent 构建节点，Tool MCP 工具配置{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:10:08.244 [pool-6-thread-1 ] INFO  StdioClientTransport   - STDERR Message received: Secure MCP Filesystem Server running on stdio
+26-01-22.10:10:08.309 [pool-3-thread-1 ] INFO  McpAsyncClient         - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[completions=null, experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=secure-filesystem-server, version=0.2.0] and Instructions null
+26-01-22.10:10:08.321 [pool-6-thread-1 ] INFO  StdioClientTransport   - STDERR Message received: Client does not support MCP Roots, using allowed directories set from server args: [ 'C:\\Users\\Lenovo\\Desktop', 'C:\\Users\\Lenovo\\Desktop' ]
+26-01-22.10:10:08.319 [main            ] INFO  AiClientToolMcpNode    - Tool Stdio MCP Initialized InitializeResult[protocolVersion=2024-11-05, capabilities=ServerCapabilities[completions=null, experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], serverInfo=Implementation[name=secure-filesystem-server, version=0.2.0], instructions=null]
+26-01-22.10:10:08.322 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_tool_mcp_5003
+26-01-22.10:10:08.322 [main            ] INFO  AiClientModelNode      - Ai Agent 构建节点，Mode 对话模型{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:11:52.160 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=1m53s703ms936µs400ns).
+26-01-22.10:11:52.162 [main            ] WARN  AiClientModelNode      - 没有需要被初始化的 ai client model
+26-01-22.10:11:52.163 [main            ] INFO  AiClientAdvisorNode    - Ai Agent 构建，Advisor 顾问角色{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:11:52.196 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown initiated...
+26-01-22.10:11:52.213 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown completed.
+26-01-22.10:11:58.059 [main            ] INFO  AgentTest              - Starting AgentTest using Java 22 with PID 2840 (started by Lenovo in D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app)
+26-01-22.10:11:58.061 [main            ] INFO  AgentTest              - The following 1 profile is active: "dev"
+26-01-22.10:12:01.154 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
+26-01-22.10:12:01.160 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
+26-01-22.10:12:01.160 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
+26-01-22.10:12:01.929 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+26-01-22.10:12:02.843 [main            ] INFO  AgentTest              - Started AgentTest in 5.583 seconds (process running for 7.352)
+26-01-22.10:12:03.639 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [3001]
+26-01-22.10:12:03.639 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [3001]
+26-01-22.10:12:03.639 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [3001]
+26-01-22.10:12:03.639 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [3001]
+26-01-22.10:12:03.639 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [3001]
+26-01-22.10:12:03.640 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [3001]
+26-01-22.10:13:31.235 [pool-2-thread-1 ] INFO  HikariDataSource       - MainHikariPool - Starting...
+26-01-22.10:13:31.515 [pool-2-thread-1 ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@6f1a7c75
+26-01-22.10:13:31.517 [pool-2-thread-1 ] INFO  HikariDataSource       - MainHikariPool - Start completed.
+26-01-22.10:14:22.719 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=1m21s201ms585µs600ns).
+26-01-22.10:15:25.686 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown initiated...
+26-01-22.10:15:34.597 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown completed.
+26-01-22.10:17:13.660 [main            ] INFO  AgentTest              - Starting AgentTest using Java 22 with PID 9816 (started by Lenovo in D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app)
+26-01-22.10:17:13.663 [main            ] INFO  AgentTest              - The following 1 profile is active: "dev"
+26-01-22.10:17:16.991 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
+26-01-22.10:17:16.999 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
+26-01-22.10:17:16.999 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
+26-01-22.10:17:17.886 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+26-01-22.10:17:18.796 [main            ] INFO  AgentTest              - Started AgentTest in 6.013 seconds (process running for 7.727)
+26-01-22.10:17:19.562 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [3001]
+26-01-22.10:17:19.562 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [3001]
+26-01-22.10:17:19.562 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [3001]
+26-01-22.10:17:19.563 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [3001]
+26-01-22.10:17:19.563 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [3001]
+26-01-22.10:17:19.563 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [3001]
+26-01-22.10:17:27.281 [pool-2-thread-3 ] INFO  HikariDataSource       - MainHikariPool - Starting...
+26-01-22.10:17:27.635 [pool-2-thread-3 ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@4f8f9864
+26-01-22.10:17:27.638 [pool-2-thread-3 ] INFO  HikariDataSource       - MainHikariPool - Start completed.
+26-01-22.10:17:28.006 [main            ] INFO  RootNode               - Ai Agent 构建，数据加载节点 {"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:17:28.007 [main            ] INFO  AiClientApiNode        - Ai Agent 构建，API 构建节点 {"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:17:28.017 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_api_1001
+26-01-22.10:17:28.017 [main            ] INFO  AiClientToolMcpNode    - Ai Agent 构建节点，Tool MCP 工具配置{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:17:30.451 [pool-6-thread-1 ] INFO  StdioClientTransport   - STDERR Message received: Secure MCP Filesystem Server running on stdio
+26-01-22.10:17:30.527 [pool-3-thread-1 ] INFO  McpAsyncClient         - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[completions=null, experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=secure-filesystem-server, version=0.2.0] and Instructions null
+26-01-22.10:17:30.542 [pool-6-thread-1 ] INFO  StdioClientTransport   - STDERR Message received: Client does not support MCP Roots, using allowed directories set from server args: [ 'C:\\Users\\Lenovo\\Desktop', 'C:\\Users\\Lenovo\\Desktop' ]
+26-01-22.10:17:30.540 [main            ] INFO  AiClientToolMcpNode    - Tool Stdio MCP Initialized InitializeResult[protocolVersion=2024-11-05, capabilities=ServerCapabilities[completions=null, experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], serverInfo=Implementation[name=secure-filesystem-server, version=0.2.0], instructions=null]
+26-01-22.10:17:30.545 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_tool_mcp_5003
+26-01-22.10:17:30.545 [main            ] INFO  AiClientModelNode      - Ai Agent 构建节点，Mode 对话模型{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:18:13.423 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=45s677ms301µs900ns).
+26-01-22.10:18:13.969 [main            ] WARN  AiClientModelNode      - 没有需要被初始化的 ai client model
+26-01-22.10:18:24.765 [main            ] INFO  AiClientAdvisorNode    - Ai Agent 构建，Advisor 顾问角色{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:18:24.809 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_advisor_4001
+26-01-22.10:18:24.810 [main            ] INFO  AiClientNode           - Ai Agent 构建节点，客户端{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:19:39.723 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=55s991ms2µs).
+26-01-22.10:19:41.332 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown initiated...
+26-01-22.10:19:41.346 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown completed.
+26-01-22.10:20:15.210 [main            ] INFO  AgentTest              - Starting AgentTest using Java 22 with PID 25960 (started by Lenovo in D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app)
+26-01-22.10:20:15.213 [main            ] INFO  AgentTest              - The following 1 profile is active: "dev"
+26-01-22.10:20:18.120 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
+26-01-22.10:20:18.130 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
+26-01-22.10:20:18.130 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
+26-01-22.10:20:18.878 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+26-01-22.10:20:19.732 [main            ] INFO  AgentTest              - Started AgentTest in 5.253 seconds (process running for 6.862)
+26-01-22.10:20:20.532 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [3001]
+26-01-22.10:20:20.532 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [3001]
+26-01-22.10:20:20.532 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [3001]
+26-01-22.10:20:20.533 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [3001]
+26-01-22.10:20:20.533 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [3001]
+26-01-22.10:20:20.533 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [3001]
+26-01-22.10:20:28.109 [pool-2-thread-6 ] INFO  HikariDataSource       - MainHikariPool - Starting...
+26-01-22.10:20:28.380 [pool-2-thread-6 ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@59a17f7e
+26-01-22.10:20:28.382 [pool-2-thread-6 ] INFO  HikariDataSource       - MainHikariPool - Start completed.
+26-01-22.10:20:33.866 [main            ] INFO  RootNode               - Ai Agent 构建，数据加载节点 {"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:20:33.867 [main            ] INFO  AiClientApiNode        - Ai Agent 构建，API 构建节点 {"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:20:33.874 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_api_1001
+26-01-22.10:20:33.875 [main            ] INFO  AiClientToolMcpNode    - Ai Agent 构建节点，Tool MCP 工具配置{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:20:36.255 [pool-6-thread-1 ] INFO  StdioClientTransport   - STDERR Message received: Secure MCP Filesystem Server running on stdio
+26-01-22.10:20:36.320 [pool-3-thread-1 ] INFO  McpAsyncClient         - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[completions=null, experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=secure-filesystem-server, version=0.2.0] and Instructions null
+26-01-22.10:20:36.332 [pool-6-thread-1 ] INFO  StdioClientTransport   - STDERR Message received: Client does not support MCP Roots, using allowed directories set from server args: [ 'C:\\Users\\Lenovo\\Desktop', 'C:\\Users\\Lenovo\\Desktop' ]
+26-01-22.10:20:36.331 [main            ] INFO  AiClientToolMcpNode    - Tool Stdio MCP Initialized InitializeResult[protocolVersion=2024-11-05, capabilities=ServerCapabilities[completions=null, experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], serverInfo=Implementation[name=secure-filesystem-server, version=0.2.0], instructions=null]
+26-01-22.10:20:36.333 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_tool_mcp_5003
+26-01-22.10:20:36.334 [main            ] INFO  AiClientModelNode      - Ai Agent 构建节点，Mode 对话模型{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:22:34.149 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=2m442ms548µs900ns).
+26-01-22.10:22:34.151 [main            ] WARN  AiClientModelNode      - 没有需要被初始化的 ai client model
+26-01-22.10:22:34.153 [main            ] INFO  AiClientAdvisorNode    - Ai Agent 构建，Advisor 顾问角色{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:22:34.166 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_advisor_4001
+26-01-22.10:22:34.167 [main            ] INFO  AiClientNode           - Ai Agent 构建节点，客户端{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:22:34.193 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown initiated...
+26-01-22.10:22:34.211 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown completed.
+26-01-22.10:22:37.940 [main            ] INFO  AgentTest              - Starting AgentTest using Java 22 with PID 4772 (started by Lenovo in D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app)
+26-01-22.10:22:37.942 [main            ] INFO  AgentTest              - The following 1 profile is active: "dev"
+26-01-22.10:22:40.842 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
+26-01-22.10:22:40.848 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
+26-01-22.10:22:40.848 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
+26-01-22.10:22:41.547 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+26-01-22.10:22:42.403 [main            ] INFO  AgentTest              - Started AgentTest in 5.236 seconds (process running for 6.862)
+26-01-22.10:22:43.153 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [3001]
+26-01-22.10:22:43.153 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [3001]
+26-01-22.10:22:43.153 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [3001]
+26-01-22.10:22:43.155 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [3001]
+26-01-22.10:22:43.155 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [3001]
+26-01-22.10:22:43.155 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [3001]
+26-01-22.10:22:46.849 [pool-2-thread-5 ] INFO  HikariDataSource       - MainHikariPool - Starting...
+26-01-22.10:22:47.148 [pool-2-thread-5 ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@31b55f09
+26-01-22.10:22:47.151 [pool-2-thread-5 ] INFO  HikariDataSource       - MainHikariPool - Start completed.
+26-01-22.10:22:48.592 [main            ] INFO  RootNode               - Ai Agent 构建，数据加载节点 {"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:22:48.592 [main            ] INFO  AiClientApiNode        - Ai Agent 构建，API 构建节点 {"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:22:48.598 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_api_1001
+26-01-22.10:22:48.598 [main            ] INFO  AiClientToolMcpNode    - Ai Agent 构建节点，Tool MCP 工具配置{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:22:50.802 [pool-6-thread-1 ] INFO  StdioClientTransport   - STDERR Message received: Secure MCP Filesystem Server running on stdio
+26-01-22.10:22:50.872 [pool-3-thread-1 ] INFO  McpAsyncClient         - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[completions=null, experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=secure-filesystem-server, version=0.2.0] and Instructions null
+26-01-22.10:22:50.884 [pool-6-thread-1 ] INFO  StdioClientTransport   - STDERR Message received: Client does not support MCP Roots, using allowed directories set from server args: [ 'C:\\Users\\Lenovo\\Desktop', 'C:\\Users\\Lenovo\\Desktop' ]
+26-01-22.10:22:50.883 [main            ] INFO  AiClientToolMcpNode    - Tool Stdio MCP Initialized InitializeResult[protocolVersion=2024-11-05, capabilities=ServerCapabilities[completions=null, experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], serverInfo=Implementation[name=secure-filesystem-server, version=0.2.0], instructions=null]
+26-01-22.10:22:50.886 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_tool_mcp_5003
+26-01-22.10:22:50.886 [main            ] INFO  AiClientModelNode      - Ai Agent 构建节点，Mode 对话模型{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:22:56.118 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_model_2001
+26-01-22.10:22:56.119 [main            ] INFO  AiClientAdvisorNode    - Ai Agent 构建，Advisor 顾问角色{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:22:56.157 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_advisor_4001
+26-01-22.10:22:56.158 [main            ] INFO  AiClientNode           - Ai Agent 构建节点，客户端{"commandIdList":["3001"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-01-22.10:22:59.924 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_3001
+26-01-22.10:22:59.925 [main            ] INFO  AgentTest              - 客户端构建:org.springframework.ai.chat.client.DefaultChatClient@596237d4
+26-01-22.10:23:46.189 [main            ] INFO  AgentTest              - 测试结果(call):# Role: AI Agent
+
+## Profile
+
+- language: 中文
+- description: 一种智能体，能够生成技术文章并发布到CSDN平台，同时发送微信公众号消息通知。
+- background: 在信息技术和内容创作领域有深入的知识和实践经验。
+- personality: 细致周到、专业严谨、乐于助人。
+- expertise: 文章写作、信息技术、公众号运营。
+- target_audience: 技术开发者、IT从业人员、对技术文章感兴趣的公众读者。
+
+## Skills
+
+1. 文章生成
+   - 内容分析: 根据用户提供的信息分析并生成高质量技术文章。
+   - 标题创作: 提取并创作包含技术点的文章标题。
+   - 标签制定: 生成相关的文章标签以提高可见性。
+   - 简述撰写: 编写100字的文章简述，概述文章内容。
+
+2. 发布与通知
+   - CSDN发布: 将生成的文章发布到CSDN平台并获取URL地址。
+   - 微信公众号消息推送: 通过微信公众号发送文章标题、简述和跳转链接。
+
+## Rules
+
+1. 基本原则：
+   - 质量第一：确保文章内容准确、专业且具有实用性。
+   - 用户导向：始终关注用户需求，提供相关建议和反馈。
+   - 时间敏感性：在适当的时间内完成任务并及时发布内容。
+   - 隐私保护：维护用户隐私，不泄露用户信息。
+
+2. 行为准则：
+   - 准确性：确保提供的信息真实可信，避免误导用户。
+   - 清晰沟通：使用简单易懂的语言与用户交流，避免过于技术化的术语。
+   - 尊重反馈：认真听取用户的建议与反馈，并作出相应调整。
+   - 合作共享：鼓励与用户共同协作，形成良好的沟通氛围。
+
+3. 限制条件：
+   - 内容审查：所有生成的内容需经过审查，确保符合平台政策。
+   - 平台限制：仅在允许的范围内执行发布和通知操作。
+   - 版权遵守：遵循版权法规，避免抄袭他人作品。
+   - 技术限制：根据平台规定，遵守技术实现的相关限制。
+
+## Workflows
+
+- 目标: 生成并发布高质量技术文章，同时发送相关通知。
+- 步骤 1: 分析用户输入的内容，提取关键信息生成文章。
+- 步骤 2: 提炼文章标题、内容、标签和简述，并发布到CSDN。
+- 步骤 3: 获取并记录发布文章的URL地址。
+- 预期结果: 成功发布文章并通过微信公众号发送通知。
+
+## Initialization
+
+作为AI Agent，你必须遵守上述Rules，按照Workflows执行任务。你擅长使用Planning模式，帮助用户生成质量更高的文章。
+26-01-22.10:23:46.205 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown initiated...
+26-01-22.10:23:46.223 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown completed.

@@ -1,4 +1,4 @@
-package com.tkck.domain.agent.model.aggregate.repository;
+package com.tkck.domain.agent.adapter.repository;
 
 
 

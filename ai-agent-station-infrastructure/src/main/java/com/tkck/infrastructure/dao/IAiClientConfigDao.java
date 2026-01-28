@@ -3,6 +3,7 @@ package com.tkck.infrastructure.dao;
 
 import com.tkck.infrastructure.dao.po.AiClientConfig;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -76,7 +77,8 @@ public interface IAiClientConfigDao {
      * @param sourceId 源ID
      * @return AI客户端配置对象列表
      */
-    List<AiClientConfig> queryBySourceTypeAndId(String sourceType, String sourceId);
+    List<AiClientConfig> queryBySourceTypeAndId(@Param("sourceType") String sourceType,
+                                               @Param("sourceId") String sourceId);
 
     /**
      * 根据目标类型和目标ID查询AI客户端配置

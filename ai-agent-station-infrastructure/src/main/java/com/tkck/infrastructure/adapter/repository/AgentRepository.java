@@ -4,7 +4,7 @@ package com.tkck.infrastructure.adapter.repository;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tkck.domain.agent.model.aggregate.repository.IAgentRepository;
+import com.tkck.domain.agent.adapter.repository.IAgentRepository;
 import com.tkck.domain.agent.model.valobj.*;
 import com.tkck.infrastructure.dao.*;
 import com.tkck.infrastructure.dao.po.*;
