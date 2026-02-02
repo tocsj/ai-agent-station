@@ -6,12 +6,14 @@ import com.tkck.domain.agent.model.entity.ArmoryCommandEntity;
 import com.tkck.domain.agent.model.valobj.enums.AiAgentEnumVO;
 import com.tkck.domain.agent.model.valobj.AiClientModelVO;
 import com.tkck.domain.agent.service.armory.factory.DefaultArmoryStrategyFactory;
+import com.tkck.domain.agent.service.armory.support.LenientToolCallback;
 import io.modelcontextprotocol.client.McpSyncClient;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.mcp.SyncMcpToolCallbackProvider;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiChatOptions;
 import org.springframework.ai.openai.api.OpenAiApi;
+import org.springframework.ai.tool.ToolCallback;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -51,12 +53,15 @@ public class AiClientModelNode extends AbstractArmorySupport{
             }
 
             // 实例化对话模型（如果有其他模型对接，可以使用 one-api 服务，转换为 openai 模型格式）
+            ToolCallback[] rawCallbacks = new SyncMcpToolCallbackProvider(mcpSyncClients).getToolCallbacks();
+            ToolCallback[] lenientCallbacks = LenientToolCallback.wrap(rawCallbacks);
+
             OpenAiChatModel chatModel = OpenAiChatModel.builder()
                     .openAiApi(openAiApi)
                     .defaultOptions(
                             OpenAiChatOptions.builder()
                                     .model(modelVO.getModelName())
-                                    .toolCallbacks(new SyncMcpToolCallbackProvider(mcpSyncClients).getToolCallbacks())
+                                    .toolCallbacks(lenientCallbacks)
                                     .build())
                     .build();
 
