@@ -29,6 +29,7 @@ public abstract class AbstractExecuteSupport extends AbstractMultiThreadStrategy
 
     public static final String CHAT_MEMORY_CONVERSATION_ID_KEY = "chat_memory_conversation_id";
     public static final String CHAT_MEMORY_RETRIEVE_SIZE_KEY = "chat_memory_response_size";
+    public static final String QA_FILTER_EXPRESSION_KEY = "qa_filter_expression";
 
     @Override
     protected void multiThread(ExecuteCommandEntity armoryCommandEntity, DefaultAutoAgentExecuteStrategyFactory.DynamicContext dynamicContext) throws ExecutionException, InterruptedException, TimeoutException {

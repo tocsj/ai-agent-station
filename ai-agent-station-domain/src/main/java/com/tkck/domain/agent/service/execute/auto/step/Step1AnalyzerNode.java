@@ -12,6 +12,7 @@ import org.checkerframework.checker.units.qual.A;
 import org.checkerframework.checker.units.qual.C;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 
 /**
@@ -62,14 +63,26 @@ public class Step1AnalyzerNode extends AbstractExecuteSupport {
         );
 
         // 获取对话客户端
+        analysisPrompt += """
+
+                **当前运行约束:**
+                1. 当前链路没有显式的 MCP / Tool 调用，知识检索由系统内置的 RAG Advisor 自动完成。
+                2. 不要虚构任何工具名、函数名、MCP 名称或 JSON 调用参数。
+                3. 如果需要继续使用知识空间，只描述“继续基于当前 knowledgeSpaceId 检索并评估”，不要输出类似 knowledge_space_retrieve 的伪调用。
+                """;
+
         AiAgentClientFlowConfigVO aiAgentClientFlowConfigVO = dynamicContext.getAiAgentClientFlowConfigVOMap().get(AiClientTypeEnumVO.TASK_ANALYZER_CLIENT.getCode());
         ChatClient chatClient = getChatClientByClientId(aiAgentClientFlowConfigVO.getClientId());
 
         String analysisResult = chatClient
                 .prompt(analysisPrompt)
-                .advisors(a -> a
-                        .param(CHAT_MEMORY_CONVERSATION_ID_KEY, requestParameter.getSessionId())
-                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 1024))
+                .advisors(a -> {
+                    a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, requestParameter.getSessionId())
+                            .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 1024);
+                    if (StringUtils.hasText(requestParameter.getQaFilterExpression())) {
+                        a.param(QA_FILTER_EXPRESSION_KEY, requestParameter.getQaFilterExpression());
+                    }
+                })
                 .call().content();
 
         assert analysisResult != null;

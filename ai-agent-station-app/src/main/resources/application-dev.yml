@@ -14,6 +14,10 @@ thread:
 
 # 数据库配置；启动时配置数据库资源信息
 spring:
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
   datasource:
     mysql:
       username: root
@@ -34,7 +38,7 @@ spring:
       driver-class-name: org.postgresql.Driver
       username: postgres
       password: postgres
-      url: jdbc:postgresql://127.0.0.1:5432/ai-rag-knowledge
+      url: jdbc:postgresql://127.0.0.1:5432/postgres
       type: com.zaxxer.hikari.HikariDataSource
       hikari:
         maximum-pool-size: 5
@@ -43,13 +47,21 @@ spring:
         connection-timeout: 30000
   ai:
     openai:
-      base-url: https://free.v36.cm
-      api-key: sk-sWHsslEqPOEvcSGMFf2788C1AcD84109Bf46Ed964c229b73
+      base-url: https://dashscope.aliyuncs.com/compatible-mode
+      api-key: sk-defc66ae54e34d08be0ed3f7623b7c5d
+      embedding-model-id: 2005
+      embedding-model: text-embedding-v4
+    ollama:
+      base-url: 127.0.0.1:11434
+      mode:
+      embedding-model: nomic-embed-text
+      embedding:
+        options:
+          num-batch: 768
     agent:
       auto-config:
         enabled: true
-        #        client-ids: 4101,4102,4103,4104
-        client-ids: 3101,3102,3103,3104,4101,4102,4103,4104
+        client-ids: 5101,5102,5103,5104,5201,5202,5203,5204
 # MyBatis 配置【如需使用记得打开】
 #mybatis:
 #  mapper-locations: classpath:/mybatis/mapper/*.xml

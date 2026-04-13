@@ -1,0 +1,91 @@
+10:38:58,875 |-INFO in ch.qos.logback.classic.LoggerContext[logback] - This is logback-classic version 1.5.16
+10:38:58,879 |-INFO in ch.qos.logback.classic.util.ContextInitializer@791cbf87 - Here is a list of configurators discovered as a service, by rank: 
+10:38:58,879 |-INFO in ch.qos.logback.classic.util.ContextInitializer@791cbf87 -   org.springframework.boot.logging.logback.RootLogLevelConfigurator
+10:38:58,879 |-INFO in ch.qos.logback.classic.util.ContextInitializer@791cbf87 - They will be invoked in order until ExecutionStatus.DO_NOT_INVOKE_NEXT_IF_ANY is returned.
+10:38:58,879 |-INFO in ch.qos.logback.classic.util.ContextInitializer@791cbf87 - Constructed configurator of type class org.springframework.boot.logging.logback.RootLogLevelConfigurator
+10:38:58,885 |-INFO in ch.qos.logback.classic.util.ContextInitializer@791cbf87 - org.springframework.boot.logging.logback.RootLogLevelConfigurator.configure() call lasted 0 milliseconds. ExecutionStatus=INVOKE_NEXT_IF_ANY
+10:38:58,885 |-INFO in ch.qos.logback.classic.util.ContextInitializer@791cbf87 - Trying to configure with ch.qos.logback.classic.joran.SerializedModelConfigurator
+10:38:58,886 |-INFO in ch.qos.logback.classic.util.ContextInitializer@791cbf87 - Constructed configurator of type class ch.qos.logback.classic.joran.SerializedModelConfigurator
+10:38:58,935 |-INFO in ch.qos.logback.classic.LoggerContext[logback] - Could NOT find resource [logback-test.scmo]
+10:38:58,937 |-INFO in ch.qos.logback.classic.LoggerContext[logback] - Could NOT find resource [logback.scmo]
+10:38:58,937 |-INFO in ch.qos.logback.classic.util.ContextInitializer@791cbf87 - ch.qos.logback.classic.joran.SerializedModelConfigurator.configure() call lasted 51 milliseconds. ExecutionStatus=INVOKE_NEXT_IF_ANY
+10:38:58,937 |-INFO in ch.qos.logback.classic.util.ContextInitializer@791cbf87 - Trying to configure with ch.qos.logback.classic.util.DefaultJoranConfigurator
+10:38:58,938 |-INFO in ch.qos.logback.classic.util.ContextInitializer@791cbf87 - Constructed configurator of type class ch.qos.logback.classic.util.DefaultJoranConfigurator
+10:38:58,940 |-INFO in ch.qos.logback.classic.LoggerContext[logback] - Could NOT find resource [logback-test.xml]
+10:38:58,941 |-INFO in ch.qos.logback.classic.LoggerContext[logback] - Could NOT find resource [logback.xml]
+10:38:58,941 |-INFO in ch.qos.logback.classic.util.ContextInitializer@791cbf87 - ch.qos.logback.classic.util.DefaultJoranConfigurator.configure() call lasted 3 milliseconds. ExecutionStatus=INVOKE_NEXT_IF_ANY
+10:38:58,941 |-INFO in ch.qos.logback.classic.util.ContextInitializer@791cbf87 - Trying to configure with ch.qos.logback.classic.BasicConfigurator
+10:38:58,943 |-INFO in ch.qos.logback.classic.util.ContextInitializer@791cbf87 - Constructed configurator of type class ch.qos.logback.classic.BasicConfigurator
+10:38:58,943 |-INFO in ch.qos.logback.classic.BasicConfigurator@a7e2d9d - Setting up default configuration.
+10:38:58,968 |-INFO in ch.qos.logback.core.ConsoleAppender[console] - BEWARE: Writing to the console can be very slow. Avoid logging to the 
+10:38:58,968 |-INFO in ch.qos.logback.core.ConsoleAppender[console] - console in production environments, especially in high volume systems.
+10:38:58,968 |-INFO in ch.qos.logback.core.ConsoleAppender[console] - See also https://logback.qos.ch/codes.html#slowConsole
+10:38:58,969 |-INFO in ch.qos.logback.classic.util.ContextInitializer@791cbf87 - ch.qos.logback.classic.BasicConfigurator.configure() call lasted 26 milliseconds. ExecutionStatus=NEUTRAL
+10:38:59,754 |-INFO in ConfigurationWatchList(mainURL=jar:nested:/D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/target/ai-agent-station-app.jar/!BOOT-INF/classes/!/logback-spring.xml, fileWatchList={}, urlWatchList=[}) - URL [jar:nested:/D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/target/ai-agent-station-app.jar/!BOOT-INF/classes/!/logback-spring.xml] is not of type file
+10:38:59,840 |-WARN in ch.qos.logback.core.joran.action.ConversionRuleAction - [converterClass] attribute is deprecated and replaced by [class]. See element [conversionRule] near line 9
+10:38:59,840 |-WARN in ch.qos.logback.core.joran.action.ConversionRuleAction - [converterClass] attribute is deprecated and replaced by [class]. See element [conversionRule] near line 11
+10:38:59,840 |-WARN in ch.qos.logback.core.joran.action.ConversionRuleAction - [converterClass] attribute is deprecated and replaced by [class]. See element [conversionRule] near line 13
+10:38:59,891 |-INFO in ch.qos.logback.classic.model.processor.ContextNameModelHandler - Setting logger context name as [logback]
+10:38:59,892 |-INFO in ch.qos.logback.core.model.processor.ConversionRuleModelHandler - registering conversion word clr with class [org.springframework.boot.logging.logback.ColorConverter]
+10:38:59,892 |-INFO in ch.qos.logback.core.model.processor.ConversionRuleModelHandler - registering conversion word wex with class [org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter]
+10:38:59,892 |-INFO in ch.qos.logback.core.model.processor.ConversionRuleModelHandler - registering conversion word wEx with class [org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter]
+10:38:59,898 |-WARN in ch.qos.logback.classic.model.processor.ConfigurationModelHandlerFull - Missing watchable .xml or .properties files.
+10:38:59,898 |-WARN in ch.qos.logback.classic.model.processor.ConfigurationModelHandlerFull - Watching .xml files requires that the main configuration file is reachable as a URL
+10:38:59,901 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [CONSOLE]
+10:38:59,901 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+10:38:59,908 |-INFO in ch.qos.logback.core.model.processor.ImplicitModelHandler - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+10:38:59,947 |-INFO in ch.qos.logback.core.ConsoleAppender[CONSOLE] - BEWARE: Writing to the console can be very slow. Avoid logging to the 
+10:38:59,947 |-INFO in ch.qos.logback.core.ConsoleAppender[CONSOLE] - console in production environments, especially in high volume systems.
+10:38:59,947 |-INFO in ch.qos.logback.core.ConsoleAppender[CONSOLE] - See also https://logback.qos.ch/codes.html#slowConsole
+10:38:59,947 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [INFO_FILE]
+10:38:59,947 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.core.rolling.RollingFileAppender]
+10:38:59,951 |-INFO in ch.qos.logback.core.model.processor.ImplicitModelHandler - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+10:38:59,959 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy@925803196 - setting totalSizeCap to 10 GB
+10:38:59,962 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy@925803196 - No compression will be used
+10:38:59,964 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy@925803196 - Will use the pattern ./data/log/log-info-%d{yyyy-MM-dd}.%i.log for the active file
+10:38:59,964 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@4cc76301 - SizeAndTimeBasedFNATP class was renamed as SizeAndTimeBasedFileNamingAndTriggeringPolicy.
+10:38:59,980 |-INFO in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@4cc76301 - The date pattern is 'yyyy-MM-dd' from file name pattern './data/log/log-info-%d{yyyy-MM-dd}.%i.log'.
+10:38:59,980 |-INFO in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@4cc76301 - Roll-over at midnight.
+10:38:59,987 |-INFO in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@4cc76301 - Setting initial period to 2026-03-02T12:43:50.183Z
+10:38:59,988 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@4cc76301 - Direct use of either SizeAndTimeBasedFNATP or SizeAndTimeBasedFileNamingAndTriggeringPolicy 
+10:38:59,988 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@4cc76301 - is deprecated. Please use SizeAndTimeBasedRollingPolicy instead.
+10:38:59,988 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@4cc76301 - For more information see https://logback.qos.ch/manual/appenders.html#SizeAndTimeBasedRollingPolicy
+10:38:59,996 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[INFO_FILE] - Active log file name: ./data/log/log_info.log
+10:38:59,999 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[INFO_FILE] - Setting currentFileLength to 173096 for .\data\log\log_info.log
+10:38:59,999 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[INFO_FILE] - File property is set to [./data/log/log_info.log]
+10:39:00,001 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [ERROR_FILE]
+10:39:00,001 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.core.rolling.RollingFileAppender]
+10:39:00,001 |-INFO in ch.qos.logback.core.model.processor.ImplicitModelHandler - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+10:39:00,002 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy@49318987 - setting totalSizeCap to 5 GB
+10:39:00,002 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy@49318987 - No compression will be used
+10:39:00,002 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy@49318987 - Will use the pattern ./data/log/log-error-%d{yyyy-MM-dd}.%i.log for the active file
+10:39:00,002 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@3f19b8b3 - SizeAndTimeBasedFNATP class was renamed as SizeAndTimeBasedFileNamingAndTriggeringPolicy.
+10:39:00,003 |-INFO in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@3f19b8b3 - The date pattern is 'yyyy-MM-dd' from file name pattern './data/log/log-error-%d{yyyy-MM-dd}.%i.log'.
+10:39:00,003 |-INFO in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@3f19b8b3 - Roll-over at midnight.
+10:39:00,004 |-INFO in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@3f19b8b3 - Setting initial period to 2026-03-02T12:40:20.443Z
+10:39:00,004 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@3f19b8b3 - Direct use of either SizeAndTimeBasedFNATP or SizeAndTimeBasedFileNamingAndTriggeringPolicy 
+10:39:00,004 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@3f19b8b3 - is deprecated. Please use SizeAndTimeBasedRollingPolicy instead.
+10:39:00,004 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@3f19b8b3 - For more information see https://logback.qos.ch/manual/appenders.html#SizeAndTimeBasedRollingPolicy
+10:39:00,005 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[ERROR_FILE] - Active log file name: ./data/log/log_error.log
+10:39:00,005 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[ERROR_FILE] - Setting currentFileLength to 127473 for .\data\log\log_error.log
+10:39:00,005 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[ERROR_FILE] - File property is set to [./data/log/log_error.log]
+10:39:00,006 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [ASYNC_FILE_INFO]
+10:39:00,006 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.classic.AsyncAppender]
+10:39:00,008 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [INFO_FILE] to ch.qos.logback.classic.AsyncAppender[ASYNC_FILE_INFO]
+10:39:00,010 |-INFO in ch.qos.logback.classic.AsyncAppender[ASYNC_FILE_INFO] - Attaching appender named [INFO_FILE] to AsyncAppender.
+10:39:00,011 |-INFO in ch.qos.logback.classic.AsyncAppender[ASYNC_FILE_INFO] - Setting discardingThreshold to 0
+10:39:00,011 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [ASYNC_FILE_ERROR]
+10:39:00,011 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.classic.AsyncAppender]
+10:39:00,012 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [ERROR_FILE] to ch.qos.logback.classic.AsyncAppender[ASYNC_FILE_ERROR]
+10:39:00,012 |-INFO in ch.qos.logback.classic.AsyncAppender[ASYNC_FILE_ERROR] - Attaching appender named [ERROR_FILE] to AsyncAppender.
+10:39:00,012 |-INFO in ch.qos.logback.classic.AsyncAppender[ASYNC_FILE_ERROR] - Setting discardingThreshold to 0
+10:39:00,012 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [com.nmys.view] to DEBUG
+10:39:00,012 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@7de0c6ae - Propagating DEBUG level on Logger[com.nmys.view] onto the JUL framework
+10:39:00,013 |-INFO in ch.qos.logback.classic.model.processor.RootLoggerModelHandler - Setting level of ROOT logger to INFO
+10:39:00,013 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@7de0c6ae - Propagating INFO level on Logger[ROOT] onto the JUL framework
+10:39:00,013 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [CONSOLE] to Logger[ROOT]
+10:39:00,013 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [ASYNC_FILE_INFO] to Logger[ROOT]
+10:39:00,013 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [ASYNC_FILE_ERROR] to Logger[ROOT]
+10:39:00,013 |-INFO in ch.qos.logback.core.model.processor.DefaultProcessor@a486d78 - End of configuration.
+10:39:00,013 |-INFO in org.springframework.boot.logging.logback.SpringBootJoranConfigurator@cdc3aae - Registering current configuration as safe fallback point
+

@@ -1,0 +1,8 @@
+﻿John Doe
+Email: john@example.com
+Phone: 13800000000
+Education: B.S. in Computer Science
+Experience:
+- Java backend internship using Spring Boot and Redis
+- Built RAG demo with PostgreSQL pgvector and Spring AI
+Skills: Java, Spring Boot, PostgreSQL, Redis, React

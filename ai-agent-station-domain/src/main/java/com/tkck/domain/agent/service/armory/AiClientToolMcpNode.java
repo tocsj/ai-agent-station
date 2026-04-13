@@ -33,7 +33,7 @@ public class AiClientToolMcpNode extends AbstractArmorySupport {
         List<AiClientToolMcpVO> aiClientToolMcpVO = dynamicContext.getValue(AiAgentEnumVO.AI_CLIENT_TOOL_MCP.getDataName());
         if(aiClientToolMcpVO == null||aiClientToolMcpVO.isEmpty()){
             log.warn("没有需要被初始化的 ai client tool mcp");
-            return null;
+            return router(requestParameter, dynamicContext);
         }
         for(AiClientToolMcpVO mcpVO : aiClientToolMcpVO){
             // 创建 MCP 服务

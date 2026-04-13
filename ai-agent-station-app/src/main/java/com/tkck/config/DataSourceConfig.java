@@ -65,6 +65,11 @@ public class DataSourceConfig {
         return new SqlSessionTemplate(Objects.requireNonNull(sqlSessionFactory.getObject()));
     }
 
+    @Bean("mysqlJdbcTemplate")
+    public JdbcTemplate mysqlJdbcTemplate(@Qualifier("mysqlDataSource") DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
+    }
+
     @Bean("pgVectorDataSource")
     public DataSource pgVectorDataSource(@Value("${spring.datasource.pgvector.driver-class-name}") String driverClassName,
                                          @Value("${spring.datasource.pgvector.url}") String url,

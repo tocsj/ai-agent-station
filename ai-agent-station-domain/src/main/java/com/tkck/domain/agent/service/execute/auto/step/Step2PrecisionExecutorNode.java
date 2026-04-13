@@ -9,6 +9,7 @@ import com.tkck.domain.agent.service.execute.auto.step.factory.DefaultAutoAgentE
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
  * 精准执行节点
@@ -53,14 +54,26 @@ public class Step2PrecisionExecutorNode extends AbstractExecuteSupport{
                 """, requestParameter.getMessage(), analysisResult);
 
         // 获取对话客户端
+        executionPrompt += """
+
+                **当前运行约束:**
+                1. 当前知识检索由 RAG Advisor 自动注入，请直接基于召回到的简历内容执行评估。
+                2. 不要等待、调用或引用不存在的 knowledge_space_retrieve 等工具。
+                3. 如果当前召回内容不足，请直接指出“当前召回内容不足”，不要编造外部工具返回结果。
+                """;
+
         AiAgentClientFlowConfigVO aiAgentClientFlowConfigVO = dynamicContext.getAiAgentClientFlowConfigVOMap().get(AiClientTypeEnumVO.PRECISION_EXECUTOR_CLIENT.getCode());
         ChatClient chatClient = getChatClientByClientId(aiAgentClientFlowConfigVO.getClientId());
 
         String executionResult = chatClient
                 .prompt(executionPrompt)
-                .advisors(a -> a
-                        .param(CHAT_MEMORY_CONVERSATION_ID_KEY, requestParameter.getSessionId())
-                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 1024))
+                .advisors(a -> {
+                    a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, requestParameter.getSessionId())
+                            .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 1024);
+                    if (StringUtils.hasText(requestParameter.getQaFilterExpression())) {
+                        a.param(QA_FILTER_EXPRESSION_KEY, requestParameter.getQaFilterExpression());
+                    }
+                })
                 .call().content();
 
         parseExecutionResult(dynamicContext, executionResult, requestParameter.getSessionId());

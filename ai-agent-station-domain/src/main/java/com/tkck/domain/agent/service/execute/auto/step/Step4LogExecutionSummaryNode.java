@@ -9,6 +9,7 @@ import com.tkck.domain.agent.service.execute.auto.step.factory.DefaultAutoAgentE
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
  * 执行总结节点
@@ -80,9 +81,13 @@ public class Step4LogExecutionSummaryNode extends AbstractExecuteSupport {
             
             String summaryResult = chatClient
                     .prompt(summaryPrompt)
-                    .advisors(a -> a
-                            .param(CHAT_MEMORY_CONVERSATION_ID_KEY, requestParameter.getSessionId() + "-summary")
-                            .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 50))
+                    .advisors(a -> {
+                        a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, requestParameter.getSessionId() + "-summary")
+                                .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 50);
+                        if (StringUtils.hasText(requestParameter.getQaFilterExpression())) {
+                            a.param(QA_FILTER_EXPRESSION_KEY, requestParameter.getQaFilterExpression());
+                        }
+                    })
                     .call().content();
 
             assert summaryResult != null;

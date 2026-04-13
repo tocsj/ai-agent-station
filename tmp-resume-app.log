@@ -1,0 +1,17 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.tkck:ai-agent-station-app >--------------------
+[INFO] Building ai-agent-station-app 1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot-maven-plugin:3.4.3:run (default-cli) > test-compile @ ai-agent-station-app >>>
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:resources (default-resources) @ ai-agent-station-app ---
+[debug] execute contextualize
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 17 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.0:compile (default-compile) @ ai-agent-station-app ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 14 source files to D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\classes

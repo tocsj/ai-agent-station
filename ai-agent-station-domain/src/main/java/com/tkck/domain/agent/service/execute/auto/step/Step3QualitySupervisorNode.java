@@ -9,6 +9,7 @@ import com.tkck.domain.agent.service.execute.auto.step.factory.DefaultAutoAgentE
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
  * 质量监督节点
@@ -59,9 +60,13 @@ public class Step3QualitySupervisorNode extends AbstractExecuteSupport {
 
         String supervisionResult = chatClient
                 .prompt(supervisionPrompt)
-                .advisors(a -> a
-                        .param(CHAT_MEMORY_CONVERSATION_ID_KEY, requestParameter.getSessionId())
-                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 1024))
+                .advisors(a -> {
+                    a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, requestParameter.getSessionId())
+                            .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 1024);
+                    if (StringUtils.hasText(requestParameter.getQaFilterExpression())) {
+                        a.param(QA_FILTER_EXPRESSION_KEY, requestParameter.getQaFilterExpression());
+                    }
+                })
                 .call().content();
 
         assert supervisionResult != null;
