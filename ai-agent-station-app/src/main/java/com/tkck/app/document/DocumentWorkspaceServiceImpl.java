@@ -16,6 +16,7 @@ import org.springframework.ai.reader.tika.TikaDocumentReader;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -47,8 +48,8 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
     @Resource
     private ApplicationContext applicationContext;
 
-    public DocumentWorkspaceServiceImpl(JdbcTemplate mysqlJdbcTemplate,
-                                        VectorStore documentVectorStore,
+    public DocumentWorkspaceServiceImpl(@Qualifier("mysqlJdbcTemplate") JdbcTemplate mysqlJdbcTemplate,
+                                        @Qualifier("documentVectorStore") VectorStore documentVectorStore,
                                         TokenTextSplitter tokenTextSplitter) {
         this.mysqlJdbcTemplate = mysqlJdbcTemplate;
         this.documentVectorStore = documentVectorStore;

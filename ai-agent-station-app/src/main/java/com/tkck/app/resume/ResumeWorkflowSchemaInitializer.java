@@ -118,6 +118,45 @@ public class ResumeWorkflowSchemaInitializer implements InitializingBean {
         addColumnIfMissing("resume_interview_round", "score", "VARCHAR(64)");
         mysqlJdbcTemplate.execute("ALTER TABLE resume_interview_round MODIFY COLUMN score VARCHAR(255) NULL");
 
+        mysqlJdbcTemplate.execute("""
+                CREATE TABLE IF NOT EXISTS content_task (
+                    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                    task_code VARCHAR(64) NOT NULL UNIQUE,
+                    execution_mode VARCHAR(32) NOT NULL,
+                    topic VARCHAR(255) NOT NULL,
+                    platform VARCHAR(64) NOT NULL,
+                    style VARCHAR(64) DEFAULT NULL,
+                    keywords VARCHAR(512) DEFAULT NULL,
+                    channel VARCHAR(64) NOT NULL,
+                    status VARCHAR(32) DEFAULT 'CREATED',
+                    current_step VARCHAR(64) DEFAULT NULL,
+                    title VARCHAR(255) DEFAULT NULL,
+                    outline_text LONGTEXT,
+                    draft_content LONGTEXT,
+                    final_content LONGTEXT,
+                    compliance_result LONGTEXT,
+                    publish_status VARCHAR(64) DEFAULT NULL,
+                    publish_external_id VARCHAR(128) DEFAULT NULL,
+                    publish_external_url VARCHAR(512) DEFAULT NULL,
+                    summary_text LONGTEXT,
+                    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                )
+                """);
+
+        mysqlJdbcTemplate.execute("""
+                CREATE TABLE IF NOT EXISTS content_task_step (
+                    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                    task_id BIGINT NOT NULL,
+                    step_no INT NOT NULL,
+                    step_name VARCHAR(64) NOT NULL,
+                    step_status VARCHAR(32) NOT NULL,
+                    output_text LONGTEXT,
+                    metadata_json JSON DEFAULT NULL,
+                    create_time DATETIME DEFAULT CURRENT_TIMESTAMP
+                )
+                """);
+
         pgVectorJdbcTemplate.execute("CREATE EXTENSION IF NOT EXISTS vector");
         pgVectorJdbcTemplate.execute("CREATE EXTENSION IF NOT EXISTS hstore");
         pgVectorJdbcTemplate.execute("CREATE EXTENSION IF NOT EXISTS pgcrypto");

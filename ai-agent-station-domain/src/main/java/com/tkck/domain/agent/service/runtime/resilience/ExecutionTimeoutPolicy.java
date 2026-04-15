@@ -23,6 +23,14 @@ public class ExecutionTimeoutPolicy {
                 .timeout(ExecutionStage.STEP2_EXECUTE, Duration.ofSeconds(25))
                 .timeout(ExecutionStage.STEP3_VERIFY, Duration.ofSeconds(15))
                 .timeout(ExecutionStage.STEP4_SUMMARIZE, Duration.ofSeconds(12))
+                .timeout(ExecutionStage.CONTENT_TOPIC_PLAN, Duration.ofSeconds(45))
+                .timeout(ExecutionStage.CONTENT_OUTLINE, Duration.ofSeconds(45))
+                .timeout(ExecutionStage.CONTENT_DRAFT, Duration.ofSeconds(60))
+                .timeout(ExecutionStage.CONTENT_POLISH, Duration.ofSeconds(45))
+                .timeout(ExecutionStage.CONTENT_COMPLIANCE, Duration.ofSeconds(30))
+                .timeout(ExecutionStage.CONTENT_PUBLISH_PLAN, Duration.ofSeconds(20))
+                .timeout(ExecutionStage.CONTENT_PUBLISH_EXECUTE, Duration.ofSeconds(15))
+                .timeout(ExecutionStage.CONTENT_PUBLISH_SUMMARY, Duration.ofSeconds(30))
                 .timeout(ExecutionStage.SSE_PUSH, Duration.ofSeconds(1))
                 .build();
     }

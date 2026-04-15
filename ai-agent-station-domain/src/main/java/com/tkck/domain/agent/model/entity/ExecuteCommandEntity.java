@@ -1,5 +1,6 @@
 package com.tkck.domain.agent.model.entity;
 
+import com.tkck.domain.agent.model.valobj.ExecutionMode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +20,12 @@ public class ExecuteCommandEntity {
 
     private String aiAgentId;
 
+    private String taskType;
+
+    private String subType;
+
+    private ExecutionMode executionMode;
+
     private String message;
 
     private String sessionId;
@@ -32,5 +39,7 @@ public class ExecuteCommandEntity {
     private Integer interviewRoundNo;
 
     private Integer interviewTotalRounds;
+
+    private Long contentTaskId;
 
 }
