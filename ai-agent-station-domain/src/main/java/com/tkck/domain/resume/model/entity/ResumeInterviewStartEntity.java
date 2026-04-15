@@ -15,5 +15,9 @@ public class ResumeInterviewStartEntity {
 
     private Integer currentRound;
 
+    private Integer totalRounds;
+
+    private String status;
+
     private String openingQuestions;
 }

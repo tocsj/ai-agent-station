@@ -6,6 +6,8 @@ import com.tkck.domain.agent.model.entity.ExecuteCommandEntity;
 import com.tkck.domain.agent.model.valobj.AiAgentClientFlowConfigVO;
 import com.tkck.domain.agent.model.valobj.enums.AiClientTypeEnumVO;
 import com.tkck.domain.agent.service.execute.auto.step.factory.DefaultAutoAgentExecuteStrategyFactory;
+import com.tkck.domain.agent.service.runtime.resilience.ExecutionFailure;
+import com.tkck.domain.agent.service.runtime.resilience.ExecutionStage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,7 @@ public class Step2PrecisionExecutorNode extends AbstractExecuteSupport{
             analysisResult = "执行当前任务步骤";
         }
         
+        final String finalAnalysisResult = analysisResult;
         String executionPrompt = String.format("""
                 **用户原始需求:** %s
                 
@@ -51,7 +54,7 @@ public class Step2PrecisionExecutorNode extends AbstractExecuteSupport{
                 执行过程: [实际执行的步骤和调用的工具]
                 执行结果: [具体的执行成果和获得的信息/内容]
                 质量检查: [对执行结果的质量评估]
-                """, requestParameter.getMessage(), analysisResult);
+                """, requestParameter.getMessage(), finalAnalysisResult);
 
         // 获取对话客户端
         executionPrompt += """
@@ -62,19 +65,26 @@ public class Step2PrecisionExecutorNode extends AbstractExecuteSupport{
                 3. 如果当前召回内容不足，请直接指出“当前召回内容不足”，不要编造外部工具返回结果。
                 """;
 
+        final String finalExecutionPrompt = executionPrompt;
         AiAgentClientFlowConfigVO aiAgentClientFlowConfigVO = dynamicContext.getAiAgentClientFlowConfigVOMap().get(AiClientTypeEnumVO.PRECISION_EXECUTOR_CLIENT.getCode());
         ChatClient chatClient = getChatClientByClientId(aiAgentClientFlowConfigVO.getClientId());
 
-        String executionResult = chatClient
-                .prompt(executionPrompt)
-                .advisors(a -> {
-                    a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, requestParameter.getSessionId())
-                            .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 1024);
-                    if (StringUtils.hasText(requestParameter.getQaFilterExpression())) {
-                        a.param(QA_FILTER_EXPRESSION_KEY, requestParameter.getQaFilterExpression());
-                    }
-                })
-                .call().content();
+        String executionResult = executeStage(
+                ExecutionStage.STEP2_EXECUTE,
+                requestParameter,
+                dynamicContext,
+                () -> chatClient
+                        .prompt(finalExecutionPrompt)
+                        .advisors(a -> {
+                            a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, requestParameter.getSessionId())
+                                    .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 1024);
+                            if (StringUtils.hasText(requestParameter.getQaFilterExpression())) {
+                                a.param(QA_FILTER_EXPRESSION_KEY, requestParameter.getQaFilterExpression());
+                            }
+                        })
+                        .call().content(),
+                failure -> buildExecutionFallback(requestParameter, finalAnalysisResult, failure)
+        );
 
         parseExecutionResult(dynamicContext, executionResult, requestParameter.getSessionId());
         
@@ -86,7 +96,7 @@ public class Step2PrecisionExecutorNode extends AbstractExecuteSupport{
                 === 第 %d 步执行记录 ===
                 【分析阶段】%s
                 【执行阶段】%s
-                """, dynamicContext.getStep(), analysisResult, executionResult);
+                """, dynamicContext.getStep(), finalAnalysisResult, executionResult);
         
         dynamicContext.getExecutionHistory().append(stepSummary);
 
@@ -183,4 +193,22 @@ public class Step2PrecisionExecutorNode extends AbstractExecuteSupport{
         }
     }
     
+    private String buildExecutionFallback(ExecuteCommandEntity requestParameter,
+                                          String analysisResult,
+                                          ExecutionFailure failure) {
+        return """
+                执行目标:
+                围绕当前用户问题生成可直接消费的结果。
+                执行过程:
+                核心执行阶段出现异常，已切换为降级执行，仅保留分析结果和已有上下文。
+                执行结果:
+                当前问题是：%s
+                当前分析是：%s
+                请以后续总结阶段输出保守结论，并标记结果为降级版本。
+                质量检查:
+                该结果未经完整执行链验证，建议稍后重试。
+                降级原因:
+                %s
+                """.formatted(requestParameter.getMessage(), analysisResult, failure.getErrorCode().getMessage());
+    }
 }

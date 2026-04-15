@@ -6,6 +6,11 @@ import com.tkck.domain.agent.model.entity.AutoAgentExecuteResultEntity;
 import com.tkck.domain.agent.model.entity.ExecuteCommandEntity;
 import com.tkck.domain.agent.service.execute.IExecuteStrategy;
 import com.tkck.domain.agent.service.execute.auto.step.factory.DefaultAutoAgentExecuteStrategyFactory;
+import com.tkck.domain.agent.service.runtime.resilience.ExecutionFailureContext;
+import com.tkck.domain.agent.service.runtime.resilience.ExecutionResilienceCoordinator;
+import com.tkck.domain.agent.service.runtime.resilience.ExecutionStage;
+import com.tkck.domain.agent.service.runtime.resilience.ExecutionStageResult;
+import com.tkck.domain.resume.service.IResumeWorkflowService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,32 +19,44 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter
 @Slf4j
 @Service
 public class AutoAgentExecuteStrategy implements IExecuteStrategy {
+
     @Resource
     private DefaultAutoAgentExecuteStrategyFactory defaultAutoAgentExecuteStrategyFactory;
+    @Resource
+    private IResumeWorkflowService resumeWorkflowService;
+    @Resource
+    private ExecutionResilienceCoordinator executionResilienceCoordinator;
 
     @Override
     public void execute(ExecuteCommandEntity executeCommandEntity, ResponseBodyEmitter emitter) throws Exception {
-        StrategyHandler<ExecuteCommandEntity, DefaultAutoAgentExecuteStrategyFactory.DynamicContext, String> executeHandler
-                = defaultAutoAgentExecuteStrategyFactory.armoryStrategyHandler();
+        StrategyHandler<ExecuteCommandEntity, DefaultAutoAgentExecuteStrategyFactory.DynamicContext, String> executeHandler =
+                defaultAutoAgentExecuteStrategyFactory.armoryStrategyHandler();
 
-        // 创建动态上下文并初始化必要字段
         DefaultAutoAgentExecuteStrategyFactory.DynamicContext dynamicContext = new DefaultAutoAgentExecuteStrategyFactory.DynamicContext();
         dynamicContext.setMaxStep(executeCommandEntity.getMaxStep() != null ? executeCommandEntity.getMaxStep() : 3);
         dynamicContext.setExecutionHistory(new StringBuilder());
         dynamicContext.setCurrentTask(executeCommandEntity.getMessage());
         dynamicContext.setValue("emitter", emitter);
 
-        String apply = executeHandler.apply(executeCommandEntity, dynamicContext);
-        log.info("测试结果:{}", apply);
+        ExecutionStageResult<String> stageResult = executionResilienceCoordinator.execute(
+                ExecutionStage.ROOT,
+                new ExecutionFailureContext(executeCommandEntity.getSessionId(), executeCommandEntity.getAiAgentId()),
+                () -> executeHandler.apply(executeCommandEntity, dynamicContext),
+                failure -> "agent execution degraded"
+        );
+        String apply = stageResult.getPayload();
+        log.info("auto agent execute result: {}", apply);
 
-        // 发送完成标识
+        if (executeCommandEntity.getInterviewSessionId() != null) {
+            resumeWorkflowService.persistInterviewRoundResult(executeCommandEntity, dynamicContext);
+        }
+
         try {
             AutoAgentExecuteResultEntity completeResult = AutoAgentExecuteResultEntity.createCompleteResult(executeCommandEntity.getSessionId());
-            // 发送SSE格式的数据
             String sseData = "data: " + JSON.toJSONString(completeResult) + "\n\n";
             emitter.send(sseData);
         } catch (Exception e) {
-            log.error("发送完成标识失败：{}", e.getMessage(), e);
+            log.error("send complete result failed: {}", e.getMessage(), e);
         }
     }
 }

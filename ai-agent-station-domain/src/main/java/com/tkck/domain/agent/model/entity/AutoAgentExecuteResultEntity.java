@@ -55,6 +55,26 @@ public class AutoAgentExecuteResultEntity {
     private String sessionId;
 
     /**
+     * 统一错误码
+     */
+    private String errorCode;
+
+    /**
+     * 执行阶段
+     */
+    private String stage;
+
+    /**
+     * 是否可重试
+     */
+    private Boolean retryable;
+
+    /**
+     * 是否降级输出
+     */
+    private Boolean degraded;
+
+    /**
      * 创建分析阶段结果
      */
     public static AutoAgentExecuteResultEntity createAnalysisResult(Integer step, String content, String sessionId) {
@@ -181,6 +201,27 @@ public class AutoAgentExecuteResultEntity {
                 .completed(true)
                 .timestamp(System.currentTimeMillis())
                 .sessionId(sessionId)
+                .degraded(false)
+                .build();
+    }
+
+    public static AutoAgentExecuteResultEntity createErrorResult(String content,
+                                                                 String errorCode,
+                                                                 String stage,
+                                                                 boolean retryable,
+                                                                 boolean degraded,
+                                                                 String sessionId) {
+        return AutoAgentExecuteResultEntity.builder()
+                .type("error")
+                .step(null)
+                .content(content)
+                .completed(true)
+                .timestamp(System.currentTimeMillis())
+                .sessionId(sessionId)
+                .errorCode(errorCode)
+                .stage(stage)
+                .retryable(retryable)
+                .degraded(degraded)
                 .build();
     }
 

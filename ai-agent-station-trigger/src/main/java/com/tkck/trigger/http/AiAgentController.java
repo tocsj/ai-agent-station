@@ -3,8 +3,11 @@ package com.tkck.trigger.http;
 import com.alibaba.fastjson.JSON;
 import com.tkck.api.IAiAgentService;
 import com.tkck.api.dto.AutoAgentRequestDTO;
+import com.tkck.domain.agent.model.entity.AutoAgentExecuteResultEntity;
 import com.tkck.domain.agent.model.entity.ExecuteCommandEntity;
 import com.tkck.domain.agent.service.execute.IExecuteStrategy;
+import com.tkck.domain.agent.service.runtime.resilience.ExecutionErrorCode;
+import com.tkck.trigger.http.sse.SafeSseEmitter;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 @RequestMapping("/api/v1/agent")
 @CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
 public class AiAgentController implements IAiAgentService {
+
     @Resource(name = "autoAgentExecuteStrategy")
     private IExecuteStrategy autoAgentExecuteStrategy;
 
@@ -26,53 +30,53 @@ public class AiAgentController implements IAiAgentService {
 
     @RequestMapping(value = "auto_agent", method = RequestMethod.POST)
     public ResponseBodyEmitter autoAgent(@RequestBody AutoAgentRequestDTO request, HttpServletResponse response) {
-        log.info("AutoAgent流式执行请求开始，请求信息：{}", JSON.toJSONString(request));
-        try{
-            // 设置SSE响应头
-            response.setContentType("text/event-stream");
-            response.setCharacterEncoding("UTF-8");
-            response.setHeader("Cache-Control", "no-cache");
-            response.setHeader("Connection", "keep-alive");
+        log.info("auto agent stream request start, request={}", JSON.toJSONString(request));
+        response.setContentType("text/event-stream");
+        response.setCharacterEncoding("UTF-8");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Connection", "keep-alive");
 
-            // 1. 创建流式输出对象
-            ResponseBodyEmitter emitter = new ResponseBodyEmitter(Long.MAX_VALUE);
-            //2.构建请求实体
+        SafeSseEmitter emitter = new SafeSseEmitter(Long.MAX_VALUE);
+        try {
             ExecuteCommandEntity executeCommandEntity = ExecuteCommandEntity.builder()
                     .aiAgentId(request.getAiAgentId())
                     .message(request.getMessage())
                     .maxStep(request.getMaxStep())
                     .sessionId(request.getSessionId())
                     .build();
-            // 3. 异步执行AutoAgent
+
             threadPoolExecutor.execute(() -> {
                 try {
                     autoAgentExecuteStrategy.execute(executeCommandEntity, emitter);
                 } catch (Exception e) {
-                    log.error("AutoAgent执行异常：{}", e.getMessage(), e);
-                    try {
-                        emitter.send("执行异常：" + e.getMessage());
-                    } catch (Exception ex) {
-                        log.error("发送异常信息失败：{}", ex.getMessage(), ex);
-                    }
+                    log.error("auto agent execute error", e);
+                    AutoAgentExecuteResultEntity errorResult = AutoAgentExecuteResultEntity.createErrorResult(
+                            e.getMessage() == null ? "auto agent execute error" : e.getMessage(),
+                            ExecutionErrorCode.SYSTEM_ERROR.getCode(),
+                            "ROOT",
+                            false,
+                            false,
+                            executeCommandEntity.getSessionId()
+                    );
+                    emitter.safeSend("data: " + JSON.toJSONString(errorResult) + "\n\n");
                 } finally {
-                    try {
-                        emitter.complete();
-                    } catch (Exception e) {
-                        log.error("完成流式输出失败：{}", e.getMessage(), e);
-                    }
+                    emitter.completeSafely();
                 }
             });
             return emitter;
-        }catch (Exception e){
-            log.error("AutoAgent请求处理异常：{}", e.getMessage(), e);
-            ResponseBodyEmitter errorEmitter = new ResponseBodyEmitter();
-            try {
-                errorEmitter.send("请求处理异常：" + e.getMessage());
-                errorEmitter.complete();
-            } catch (Exception ex) {
-                log.error("发送错误信息失败：{}", ex.getMessage(), ex);
-            }
-            return errorEmitter;
+        } catch (Exception e) {
+            log.error("auto agent request process error", e);
+            AutoAgentExecuteResultEntity errorResult = AutoAgentExecuteResultEntity.createErrorResult(
+                    e.getMessage() == null ? "request process error" : e.getMessage(),
+                    ExecutionErrorCode.SYSTEM_ERROR.getCode(),
+                    "ROOT",
+                    false,
+                    false,
+                    request.getSessionId()
+            );
+            emitter.safeSend("data: " + JSON.toJSONString(errorResult) + "\n\n");
+            emitter.completeSafely();
+            return emitter;
         }
     }
 }

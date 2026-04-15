@@ -1,905 +1,334 @@
-26-01-28.11:30:00.587 [main            ] INFO  Application            - Starting Application using Java 17.0.15 with PID 15296 (D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\classes started by Lenovo in D:\JAVA\study-project\ai-agent-station-new)
-26-01-28.11:30:00.591 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-28.11:30:03.649 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port 8091 (http)
-26-01-28.11:30:03.678 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8091"]
-26-01-28.11:30:03.681 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-28.11:30:03.681 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/10.1.36]
-26-01-28.11:30:03.883 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-28.11:30:03.884 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3208 ms
-26-01-28.11:30:05.588 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
-26-01-28.11:30:05.593 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
-26-01-28.11:30:05.593 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
-26-01-28.11:30:06.030 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
-26-01-28.11:30:06.997 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8091"]
-26-01-28.11:30:07.014 [main            ] INFO  TomcatWebServer        - Tomcat started on port 8091 (http) with context path '/'
-26-01-28.11:30:07.026 [main            ] INFO  Application            - Started Application in 7.313 seconds (process running for 8.027)
-26-01-28.11:30:07.031 [main            ] INFO  AiAgentAutoConfiguration - AI Agent 自动装配开始，配置: AiAgentAutoConfigProperties(enabled=true, clientIds=[3101, 3102, 3103, 3104])
-26-01-28.11:30:07.033 [main            ] INFO  AiAgentAutoConfiguration - 开始自动装配AI客户端，客户端ID列表: [3101, 3102, 3103, 3104]
-26-01-28.11:30:07.040 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [3101, 3102, 3103, 3104]
-26-01-28.11:30:07.040 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [3101, 3102, 3103, 3104]
-26-01-28.11:30:07.040 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [3101, 3102, 3103, 3104]
-26-01-28.11:30:07.040 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [3101, 3102, 3103, 3104]
-26-01-28.11:30:07.041 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [3101, 3102, 3103, 3104]
-26-01-28.11:30:07.041 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [3101, 3102, 3103, 3104]
-26-01-28.11:30:07.069 [pool-2-thread-6 ] INFO  HikariDataSource       - MainHikariPool - Starting...
-26-01-28.11:30:07.072 [main            ] ERROR AiAgentAutoConfiguration - AI Agent 自动装配失败
-java.util.concurrent.CompletionException: org.mybatis.spring.MyBatisSystemException: 
-### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-	at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:315)
-	at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:320)
-	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1770)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:840)
+26-04-15.09:40:03.951 [main            ] INFO  Application            - Starting Application using Java 22 with PID 27712 (D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\classes started by Lenovo in D:\JAVA\study-project\ai-agent-station-new)
+26-04-15.09:40:03.953 [main            ] INFO  Application            - The following 1 profile is active: "dev"
+26-04-15.09:40:07.355 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port 8091 (http)
+26-04-15.09:40:07.382 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8091"]
+26-04-15.09:40:07.384 [main            ] INFO  StandardService        - Starting service [Tomcat]
+26-04-15.09:40:07.385 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/10.1.36]
+26-04-15.09:40:07.564 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+26-04-15.09:40:07.565 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3555 ms
+26-04-15.09:40:08.403 [main            ] INFO  HikariDataSource       - MainHikariPool - Starting...
+26-04-15.09:40:13.656 [main            ] WARN  AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'documentWorkspaceServiceImpl' defined in file [D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\classes\com\tkck\app\document\DocumentWorkspaceServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'documentVectorStore' defined in class path resource [com/tkck/config/AiAgentConfig.class]: Failed to instantiate [org.springframework.ai.vectorstore.pgvector.PgVectorStore]: Factory method 'documentVectorStore' threw exception with message: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection
+### The error may exist in file [D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\classes\mybatis\mapper\ai_client_model_mapper.xml]
+### The error may involve com.tkck.infrastructure.dao.IAiClientModelDao.queryByModelId
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection
+26-04-15.09:40:13.660 [main            ] INFO  StandardService        - Stopping service [Tomcat]
+26-04-15.09:40:13.680 [main            ] INFO  ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+26-04-15.09:40:13.720 [main            ] ERROR SpringApplication      - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'documentWorkspaceServiceImpl' defined in file [D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\classes\com\tkck\app\document\DocumentWorkspaceServiceImpl.class]: Unsatisfied dependency expressed through constructor parameter 1: Error creating bean with name 'documentVectorStore' defined in class path resource [com/tkck/config/AiAgentConfig.class]: Failed to instantiate [org.springframework.ai.vectorstore.pgvector.PgVectorStore]: Factory method 'documentVectorStore' threw exception with message: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection
+### The error may exist in file [D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\classes\mybatis\mapper\ai_client_model_mapper.xml]
+### The error may involve com.tkck.infrastructure.dao.IAiClientModelDao.queryByModelId
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1381)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1218)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1155)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1121)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1056)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.tkck.Application.main(Application.java:12)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'documentVectorStore' defined in class path resource [com/tkck/config/AiAgentConfig.class]: Failed to instantiate [org.springframework.ai.vectorstore.pgvector.PgVectorStore]: Factory method 'documentVectorStore' threw exception with message: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection
+### The error may exist in file [D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\classes\mybatis\mapper\ai_client_model_mapper.xml]
+### The error may involve com.tkck.infrastructure.dao.IAiClientModelDao.queryByModelId
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:657)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:645)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1361)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1191)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:346)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1606)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1552)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 21 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.ai.vectorstore.pgvector.PgVectorStore]: Factory method 'documentVectorStore' threw exception with message: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection
+### The error may exist in file [D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\classes\mybatis\mapper\ai_client_model_mapper.xml]
+### The error may involve com.tkck.infrastructure.dao.IAiClientModelDao.queryByModelId
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:199)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:88)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:168)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653)
+	... 34 common frames omitted
 Caused by: org.mybatis.spring.MyBatisSystemException: 
-### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection
+### The error may exist in file [D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\classes\mybatis\mapper\ai_client_model_mapper.xml]
+### The error may involve com.tkck.infrastructure.dao.IAiClientModelDao.queryByModelId
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection
 	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:99)
 	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:347)
-	at jdk.proxy2/jdk.proxy2.$Proxy78.selectList(Unknown Source)
-	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:194)
-	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:147)
-	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:80)
+	at jdk.proxy2/jdk.proxy2.$Proxy96.selectOne(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectOne(SqlSessionTemplate.java:154)
+	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:87)
 	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:141)
 	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)
-	at jdk.proxy2/jdk.proxy2.$Proxy84.queryBySourceTypeAndId(Unknown Source)
-	at com.tkck.infrastructure.adapter.repository.AgentRepository.queryAiClientApiVOListByClientIds(AgentRepository.java:74)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
-	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727)
-	at com.tkck.infrastructure.adapter.repository.AgentRepository$$SpringCGLIB$$0.queryAiClientApiVOListByClientIds(<generated>)
-	at com.tkck.domain.agent.service.armory.business.data.impl.AiClientLoadDataStrategy.lambda$0(AiClientLoadDataStrategy.java:41)
-	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
-	... 3 common frames omitted
-Caused by: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-	at org.apache.ibatis.binding.MapperMethod$ParamMap.get(MapperMethod.java:210)
-	at org.apache.ibatis.reflection.wrapper.MapWrapper.get(MapWrapper.java:46)
-	at org.apache.ibatis.reflection.MetaObject.getValue(MetaObject.java:115)
-	at org.apache.ibatis.executor.BaseExecutor.createCacheKey(BaseExecutor.java:225)
-	at org.apache.ibatis.executor.CachingExecutor.createCacheKey(CachingExecutor.java:149)
-	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:154)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:142)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:333)
-	... 24 common frames omitted
-26-01-28.11:30:07.415 [pool-2-thread-6 ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@5d3a2ea4
-26-01-28.11:30:07.417 [pool-2-thread-6 ] INFO  HikariDataSource       - MainHikariPool - Start completed.
-26-01-28.11:32:48.777 [main            ] INFO  Application            - Starting Application using Java 22 with PID 34156 (D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\classes started by Lenovo in D:\JAVA\study-project\ai-agent-station-new)
-26-01-28.11:32:48.779 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-28.11:32:50.991 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port 8091 (http)
-26-01-28.11:32:51.012 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8091"]
-26-01-28.11:32:51.016 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-28.11:32:51.016 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/10.1.36]
-26-01-28.11:32:51.170 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-28.11:32:51.170 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2342 ms
-26-01-28.11:32:52.325 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
-26-01-28.11:32:52.331 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
-26-01-28.11:32:52.331 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
-26-01-28.11:32:52.681 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
-26-01-28.11:32:53.244 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8091"]
-26-01-28.11:32:53.256 [main            ] INFO  TomcatWebServer        - Tomcat started on port 8091 (http) with context path '/'
-26-01-28.11:32:53.263 [main            ] INFO  Application            - Started Application in 5.402 seconds (process running for 6.769)
-26-01-28.11:32:53.265 [main            ] INFO  AiAgentAutoConfiguration - AI Agent 自动装配开始，配置: AiAgentAutoConfigProperties(enabled=true, clientIds=[3101, 3102, 3103, 3104])
-26-01-28.11:32:53.265 [main            ] INFO  AiAgentAutoConfiguration - 开始自动装配AI客户端，客户端ID列表: [3101, 3102, 3103, 3104]
-26-01-28.11:32:53.268 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [3101, 3102, 3103, 3104]
-26-01-28.11:32:53.268 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [3101, 3102, 3103, 3104]
-26-01-28.11:32:53.269 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [3101, 3102, 3103, 3104]
-26-01-28.11:32:53.269 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [3101, 3102, 3103, 3104]
-26-01-28.11:32:53.269 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [3101, 3102, 3103, 3104]
-26-01-28.11:32:53.269 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [3101, 3102, 3103, 3104]
-26-01-28.11:32:53.288 [pool-2-thread-6 ] INFO  HikariDataSource       - MainHikariPool - Starting...
-26-01-28.11:32:53.290 [main            ] ERROR AiAgentAutoConfiguration - AI Agent 自动装配失败
-java.util.concurrent.CompletionException: org.mybatis.spring.MyBatisSystemException: 
-### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-	at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:315)
-	at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:320)
-	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1770)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-	at java.base/java.lang.Thread.run(Thread.java:1570)
-Caused by: org.mybatis.spring.MyBatisSystemException: 
-### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:99)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:347)
-	at jdk.proxy2/jdk.proxy2.$Proxy78.selectList(Unknown Source)
-	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:194)
-	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:147)
-	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:80)
-	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:141)
-	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)
-	at jdk.proxy2/jdk.proxy2.$Proxy84.queryBySourceTypeAndId(Unknown Source)
-	at com.tkck.infrastructure.adapter.repository.AgentRepository.queryAiClientApiVOListByClientIds(AgentRepository.java:74)
+	at jdk.proxy2/jdk.proxy2.$Proxy98.queryByModelId(Unknown Source)
+	at com.tkck.config.AiAgentConfig.createEmbeddingModel(AiAgentConfig.java:103)
+	at com.tkck.config.AiAgentConfig.documentVectorStore(AiAgentConfig.java:82)
+	at com.tkck.config.AiAgentConfig$$SpringCGLIB$$0.CGLIB$documentVectorStore$1(<generated>)
+	at com.tkck.config.AiAgentConfig$$SpringCGLIB$$FastClass$$1.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:258)
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:372)
+	at com.tkck.config.AiAgentConfig$$SpringCGLIB$$0.documentVectorStore(<generated>)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727)
-	at com.tkck.infrastructure.adapter.repository.AgentRepository$$SpringCGLIB$$0.queryAiClientApiVOListByClientIds(<generated>)
-	at com.tkck.domain.agent.service.armory.business.data.impl.AiClientLoadDataStrategy.lambda$loadData$0(AiClientLoadDataStrategy.java:41)
-	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
-	... 3 common frames omitted
-Caused by: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-	at org.apache.ibatis.binding.MapperMethod$ParamMap.get(MapperMethod.java:210)
-	at org.apache.ibatis.reflection.wrapper.MapWrapper.get(MapWrapper.java:46)
-	at org.apache.ibatis.reflection.MetaObject.getValue(MetaObject.java:115)
-	at org.apache.ibatis.executor.BaseExecutor.createCacheKey(BaseExecutor.java:225)
-	at org.apache.ibatis.executor.CachingExecutor.createCacheKey(CachingExecutor.java:149)
-	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:154)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:171)
+	... 37 common frames omitted
+Caused by: org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection
+### The error may exist in file [D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\classes\mybatis\mapper\ai_client_model_mapper.xml]
+### The error may involve com.tkck.infrastructure.dao.IAiClientModelDao.queryByModelId
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection
+	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:30)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:156)
 	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
 	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:142)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectOne(DefaultSqlSession.java:75)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:333)
-	... 22 common frames omitted
-26-01-28.11:32:53.569 [pool-2-thread-6 ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@588923bd
-26-01-28.11:32:53.570 [pool-2-thread-6 ] INFO  HikariDataSource       - MainHikariPool - Start completed.
-26-01-28.11:38:41.543 [SpringApplicationShutdownHook] INFO  GracefulShutdown       - Commencing graceful shutdown. Waiting for active requests to complete
-26-01-28.11:38:41.554 [tomcat-shutdown ] INFO  GracefulShutdown       - Graceful shutdown complete
-26-01-28.11:38:41.560 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown initiated...
-26-01-28.11:38:41.578 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown completed.
-26-01-28.11:38:44.971 [main            ] INFO  Application            - Starting Application using Java 22 with PID 34132 (D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\classes started by Lenovo in D:\JAVA\study-project\ai-agent-station-new)
-26-01-28.11:38:44.973 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-28.11:38:46.613 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port 8091 (http)
-26-01-28.11:38:46.629 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8091"]
-26-01-28.11:38:46.632 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-28.11:38:46.633 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/10.1.36]
-26-01-28.11:38:46.756 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-28.11:38:46.756 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1741 ms
-26-01-28.11:38:47.522 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
-26-01-28.11:38:47.527 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
-26-01-28.11:38:47.527 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
-26-01-28.11:38:47.810 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
-26-01-28.11:38:48.413 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8091"]
-26-01-28.11:38:48.422 [main            ] INFO  TomcatWebServer        - Tomcat started on port 8091 (http) with context path '/'
-26-01-28.11:38:48.430 [main            ] INFO  Application            - Started Application in 4.03 seconds (process running for 4.967)
-26-01-28.11:38:48.433 [main            ] INFO  AiAgentAutoConfiguration - AI Agent 自动装配开始，配置: AiAgentAutoConfigProperties(enabled=true, clientIds=[3101, 3102, 3103, 3104])
-26-01-28.11:38:48.433 [main            ] INFO  AiAgentAutoConfiguration - 开始自动装配AI客户端，客户端ID列表: [3101, 3102, 3103, 3104]
-26-01-28.11:38:48.436 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [3101, 3102, 3103, 3104]
-26-01-28.11:38:48.436 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [3101, 3102, 3103, 3104]
-26-01-28.11:38:48.436 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [3101, 3102, 3103, 3104]
-26-01-28.11:38:48.436 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [3101, 3102, 3103, 3104]
-26-01-28.11:38:48.436 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [3101, 3102, 3103, 3104]
-26-01-28.11:38:48.436 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [3101, 3102, 3103, 3104]
-26-01-28.11:38:48.452 [pool-2-thread-6 ] INFO  HikariDataSource       - MainHikariPool - Starting...
-26-01-28.11:38:48.453 [main            ] ERROR AiAgentAutoConfiguration - AI Agent 自动装配失败
-java.util.concurrent.CompletionException: org.mybatis.spring.MyBatisSystemException: 
-### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-	at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:315)
-	at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:320)
-	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1770)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-	at java.base/java.lang.Thread.run(Thread.java:1570)
-Caused by: org.mybatis.spring.MyBatisSystemException: 
-### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:99)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:347)
-	at jdk.proxy2/jdk.proxy2.$Proxy78.selectList(Unknown Source)
-	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:194)
-	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:147)
-	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:80)
-	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:141)
-	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)
-	at jdk.proxy2/jdk.proxy2.$Proxy84.queryBySourceTypeAndId(Unknown Source)
-	at com.tkck.infrastructure.adapter.repository.AgentRepository.queryAiClientApiVOListByClientIds(AgentRepository.java:74)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727)
-	at com.tkck.infrastructure.adapter.repository.AgentRepository$$SpringCGLIB$$0.queryAiClientApiVOListByClientIds(<generated>)
-	at com.tkck.domain.agent.service.armory.business.data.impl.AiClientLoadDataStrategy.lambda$loadData$0(AiClientLoadDataStrategy.java:41)
-	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
-	... 3 common frames omitted
-Caused by: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-	at org.apache.ibatis.binding.MapperMethod$ParamMap.get(MapperMethod.java:210)
-	at org.apache.ibatis.reflection.wrapper.MapWrapper.get(MapWrapper.java:46)
-	at org.apache.ibatis.reflection.MetaObject.getValue(MetaObject.java:115)
-	at org.apache.ibatis.executor.BaseExecutor.createCacheKey(BaseExecutor.java:225)
-	at org.apache.ibatis.executor.CachingExecutor.createCacheKey(CachingExecutor.java:149)
-	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
+	... 53 common frames omitted
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:84)
+	at org.mybatis.spring.transaction.SpringManagedTransaction.openConnection(SpringManagedTransaction.java:77)
+	at org.mybatis.spring.transaction.SpringManagedTransaction.getConnection(SpringManagedTransaction.java:64)
+	at org.apache.ibatis.executor.BaseExecutor.getConnection(BaseExecutor.java:348)
+	at org.apache.ibatis.executor.SimpleExecutor.prepareStatement(SimpleExecutor.java:89)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:64)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:336)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:158)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:110)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:90)
 	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:154)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:142)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:333)
-	... 22 common frames omitted
-26-01-28.11:38:48.677 [pool-2-thread-6 ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@2137afda
-26-01-28.11:38:48.678 [pool-2-thread-6 ] INFO  HikariDataSource       - MainHikariPool - Start completed.
-26-01-28.11:39:25.784 [SpringApplicationShutdownHook] INFO  GracefulShutdown       - Commencing graceful shutdown. Waiting for active requests to complete
-26-01-28.11:39:25.792 [tomcat-shutdown ] INFO  GracefulShutdown       - Graceful shutdown complete
-26-01-28.11:39:25.797 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown initiated...
-26-01-28.11:39:25.815 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown completed.
-26-01-28.11:39:30.060 [main            ] INFO  Application            - Starting Application using Java 22 with PID 14360 (D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\classes started by Lenovo in D:\JAVA\study-project\ai-agent-station-new)
-26-01-28.11:39:30.062 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-28.11:39:31.831 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port 8091 (http)
-26-01-28.11:39:31.850 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8091"]
-26-01-28.11:39:31.851 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-28.11:39:31.851 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/10.1.36]
-26-01-28.11:39:31.988 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-28.11:39:31.988 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1887 ms
-26-01-28.11:39:32.863 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
-26-01-28.11:39:32.867 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
-26-01-28.11:39:32.867 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
-26-01-28.11:39:33.217 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
-26-01-28.11:39:33.718 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8091"]
-26-01-28.11:39:33.728 [main            ] INFO  TomcatWebServer        - Tomcat started on port 8091 (http) with context path '/'
-26-01-28.11:39:33.739 [main            ] INFO  Application            - Started Application in 4.261 seconds (process running for 5.882)
-26-01-28.11:39:33.742 [main            ] INFO  AiAgentAutoConfiguration - AI Agent 自动装配开始，配置: AiAgentAutoConfigProperties(enabled=true, clientIds=[3101, 3102, 3103, 3104])
-26-01-28.11:39:33.743 [main            ] INFO  AiAgentAutoConfiguration - 开始自动装配AI客户端，客户端ID列表: [3101, 3102, 3103, 3104]
-26-01-28.11:39:33.746 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [3101, 3102, 3103, 3104]
-26-01-28.11:39:33.746 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [3101, 3102, 3103, 3104]
-26-01-28.11:39:33.746 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [3101, 3102, 3103, 3104]
-26-01-28.11:39:33.746 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [3101, 3102, 3103, 3104]
-26-01-28.11:39:33.747 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [3101, 3102, 3103, 3104]
-26-01-28.11:39:50.064 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [3101, 3102, 3103, 3104]
-26-01-28.11:41:06.702 [pool-2-thread-6 ] INFO  HikariDataSource       - MainHikariPool - Starting...
-26-01-28.11:41:06.704 [main            ] ERROR AiAgentAutoConfiguration - AI Agent 自动装配失败
-java.util.concurrent.CompletionException: org.mybatis.spring.MyBatisSystemException: 
-### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-	at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:315)
-	at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:320)
-	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1770)
-	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-	at java.base/java.lang.Thread.run(Thread.java:1570)
-Caused by: org.mybatis.spring.MyBatisSystemException: 
-### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:99)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:347)
-	at jdk.proxy2/jdk.proxy2.$Proxy78.selectList(Unknown Source)
-	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:194)
-	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:147)
-	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:80)
-	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:141)
-	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)
-	at jdk.proxy2/jdk.proxy2.$Proxy84.queryBySourceTypeAndId(Unknown Source)
-	at com.tkck.infrastructure.adapter.repository.AgentRepository.queryAiClientApiVOListByClientIds(AgentRepository.java:74)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727)
-	at com.tkck.infrastructure.adapter.repository.AgentRepository$$SpringCGLIB$$0.queryAiClientApiVOListByClientIds(<generated>)
-	at com.tkck.domain.agent.service.armory.business.data.impl.AiClientLoadDataStrategy.lambda$loadData$0(AiClientLoadDataStrategy.java:41)
-	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1768)
-	... 4 common frames omitted
-Caused by: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-	at org.apache.ibatis.binding.MapperMethod$ParamMap.get(MapperMethod.java:210)
-	at org.apache.ibatis.reflection.wrapper.MapWrapper.get(MapWrapper.java:46)
-	at org.apache.ibatis.reflection.MetaObject.getValue(MetaObject.java:115)
-	at org.apache.ibatis.executor.BaseExecutor.createCacheKey(BaseExecutor.java:225)
-	at org.apache.ibatis.executor.CachingExecutor.createCacheKey(CachingExecutor.java:149)
-	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:154)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:142)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:333)
-	... 23 common frames omitted
-26-01-28.11:41:06.749 [SpringApplicationShutdownHook] INFO  GracefulShutdown       - Commencing graceful shutdown. Waiting for active requests to complete
-26-01-28.11:41:06.757 [tomcat-shutdown ] INFO  GracefulShutdown       - Graceful shutdown complete
-26-01-28.11:41:07.014 [pool-2-thread-6 ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@5d2c0e24
-26-01-28.11:41:07.016 [pool-2-thread-6 ] INFO  HikariDataSource       - MainHikariPool - Start completed.
-26-01-28.11:41:07.057 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown initiated...
-26-01-28.11:41:07.060 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown completed.
-26-01-28.11:41:10.319 [main            ] INFO  Application            - Starting Application using Java 22 with PID 440 (D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\classes started by Lenovo in D:\JAVA\study-project\ai-agent-station-new)
-26-01-28.11:41:10.322 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-28.11:41:12.057 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port 8091 (http)
-26-01-28.11:41:12.077 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8091"]
-26-01-28.11:41:12.078 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-28.11:41:12.078 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/10.1.36]
-26-01-28.11:41:12.201 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-28.11:41:12.201 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1842 ms
-26-01-28.11:41:13.071 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
-26-01-28.11:41:13.075 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
-26-01-28.11:41:13.075 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
-26-01-28.11:41:13.390 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
-26-01-28.11:41:13.900 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8091"]
-26-01-28.11:41:13.909 [main            ] INFO  TomcatWebServer        - Tomcat started on port 8091 (http) with context path '/'
-26-01-28.11:41:13.917 [main            ] INFO  Application            - Started Application in 4.193 seconds (process running for 5.584)
-26-01-28.11:41:13.920 [main            ] INFO  AiAgentAutoConfiguration - AI Agent 自动装配开始，配置: AiAgentAutoConfigProperties(enabled=true, clientIds=[3101, 3102, 3103, 3104])
-26-01-28.11:41:13.922 [main            ] INFO  AiAgentAutoConfiguration - 开始自动装配AI客户端，客户端ID列表: [3101, 3102, 3103, 3104]
-26-01-28.11:41:13.925 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [3101, 3102, 3103, 3104]
-26-01-28.11:41:13.925 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [3101, 3102, 3103, 3104]
-26-01-28.11:41:13.925 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [3101, 3102, 3103, 3104]
-26-01-28.11:41:13.925 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [3101, 3102, 3103, 3104]
-26-01-28.11:41:13.925 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [3101, 3102, 3103, 3104]
-26-01-28.11:41:16.682 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [3101, 3102, 3103, 3104]
-26-01-28.11:41:36.689 [pool-2-thread-6 ] INFO  HikariDataSource       - MainHikariPool - Starting...
-26-01-28.11:42:20.093 [main            ] ERROR AiAgentAutoConfiguration - AI Agent 自动装配失败
-java.util.concurrent.CompletionException: org.mybatis.spring.MyBatisSystemException: 
-### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-	at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:315)
-	at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:320)
-	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1770)
-	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-	at java.base/java.lang.Thread.run(Thread.java:1570)
-Caused by: org.mybatis.spring.MyBatisSystemException: 
-### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:99)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:347)
-	at jdk.proxy2/jdk.proxy2.$Proxy78.selectList(Unknown Source)
-	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:194)
-	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:147)
-	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:80)
-	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:141)
-	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)
-	at jdk.proxy2/jdk.proxy2.$Proxy84.queryBySourceTypeAndId(Unknown Source)
-	at com.tkck.infrastructure.adapter.repository.AgentRepository.queryAiClientApiVOListByClientIds(AgentRepository.java:74)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727)
-	at com.tkck.infrastructure.adapter.repository.AgentRepository$$SpringCGLIB$$0.queryAiClientApiVOListByClientIds(<generated>)
-	at com.tkck.domain.agent.service.armory.business.data.impl.AiClientLoadDataStrategy.lambda$loadData$0(AiClientLoadDataStrategy.java:41)
-	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1768)
-	... 4 common frames omitted
-Caused by: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-	at org.apache.ibatis.binding.MapperMethod$ParamMap.get(MapperMethod.java:210)
-	at org.apache.ibatis.reflection.wrapper.MapWrapper.get(MapWrapper.java:46)
-	at org.apache.ibatis.reflection.MetaObject.getValue(MetaObject.java:115)
-	at org.apache.ibatis.executor.BaseExecutor.createCacheKey(BaseExecutor.java:225)
-	at org.apache.ibatis.executor.CachingExecutor.createCacheKey(CachingExecutor.java:149)
-	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:154)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:142)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:333)
-	... 23 common frames omitted
-26-01-28.11:42:20.840 [pool-2-thread-6 ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@6b1e83c8
-26-01-28.11:42:20.845 [pool-2-thread-6 ] INFO  HikariDataSource       - MainHikariPool - Start completed.
-26-01-28.11:43:14.958 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=1m24s112ms837µs500ns).
-26-01-28.11:44:32.386 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=1m17s428ms41µs800ns).
-26-01-28.11:45:38.007 [SpringApplicationShutdownHook] INFO  GracefulShutdown       - Commencing graceful shutdown. Waiting for active requests to complete
-26-01-28.11:45:38.015 [tomcat-shutdown ] INFO  GracefulShutdown       - Graceful shutdown complete
-26-01-28.11:45:38.021 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown initiated...
-26-01-28.11:45:38.041 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown completed.
-26-01-28.11:45:41.761 [main            ] INFO  Application            - Starting Application using Java 22 with PID 26952 (D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\classes started by Lenovo in D:\JAVA\study-project\ai-agent-station-new)
-26-01-28.11:45:41.762 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-28.11:45:44.209 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port 8091 (http)
-26-01-28.11:45:44.244 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8091"]
-26-01-28.11:45:44.248 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-28.11:45:44.248 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/10.1.36]
-26-01-28.11:45:44.413 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-28.11:45:44.414 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2611 ms
-26-01-28.11:45:46.000 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
-26-01-28.11:45:46.006 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
-26-01-28.11:45:46.006 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
-26-01-28.11:45:46.431 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
-26-01-28.11:45:47.387 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8091"]
-26-01-28.11:45:47.407 [main            ] INFO  TomcatWebServer        - Tomcat started on port 8091 (http) with context path '/'
-26-01-28.11:45:47.420 [main            ] INFO  Application            - Started Application in 6.264 seconds (process running for 7.713)
-26-01-28.11:45:47.428 [main            ] INFO  AiAgentAutoConfiguration - AI Agent 自动装配开始，配置: AiAgentAutoConfigProperties(enabled=true, clientIds=[3101, 3102, 3103, 3104])
-26-01-28.11:45:47.429 [main            ] INFO  AiAgentAutoConfiguration - 开始自动装配AI客户端，客户端ID列表: [3101, 3102, 3103, 3104]
-26-01-28.11:45:47.437 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [3101, 3102, 3103, 3104]
-26-01-28.11:45:47.438 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [3101, 3102, 3103, 3104]
-26-01-28.11:45:51.181 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [3101, 3102, 3103, 3104]
-26-01-28.11:45:51.183 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [3101, 3102, 3103, 3104]
-26-01-28.11:45:51.985 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [3101, 3102, 3103, 3104]
-26-01-28.11:45:57.195 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [3101, 3102, 3103, 3104]
-26-01-28.11:45:57.265 [main            ] ERROR AiAgentAutoConfiguration - AI Agent 自动装配失败
-java.util.concurrent.CompletionException: org.mybatis.spring.MyBatisSystemException: 
-### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-	at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:315)
-	at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:320)
-	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1770)
-	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-	at java.base/java.lang.Thread.run(Thread.java:1570)
-Caused by: org.mybatis.spring.MyBatisSystemException: 
-### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:99)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:347)
-	at jdk.proxy2/jdk.proxy2.$Proxy78.selectList(Unknown Source)
-	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:194)
-	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:147)
-	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:80)
-	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:141)
-	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)
-	at jdk.proxy2/jdk.proxy2.$Proxy84.queryBySourceTypeAndId(Unknown Source)
-	at com.tkck.infrastructure.adapter.repository.AgentRepository.queryAiClientApiVOListByClientIds(AgentRepository.java:74)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727)
-	at com.tkck.infrastructure.adapter.repository.AgentRepository$$SpringCGLIB$$0.queryAiClientApiVOListByClientIds(<generated>)
-	at com.tkck.domain.agent.service.armory.business.data.impl.AiClientLoadDataStrategy.lambda$loadData$0(AiClientLoadDataStrategy.java:41)
-	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1768)
-	... 4 common frames omitted
-Caused by: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-	at org.apache.ibatis.binding.MapperMethod$ParamMap.get(MapperMethod.java:210)
-	at org.apache.ibatis.reflection.wrapper.MapWrapper.get(MapWrapper.java:46)
-	at org.apache.ibatis.reflection.MetaObject.getValue(MetaObject.java:115)
-	at org.apache.ibatis.executor.BaseExecutor.createCacheKey(BaseExecutor.java:225)
-	at org.apache.ibatis.executor.CachingExecutor.createCacheKey(CachingExecutor.java:149)
-	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:154)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:142)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:333)
-	... 23 common frames omitted
-26-01-28.11:45:57.269 [pool-2-thread-6 ] INFO  HikariDataSource       - MainHikariPool - Starting...
-26-01-28.11:45:57.846 [pool-2-thread-6 ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@7daaa2ad
-26-01-28.11:45:57.851 [pool-2-thread-6 ] INFO  HikariDataSource       - MainHikariPool - Start completed.
-26-01-28.11:48:23.692 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=2m55s842ms253µs100ns).
-26-01-28.11:48:23.725 [SpringApplicationShutdownHook] INFO  GracefulShutdown       - Commencing graceful shutdown. Waiting for active requests to complete
-26-01-28.11:48:23.733 [tomcat-shutdown ] INFO  GracefulShutdown       - Graceful shutdown complete
-26-01-28.11:48:23.738 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown initiated...
-26-01-28.11:48:23.759 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown completed.
-26-01-28.16:15:31.756 [main            ] INFO  Application            - Starting Application using Java 22 with PID 58088 (D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\classes started by Lenovo in D:\JAVA\study-project\ai-agent-station-new)
-26-01-28.16:15:31.757 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-28.16:15:33.860 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port 8091 (http)
-26-01-28.16:15:33.884 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8091"]
-26-01-28.16:15:33.886 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-28.16:15:33.886 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/10.1.36]
-26-01-28.16:15:34.030 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-28.16:15:34.031 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2229 ms
-26-01-28.16:15:35.235 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
-26-01-28.16:15:35.242 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
-26-01-28.16:15:35.242 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
-26-01-28.16:15:35.623 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
-26-01-28.16:15:36.212 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8091"]
-26-01-28.16:15:36.224 [main            ] INFO  TomcatWebServer        - Tomcat started on port 8091 (http) with context path '/'
-26-01-28.16:15:36.231 [main            ] INFO  Application            - Started Application in 5.178 seconds (process running for 6.425)
-26-01-28.16:15:36.235 [main            ] INFO  AiAgentAutoConfiguration - AI Agent 自动装配开始，配置: AiAgentAutoConfigProperties(enabled=true, clientIds=[3101, 3102, 3103, 3104])
-26-01-28.16:15:36.236 [main            ] INFO  AiAgentAutoConfiguration - 开始自动装配AI客户端，客户端ID列表: [3101, 3102, 3103, 3104]
-26-01-28.16:15:36.241 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [3101, 3102, 3103, 3104]
-26-01-28.16:15:36.241 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [3101, 3102, 3103, 3104]
-26-01-28.16:15:36.241 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [3101, 3102, 3103, 3104]
-26-01-28.16:15:36.241 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [3101, 3102, 3103, 3104]
-26-01-28.16:15:36.241 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [3101, 3102, 3103, 3104]
-26-01-28.16:15:36.241 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [3101, 3102, 3103, 3104]
-26-01-28.16:15:36.264 [pool-2-thread-6 ] INFO  HikariDataSource       - MainHikariPool - Starting...
-26-01-28.16:15:36.265 [main            ] ERROR AiAgentAutoConfiguration - AI Agent 自动装配失败
-java.util.concurrent.CompletionException: org.mybatis.spring.MyBatisSystemException: 
-### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-	at java.base/java.util.concurrent.CompletableFuture.encodeThrowable(CompletableFuture.java:315)
-	at java.base/java.util.concurrent.CompletableFuture.completeThrowable(CompletableFuture.java:320)
-	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1770)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-	at java.base/java.lang.Thread.run(Thread.java:1570)
-Caused by: org.mybatis.spring.MyBatisSystemException: 
-### Error querying database.  Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-### Cause: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:99)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:347)
-	at jdk.proxy2/jdk.proxy2.$Proxy78.selectList(Unknown Source)
-	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:194)
-	at org.apache.ibatis.binding.MapperMethod.executeForMany(MapperMethod.java:147)
-	at org.apache.ibatis.binding.MapperMethod.execute(MapperMethod.java:80)
-	at org.apache.ibatis.binding.MapperProxy$PlainMethodInvoker.invoke(MapperProxy.java:141)
-	at org.apache.ibatis.binding.MapperProxy.invoke(MapperProxy.java:86)
-	at jdk.proxy2/jdk.proxy2.$Proxy84.queryBySourceTypeAndId(Unknown Source)
-	at com.tkck.infrastructure.adapter.repository.AgentRepository.queryAiClientApiVOListByClientIds(AgentRepository.java:74)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
-	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
-	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:727)
-	at com.tkck.infrastructure.adapter.repository.AgentRepository$$SpringCGLIB$$0.queryAiClientApiVOListByClientIds(<generated>)
-	at com.tkck.domain.agent.service.armory.business.data.impl.AiClientLoadDataStrategy.lambda$loadData$0(AiClientLoadDataStrategy.java:41)
-	at java.base/java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768)
-	... 3 common frames omitted
-Caused by: org.apache.ibatis.binding.BindingException: Parameter 'sourceType' not found. Available parameters are [arg1, arg0, param1, param2]
-	at org.apache.ibatis.binding.MapperMethod$ParamMap.get(MapperMethod.java:210)
-	at org.apache.ibatis.reflection.wrapper.MapWrapper.get(MapWrapper.java:46)
-	at org.apache.ibatis.reflection.MetaObject.getValue(MetaObject.java:115)
-	at org.apache.ibatis.executor.BaseExecutor.createCacheKey(BaseExecutor.java:225)
-	at org.apache.ibatis.executor.CachingExecutor.createCacheKey(CachingExecutor.java:149)
-	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:154)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
-	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:142)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:333)
-	... 22 common frames omitted
-26-01-28.16:15:36.564 [pool-2-thread-6 ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@1d5f6f09
-26-01-28.16:15:36.565 [pool-2-thread-6 ] INFO  HikariDataSource       - MainHikariPool - Start completed.
-26-01-28.16:25:59.576 [SpringApplicationShutdownHook] INFO  GracefulShutdown       - Commencing graceful shutdown. Waiting for active requests to complete
-26-01-28.16:25:59.583 [tomcat-shutdown ] INFO  GracefulShutdown       - Graceful shutdown complete
-26-01-28.16:25:59.588 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown initiated...
-26-01-28.16:25:59.608 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown completed.
-26-01-28.16:26:05.893 [main            ] INFO  Application            - Starting Application using Java 22 with PID 42072 (D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\classes started by Lenovo in D:\JAVA\study-project\ai-agent-station-new)
-26-01-28.16:26:05.894 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-28.16:26:07.595 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port 8091 (http)
-26-01-28.16:26:07.615 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8091"]
-26-01-28.16:26:07.617 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-28.16:26:07.617 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/10.1.36]
-26-01-28.16:26:07.786 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-28.16:26:07.786 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1849 ms
-26-01-28.16:26:08.701 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
-26-01-28.16:26:08.706 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
-26-01-28.16:26:08.706 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
-26-01-28.16:26:08.996 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
-26-01-28.16:26:09.496 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8091"]
-26-01-28.16:26:09.506 [main            ] INFO  TomcatWebServer        - Tomcat started on port 8091 (http) with context path '/'
-26-01-28.16:26:09.513 [main            ] INFO  Application            - Started Application in 4.206 seconds (process running for 5.397)
-26-01-28.16:26:09.516 [main            ] INFO  AiAgentAutoConfiguration - AI Agent 自动装配开始，配置: AiAgentAutoConfigProperties(enabled=true, clientIds=[3101, 3102, 3103, 3104])
-26-01-28.16:26:09.517 [main            ] INFO  AiAgentAutoConfiguration - 开始自动装配AI客户端，客户端ID列表: [3101, 3102, 3103, 3104]
-26-01-28.16:26:09.519 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [3101, 3102, 3103, 3104]
-26-01-28.16:26:09.519 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [3101, 3102, 3103, 3104]
-26-01-28.16:26:09.519 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [3101, 3102, 3103, 3104]
-26-01-28.16:26:09.519 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [3101, 3102, 3103, 3104]
-26-01-28.16:26:09.520 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [3101, 3102, 3103, 3104]
-26-01-28.16:26:09.520 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [3101, 3102, 3103, 3104]
-26-01-28.16:26:09.539 [pool-2-thread-3 ] INFO  HikariDataSource       - MainHikariPool - Starting...
-26-01-28.16:26:09.761 [pool-2-thread-3 ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@2da0e3cf
-26-01-28.16:26:09.764 [pool-2-thread-3 ] INFO  HikariDataSource       - MainHikariPool - Start completed.
-26-01-28.16:26:10.116 [main            ] INFO  RootNode               - Ai Agent 构建，数据加载节点 {"commandIdList":["3101","3102","3103","3104"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
-26-01-28.16:26:10.116 [main            ] INFO  AiClientApiNode        - Ai Agent 构建，API 构建节点 {"commandIdList":["3101","3102","3103","3104"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
-26-01-28.16:26:10.123 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_api_1001
-26-01-28.16:26:10.124 [main            ] INFO  AiClientToolMcpNode    - Ai Agent 构建节点，Tool MCP 工具配置{"commandIdList":["3101","3102","3103","3104"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
-26-01-28.16:26:10.585 [HttpClient-12-Worker-0] INFO  McpAsyncClient         - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[completions=null, experimental={}, logging=null, prompts=PromptCapabilities[listChanged=false], resources=ResourceCapabilities[subscribe=false, listChanged=false], tools=ToolCapabilities[listChanged=false]], Info: Implementation[name=AIsearch, version=1.4.1] and Instructions null
-26-01-28.16:26:10.663 [main            ] INFO  AiClientToolMcpNode    - Tool SSE MCP Initialized InitializeResult[protocolVersion=2024-11-05, capabilities=ServerCapabilities[completions=null, experimental={}, logging=null, prompts=PromptCapabilities[listChanged=false], resources=ResourceCapabilities[subscribe=false, listChanged=false], tools=ToolCapabilities[listChanged=false]], serverInfo=Implementation[name=AIsearch, version=1.4.1], instructions=null]
-26-01-28.16:26:10.665 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_tool_mcp_5006
-26-01-28.16:26:10.665 [main            ] INFO  AiClientModelNode      - Ai Agent 构建节点，Mode 对话模型{"commandIdList":["3101","3102","3103","3104"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
-26-01-28.16:26:10.754 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_model_2001
-26-01-28.16:26:10.754 [main            ] INFO  AiClientAdvisorNode    - Ai Agent 构建，Advisor 顾问角色{"commandIdList":["3101","3102","3103","3104"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
-26-01-28.16:26:10.768 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_advisor_4001
-26-01-28.16:26:10.768 [main            ] INFO  AiClientNode           - Ai Agent 构建节点，客户端{"commandIdList":["3101","3102","3103","3104"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
-26-01-28.16:26:10.898 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_3101
-26-01-28.16:26:10.985 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_3102
-26-01-28.16:26:11.399 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_3103
-26-01-28.16:26:11.400 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_3104
-26-01-28.16:26:11.400 [main            ] INFO  AiAgentAutoConfiguration - AI Agent 自动装配完成，结果: null
-26-01-28.16:26:56.154 [http-nio-8091-exec-1] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
-26-01-28.16:26:56.154 [http-nio-8091-exec-1] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
-26-01-28.16:26:56.156 [http-nio-8091-exec-1] INFO  DispatcherServlet      - Completed initialization in 2 ms
-26-01-28.16:26:56.288 [http-nio-8091-exec-2] INFO  AiAgentController      - AutoAgent流式执行请求开始，请求信息：{"aiAgentId":"3","maxStep":3,"message":"1+1","sessionId":"session_1769588816049_pt542dm9l"}
-26-01-28.16:26:56.293 [pool-2-thread-7 ] INFO  RootNode               - === 动态多轮执行测试开始 ====
-26-01-28.16:26:56.293 [pool-2-thread-7 ] INFO  RootNode               - 用户输入: 1+1
-26-01-28.16:26:56.293 [pool-2-thread-7 ] INFO  RootNode               - 最大执行步数: 3
-26-01-28.16:26:56.293 [pool-2-thread-7 ] INFO  RootNode               - 会话ID: session_1769588816049_pt542dm9l
-26-01-28.16:26:56.307 [pool-2-thread-7 ] INFO  Step1AnalyzerNode      - 
-🎯 === 执行第 1 步 ===
-26-01-28.16:26:56.307 [pool-2-thread-7 ] INFO  Step1AnalyzerNode      - 
-📊 阶段1: 任务状态分析
-26-01-28.16:27:00.383 [pool-2-thread-7 ] INFO  Step1AnalyzerNode      - 
-📊 === 第 1 步分析结果 ===
-26-01-28.16:27:00.383 [pool-2-thread-7 ] INFO  Step1AnalyzerNode      - 
-🎯 任务状态分析:
-26-01-28.16:27:00.383 [pool-2-thread-7 ] INFO  Step1AnalyzerNode      -    📋 当前任务是进行简单的数学计算，即1+1。在这一阶段，用户可能希望通过这个简单的算式来得到结果，或进一步理解计算的过程与原理。当前任务尚未完成，既未返回结果，也未进行进一步的步骤。
-26-01-28.16:27:00.394 [pool-2-thread-7 ] INFO  Step1AnalyzerNode      - 
-📈 执行历史评估:
-26-01-28.16:27:00.394 [pool-2-thread-7 ] INFO  Step1AnalyzerNode      -    📊 由于这是首次执行，目前尚无历史记录可供评估。可以推测，在首次执行中，用户希望得到一个清晰的结果或解答。
-26-01-28.16:27:00.394 [pool-2-thread-7 ] INFO  Step1AnalyzerNode      - 
-🚀 下一步策略:
-26-01-28.16:27:00.394 [pool-2-thread-7 ] INFO  Step1AnalyzerNode      -    🎯 1. 执行计算1+1，得出结果2。
-26-01-28.16:27:00.394 [pool-2-thread-7 ] INFO  Step1AnalyzerNode      -    🎯 2. 将结果输出并告知用户。
-26-01-28.16:27:00.394 [pool-2-thread-7 ] INFO  Step1AnalyzerNode      -    🎯 3. 提供给用户关于这一简单运算的进一步说明（可选）。
-26-01-28.16:27:00.396 [pool-2-thread-7 ] INFO  Step1AnalyzerNode      - 
-📊 完成度评估: ** 0%
-26-01-28.16:27:00.396 [pool-2-thread-7 ] INFO  Step1AnalyzerNode      - 
-🔄 任务状态: 继续执行
-26-01-28.16:27:00.396 [pool-2-thread-7 ] INFO  Step2PrecisionExecutorNode - 
-⚡ 阶段2: 精准任务执行
-26-01-28.16:27:03.557 [pool-2-thread-7 ] INFO  Step2PrecisionExecutorNode - 
-⚡ === 第 1 步执行结果 ===
-26-01-28.16:27:03.557 [pool-2-thread-7 ] INFO  Step2PrecisionExecutorNode - 
-🎯 执行目标:
-26-01-28.16:27:03.557 [pool-2-thread-7 ] INFO  Step2PrecisionExecutorNode -    🎯 计算1+1的结果，并输出结果。
-26-01-28.16:27:03.558 [pool-2-thread-7 ] INFO  Step2PrecisionExecutorNode - 
-🔧 执行过程:
-26-01-28.16:27:03.558 [pool-2-thread-7 ] INFO  Step2PrecisionExecutorNode -    ⚙️ 1. 执行计算1+1。
-26-01-28.16:27:03.558 [pool-2-thread-7 ] INFO  Step2PrecisionExecutorNode -    ⚙️ 2. 将计算结果输出给用户。
-26-01-28.16:27:03.558 [pool-2-thread-7 ] INFO  Step2PrecisionExecutorNode - 
-📈 执行结果:
-26-01-28.16:27:03.558 [pool-2-thread-7 ] INFO  Step2PrecisionExecutorNode -    📊 1+1的计算结果是2。
-26-01-28.16:27:03.558 [pool-2-thread-7 ] INFO  Step2PrecisionExecutorNode - 
-🔍 质量检查:
-26-01-28.16:27:03.558 [pool-2-thread-7 ] INFO  Step2PrecisionExecutorNode -    ✅ 执行结果准确，能够直接回答用户的需求，质量良好。
-26-01-28.16:27:03.558 [pool-2-thread-7 ] INFO  Step3QualitySupervisorNode - 
-🔍 阶段3: 质量监督检查
-26-01-28.16:27:07.195 [pool-2-thread-7 ] INFO  Step3QualitySupervisorNode - 
-🔍 === 第 1 步监督结果 ===
-26-01-28.16:27:07.195 [pool-2-thread-7 ] INFO  Step3QualitySupervisorNode -    📝 **需求匹配度:**
-26-01-28.16:27:07.195 [pool-2-thread-7 ] INFO  Step3QualitySupervisorNode -    📝 执行结果直接回答了用户关于“1+1”的计算请求。用户明确询问了一个简单的算式，而执行结果成功提供了该算式的答案2。因此，需求匹配度较高。
-26-01-28.16:27:07.195 [pool-2-thread-7 ] INFO  Step3QualitySupervisorNode -    📝 **内容完整性:**
-26-01-28.16:27:07.195 [pool-2-thread-7 ] INFO  Step3QualitySupervisorNode -    📝 内容非常简明，准确地提供了1+1的结果。然而，由于用户可能对基本数学运算有不同需求（例如，数字背后的数学原理、运算步骤说明等），执行结果的完整性不足，未能考虑到这些可能的扩展需求。
-26-01-28.16:27:07.195 [pool-2-thread-7 ] INFO  Step3QualitySupervisorNode - 
-⚠️ 问题识别:
-26-01-28.16:27:07.195 [pool-2-thread-7 ] INFO  Step3QualitySupervisorNode -    ⚠️ 虽然执行结果没有偏离用户的需求，但未能提供附加价值，例如解释计算过程或提供相关的学习资源。这可能限制了答案的实用性，因为用户可能会对数学的基础知识感兴趣。
-26-01-28.16:27:07.195 [pool-2-thread-7 ] INFO  Step3QualitySupervisorNode - 
-💡 改进建议:
-26-01-28.16:27:07.195 [pool-2-thread-7 ] INFO  Step3QualitySupervisorNode -    💡 在返回结果的同时，可以附加对该算式理解的简要说明，例如如何进行加法运算，或者提供类似的数学问题作为扩展学习资源。这将提升内容的实用性和吸引力。
-26-01-28.16:27:07.195 [pool-2-thread-7 ] INFO  Step3QualitySupervisorNode - 
-📊 质量评分: ** 7分
-26-01-28.16:27:07.195 [pool-2-thread-7 ] INFO  Step3QualitySupervisorNode - 
-🔧 检查结果: 需要优化
-26-01-28.16:27:07.197 [pool-2-thread-7 ] INFO  Step3QualitySupervisorNode - ✅ 质量检查通过
-26-01-28.16:27:07.197 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 
-📊 === 执行第 2 步 ===
-26-01-28.16:27:07.197 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 
-📊 阶段4: 执行总结分析
-26-01-28.16:27:07.197 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 
-📊 === 动态多轮执行总结 ====
-26-01-28.16:27:07.198 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 📈 总执行步数: 2 步
-26-01-28.16:27:07.198 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - ✅ 任务完成状态: 已完成
-26-01-28.16:27:07.198 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 📊 执行效率: 100.0%
-26-01-28.16:27:07.198 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 
---- 生成已完成任务的最终答案 ---
-26-01-28.16:27:11.391 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 
-📋 === 已完成任务最终总结报告 ===
-26-01-28.16:27:11.391 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 📝 1 + 1 的计算结果是 2。
-26-01-28.16:27:11.393 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - ✅ 已发送完成标识
-26-01-28.16:27:11.393 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 
-🏁 === 动态多轮执行结束 ====
-26-01-28.16:27:11.393 [pool-2-thread-7 ] INFO  AutoAgentExecuteStrategy - 测试结果:ai agent execution summary completed!
-26-01-28.16:29:14.529 [http-nio-8091-exec-5] INFO  AiAgentController      - AutoAgent流式执行请求开始，请求信息：{"aiAgentId":"3","maxStep":3,"message":"根据当前北京互联网程序员加班情况，收入，公司文化等，列出一份大学生推荐入职单位。","sessionId":"session_1769588954524_11h8ew8nu"}
-26-01-28.16:29:14.530 [pool-2-thread-8 ] INFO  RootNode               - === 动态多轮执行测试开始 ====
-26-01-28.16:29:14.530 [pool-2-thread-8 ] INFO  RootNode               - 用户输入: 根据当前北京互联网程序员加班情况，收入，公司文化等，列出一份大学生推荐入职单位。
-26-01-28.16:29:14.530 [pool-2-thread-8 ] INFO  RootNode               - 最大执行步数: 3
-26-01-28.16:29:14.530 [pool-2-thread-8 ] INFO  RootNode               - 会话ID: session_1769588954524_11h8ew8nu
-26-01-28.16:29:14.536 [pool-2-thread-8 ] INFO  Step1AnalyzerNode      - 
-🎯 === 执行第 1 步 ===
-26-01-28.16:29:14.536 [pool-2-thread-8 ] INFO  Step1AnalyzerNode      - 
-📊 阶段1: 任务状态分析
-26-01-28.16:29:19.023 [pool-2-thread-8 ] INFO  Step1AnalyzerNode      - 
-📊 === 第 1 步分析结果 ===
-26-01-28.16:29:19.023 [pool-2-thread-8 ] INFO  Step1AnalyzerNode      - 
-🎯 任务状态分析:
-26-01-28.16:29:19.023 [pool-2-thread-8 ] INFO  Step1AnalyzerNode      -    📋 用户希望了解当前北京互联网程序员的加班情况、收入水平以及公司文化，以此为依据列出推荐的入职单位。这需要我们综合多方面的信息，包括但不限于行业薪资报告、加班文化的实际情况，以及各个公司的工作氛围和价值观。
-26-01-28.16:29:19.024 [pool-2-thread-8 ] INFO  Step1AnalyzerNode      - 
-📈 执行历史评估:
-26-01-28.16:29:19.024 [pool-2-thread-8 ] INFO  Step1AnalyzerNode      -    📊 目前任务处于首次执行阶段，尚未进行具体信息的检索和收集。由于没有历史记录，我们不能对已完成工作的质量和效果进行评估。
-26-01-28.16:29:19.025 [pool-2-thread-8 ] INFO  Step1AnalyzerNode      - 
-🚀 下一步策略:
-26-01-28.16:29:19.025 [pool-2-thread-8 ] INFO  Step1AnalyzerNode      -    🎯 1. **信息搜索**: 通过在线平台、行业报告和社区讨论等，收集关于北京互联网公司程序员的加班情况、收入和公司文化的数据。这将包括获取薪资水平、工作时长、员工满意度调查等信息。
-26-01-28.16:29:19.025 [pool-2-thread-8 ] INFO  Step1AnalyzerNode      -    🎯 2. **整理和分类**: 将收集到的信息进行整理，判断哪些公司在收入、加班和文化方面满足大学生的需求。
-26-01-28.16:29:19.025 [pool-2-thread-8 ] INFO  Step1AnalyzerNode      -    🎯 3. **生成推荐列表**: 基于上述分析，制作出一份包含公司名称、薪资区间、加班情况和公司文化特点的推荐列表，适合应届大学生入职。
-26-01-28.16:29:19.025 [pool-2-thread-8 ] INFO  Step1AnalyzerNode      -    🎯 具体执行将调用信息检索工具查找相关数据。
-26-01-28.16:29:19.026 [pool-2-thread-8 ] INFO  Step1AnalyzerNode      - 
-📊 完成度评估: ** 0%
-26-01-28.16:29:19.026 [pool-2-thread-8 ] INFO  Step1AnalyzerNode      - 
-🔄 任务状态: 继续执行
-26-01-28.16:29:19.026 [pool-2-thread-8 ] INFO  Step2PrecisionExecutorNode - 
-⚡ 阶段2: 精准任务执行
-26-01-28.16:29:43.767 [pool-2-thread-8 ] INFO  Step2PrecisionExecutorNode - 
-⚡ === 第 1 步执行结果 ===
-26-01-28.16:29:43.767 [pool-2-thread-8 ] INFO  Step2PrecisionExecutorNode - 
-🎯 执行目标:
-26-01-28.16:29:43.768 [pool-2-thread-8 ] INFO  Step2PrecisionExecutorNode -    🎯 收集关于北京互联网程序员的加班情况、收入水平及公司文化的相关信息，并生成推荐的入职单位列表。
-26-01-28.16:29:43.768 [pool-2-thread-8 ] INFO  Step2PrecisionExecutorNode - 
-🔧 执行过程:
-26-01-28.16:29:43.768 [pool-2-thread-8 ] INFO  Step2PrecisionExecutorNode -    ⚙️ 1. 使用搜索工具进行信息检索，查询了关于“北京互联网程序员的加班情况、收入水平和公司文化”的数据。
-26-01-28.16:29:43.768 [pool-2-thread-8 ] INFO  Step2PrecisionExecutorNode -    ⚙️ 2. 但在执行检索过程中，遭遇到API调用频率限制，无法获取实时数据。
-26-01-28.16:29:43.768 [pool-2-thread-8 ] INFO  Step2PrecisionExecutorNode - 
-📈 执行结果:
-26-01-28.16:29:43.769 [pool-2-thread-8 ] INFO  Step2PrecisionExecutorNode -    📊 由于调用次数已达到限制，无法成功获取到相关的信息和数据。因此未能完成预定的检索目标。
-26-01-28.16:29:43.769 [pool-2-thread-8 ] INFO  Step2PrecisionExecutorNode - 
-🔍 质量检查:
-26-01-28.16:29:43.769 [pool-2-thread-8 ] INFO  Step2PrecisionExecutorNode -    ✅ 由于未能获取到任何有效的信息结果，执行结果的质量评价为不合格。需要进行进一步的步骤以尝试不同的搜索策略或者在稍后的时间再次执行搜索。
-26-01-28.16:29:43.769 [pool-2-thread-8 ] INFO  Step2PrecisionExecutorNode -    ✅ **下一步策略:**
-26-01-28.16:29:43.769 [pool-2-thread-8 ] INFO  Step2PrecisionExecutorNode -    ✅ 1. 等待一段时间后再尝试重新进行信息检索。
-26-01-28.16:29:43.769 [pool-2-thread-8 ] INFO  Step2PrecisionExecutorNode -    ✅ 2. 也可以考虑使用不同的搜索关键词组合，或者调整搜索策略来规避频率限制的问题。
-26-01-28.16:29:43.769 [pool-2-thread-8 ] INFO  Step2PrecisionExecutorNode -    ✅ 3. 保持对用户的沟通，更新任务状态和尝试的情况。
-26-01-28.16:29:43.769 [pool-2-thread-8 ] INFO  Step2PrecisionExecutorNode -    ✅ **完成度评估:** 0%
-26-01-28.16:29:43.769 [pool-2-thread-8 ] INFO  Step2PrecisionExecutorNode -    ✅ **任务状态:** CONTINUE
-26-01-28.16:29:43.770 [pool-2-thread-8 ] INFO  Step3QualitySupervisorNode - 
-🔍 阶段3: 质量监督检查
-26-01-28.16:29:48.987 [pool-2-thread-8 ] INFO  Step3QualitySupervisorNode - 
-🔍 === 第 1 步监督结果 ===
-26-01-28.16:29:48.988 [pool-2-thread-8 ] INFO  Step3QualitySupervisorNode -    📝 **需求匹配度:**
-26-01-28.16:29:48.988 [pool-2-thread-8 ] INFO  Step3QualitySupervisorNode -    📝 执行结果未能直接回答用户的原始需求，即根据当前北京互联网程序员的加班情况、收入和公司文化列出大学生推荐入职单位的列表。虽然执行过程描述了试图获取信息的步骤，但缺乏具体的内容和结果，无法满足用户的期望。
-26-01-28.16:29:48.988 [pool-2-thread-8 ] INFO  Step3QualitySupervisorNode -    📝 **内容完整性:**
-26-01-28.16:29:48.988 [pool-2-thread-8 ] INFO  Step3QualitySupervisorNode -    📝 内容的完整性差，执行结果仅提供了对执行过程的描述，而没有提供任何有关北京互联网程序员的加班情况、收入和公司文化的数据或推荐单位。用户期望一个具体的结果，而不是仅仅阐述了遇到的技术问题。
-26-01-28.16:29:48.988 [pool-2-thread-8 ] INFO  Step3QualitySupervisorNode - 
-⚠️ 问题识别:
-26-01-28.16:29:48.988 [pool-2-thread-8 ] INFO  Step3QualitySupervisorNode -    ⚠️ 1. 未能成功获取和呈现有效数据，这表明信息检索的方式可能存在问题。
-26-01-28.16:29:48.988 [pool-2-thread-8 ] INFO  Step3QualitySupervisorNode -    ⚠️ 2. 没有灵活调整搜索策略以应对API调用频率限制，导致未能完成任务。
-26-01-28.16:29:48.988 [pool-2-thread-8 ] INFO  Step3QualitySupervisorNode -    ⚠️ 3. 对用户的需求理解与执行结果之间存在较大差距，导致无法提供满意答案。
-26-01-28.16:29:48.988 [pool-2-thread-8 ] INFO  Step3QualitySupervisorNode - 
-💡 改进建议:
-26-01-28.16:29:48.988 [pool-2-thread-8 ] INFO  Step3QualitySupervisorNode -    💡 1. 在下一次尝试时，考虑分阶段进行信息检索，可能先聚焦于某一方面（如收入或公司文化），以减少一次性检索的信息量。
-26-01-28.16:29:48.988 [pool-2-thread-8 ] INFO  Step3QualitySupervisorNode -    💡 2. 尝试改变搜索关键词和组合方法，以有效规避API调用的频率限制。
-26-01-28.16:29:48.988 [pool-2-thread-8 ] INFO  Step3QualitySupervisorNode -    💡 3. 加强对用户的沟通，提供更新状态的反馈，至少在遇到技术问题时告知用户进展。
-26-01-28.16:29:48.988 [pool-2-thread-8 ] INFO  Step3QualitySupervisorNode - 
-📊 质量评分: ** 2分（由于执行过程不符合用户的需求，未能提供任何实用的信息和结果）
-26-01-28.16:29:48.989 [pool-2-thread-8 ] INFO  Step3QualitySupervisorNode - 
-🔧 检查结果: 需要优化
-26-01-28.16:29:48.990 [pool-2-thread-8 ] INFO  Step3QualitySupervisorNode - ✅ 质量检查通过
-26-01-28.16:29:48.990 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 
-📊 === 执行第 2 步 ===
-26-01-28.16:29:48.990 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 
-📊 阶段4: 执行总结分析
-26-01-28.16:29:48.990 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 
-📊 === 动态多轮执行总结 ====
-26-01-28.16:29:48.990 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 📈 总执行步数: 2 步
-26-01-28.16:29:48.990 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - ✅ 任务完成状态: 已完成
-26-01-28.16:29:48.990 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 📊 执行效率: 100.0%
-26-01-28.16:29:48.990 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 
---- 生成已完成任务的最终答案 ---
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 
-📋 === 已完成任务最终总结报告 ===
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 💡 由于当前无法获取实时的具体数据，以下是基于通用知识和先前行业趋势总结的推荐入职单位：
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 💡 ### 推荐入职单位（北京互联网行业）：
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 📝 1. **字节跳动**
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 📝 - **收入水平**: 年薪一般在20万-50万之间，具体视岗位而定。
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 📝 - **加班情况**: 部分岗位有较高的加班频率，但公司努力改善工作生活平衡。
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 📝 - **公司文化**: 创新驱动，开放包容，鼓励员工提出新想法。
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 📝 2. **阿里巴巴**
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 📝 - **收入水平**: 年薪范围较广，通常在18万-40万。
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 📝 - **加班情况**: 工作节奏快，有加班现象，但相对其他互联网公司略有改善。
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 📝 - **公司文化**: 强调责任感和团队合作，注重员工成长与发展。
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 📝 3. **腾讯**
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 📝 - **收入水平**: 年薪多在20万-50万之间。
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 📝 - **加班情况**: 根据部门不同，加班情况有差异，但总体相对稳定。
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 📝 - **公司文化**: 重视员工福利，倡导工作与生活平衡。
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 📝 4. **京东**
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 📝 - **收入水平**: 年薪普遍在15万-35万。
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 📝 - **加班情况**: 视具体部门而定，部分岗位加班频繁。
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 📝 - **公司文化**: 以结果为导向，注重团队协作。
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 📝 5. **美团**
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 📝 - **收入水平**: 一般在15万-30万的区间。
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 📝 - **加班情况**: 根据项目阶段，偶尔加班，但逐步在降低。
-26-01-28.16:29:55.032 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 📝 - **公司文化**: 强调服务意识和用户体验，氛围较活跃。
-26-01-28.16:29:55.033 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 💡 这些公司相对较受大学生欢迎，因其提供较高的薪资和良好的职业发展前景。在选择前，建议结合具体岗位和自身职业规划进行评估。
-26-01-28.16:29:55.034 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - ✅ 已发送完成标识
-26-01-28.16:29:55.034 [pool-2-thread-8 ] INFO  Step4LogExecutionSummaryNode - 
-🏁 === 动态多轮执行结束 ====
-26-01-28.16:29:55.034 [pool-2-thread-8 ] INFO  AutoAgentExecuteStrategy - 测试结果:ai agent execution summary completed!
-26-01-28.18:38:46.577 [MainHikariPool housekeeper] WARN  HikariPool             - MainHikariPool - Thread starvation or clock leap detected (housekeeper delta=1h54m6s435ms676µs).
-26-01-28.18:39:44.307 [http-nio-8091-exec-9] INFO  AiAgentController      - AutoAgent流式执行请求开始，请求信息：{"aiAgentId":"3","maxStep":3,"message":"你是什么模型","sessionId":"session_1769596784294_aly4azwkw"}
-26-01-28.18:39:44.308 [pool-2-thread-9 ] INFO  RootNode               - === 动态多轮执行测试开始 ====
-26-01-28.18:39:44.308 [pool-2-thread-9 ] INFO  RootNode               - 用户输入: 你是什么模型
-26-01-28.18:39:44.308 [pool-2-thread-9 ] INFO  RootNode               - 最大执行步数: 3
-26-01-28.18:39:44.308 [pool-2-thread-9 ] INFO  RootNode               - 会话ID: session_1769596784294_aly4azwkw
-26-01-28.18:39:44.315 [pool-2-thread-9 ] INFO  Step1AnalyzerNode      - 
-🎯 === 执行第 1 步 ===
-26-01-28.18:39:44.316 [pool-2-thread-9 ] INFO  Step1AnalyzerNode      - 
-📊 阶段1: 任务状态分析
-26-01-28.18:39:49.487 [pool-2-thread-9 ] INFO  Step1AnalyzerNode      - 
-📊 === 第 1 步分析结果 ===
-26-01-28.18:39:49.487 [pool-2-thread-9 ] INFO  Step1AnalyzerNode      - 
-🎯 任务状态分析:
-26-01-28.18:39:49.487 [pool-2-thread-9 ] INFO  Step1AnalyzerNode      -    📋 当前任务是明确用户询问的信息，用户问的是“你是什么模型”。这表明用户希望了解到我作为一个智能体模型的类型、功能或特性。用户的需求可以理解为希望获得对我的整体介绍，包括我如何工作及其实际应用。
-26-01-28.18:39:49.488 [pool-2-thread-9 ] INFO  Step1AnalyzerNode      - 
-📈 执行历史评估:
-26-01-28.18:39:49.488 [pool-2-thread-9 ] INFO  Step1AnalyzerNode      -    📊 目前仅完成了一次初次询问，尚未进行深入探索或具体的信息检索。这一执行步骤缺乏足够的信息以达到理想的回答效果，因此需要补充更多的信息来满足用户的需求。
-26-01-28.18:39:49.488 [pool-2-thread-9 ] INFO  Step1AnalyzerNode      - 
-🚀 下一步策略:
-26-01-28.18:39:49.488 [pool-2-thread-9 ] INFO  Step1AnalyzerNode      -    🎯 1. **具体信息检索**：进行一次针对“我是什么模型”的深入搜索，以获取关于我作为AI模型的定义、功能及应用场景的详细信息。
-26-01-28.18:39:49.488 [pool-2-thread-9 ] INFO  Step1AnalyzerNode      -    🎯 2. **总结与生成内容**：根据检索到的信息，生成一个清晰简洁的回答，直接回应用户关于模型的具体问题。
-26-01-28.18:39:49.488 [pool-2-thread-9 ] INFO  Step1AnalyzerNode      -    🎯 3. **提供反馈给用户**：在获取到足够的信息后，向用户展示相关结果。
-26-01-28.18:39:49.488 [pool-2-thread-9 ] INFO  Step1AnalyzerNode      -    🎯 将调用一个信息搜索工具来执行这些步骤。
-26-01-28.18:39:49.488 [pool-2-thread-9 ] INFO  Step1AnalyzerNode      - 
-📊 完成度评估: ** 10%
-26-01-28.18:39:49.489 [pool-2-thread-9 ] INFO  Step1AnalyzerNode      - 
-🔄 任务状态: 继续执行
-26-01-28.18:39:49.489 [pool-2-thread-9 ] INFO  Step2PrecisionExecutorNode - 
-⚡ 阶段2: 精准任务执行
-26-01-28.18:43:41.901 [http-nio-8091-exec-10] INFO  AiAgentController      - AutoAgent流式执行请求开始，请求信息：{"aiAgentId":"3","maxStep":5,"message":"你是什么模型","sessionId":"session_1769597021897_umtt8eflv"}
-26-01-28.18:43:41.902 [pool-2-thread-10] INFO  RootNode               - === 动态多轮执行测试开始 ====
-26-01-28.18:43:41.902 [pool-2-thread-10] INFO  RootNode               - 用户输入: 你是什么模型
-26-01-28.18:43:41.902 [pool-2-thread-10] INFO  RootNode               - 最大执行步数: 5
-26-01-28.18:43:41.902 [pool-2-thread-10] INFO  RootNode               - 会话ID: session_1769597021897_umtt8eflv
-26-01-28.18:43:41.907 [pool-2-thread-10] INFO  Step1AnalyzerNode      - 
-🎯 === 执行第 1 步 ===
-26-01-28.18:43:41.907 [pool-2-thread-10] INFO  Step1AnalyzerNode      - 
-📊 阶段1: 任务状态分析
-26-01-28.18:43:50.164 [pool-2-thread-10] INFO  Step1AnalyzerNode      - 
-📊 === 第 1 步分析结果 ===
-26-01-28.18:43:50.164 [pool-2-thread-10] INFO  Step1AnalyzerNode      - 
-🎯 任务状态分析:
-26-01-28.18:43:50.164 [pool-2-thread-10] INFO  Step1AnalyzerNode      -    📋 用户提问“你是什么模型”可能是在寻求对模型的简介、功能、用途或技术细节的解释。目前未对用户的需求进行深入解读。
-26-01-28.18:43:50.165 [pool-2-thread-10] INFO  Step1AnalyzerNode      - 
-📈 执行历史评估:
-26-01-28.18:43:50.165 [pool-2-thread-10] INFO  Step1AnalyzerNode      -    📊 目前只进行了首次执行，没有其他历史执行记录，因此无法评估过去执行的质量和效果。
-26-01-28.18:43:50.165 [pool-2-thread-10] INFO  Step1AnalyzerNode      - 
-🚀 下一步策略:
-26-01-28.18:43:50.165 [pool-2-thread-10] INFO  Step1AnalyzerNode      -    🎯 1. 数据整理：定义当前使用的具体模型及其特点，组织成简洁易懂的信息。
-26-01-28.18:43:50.165 [pool-2-thread-10] INFO  Step1AnalyzerNode      -    🎯 2. 执行搜索：可使用搜索工具，查找有关当前模型（如ERNIE）的详细信息、功能以及应用场景。
-26-01-28.18:43:50.165 [pool-2-thread-10] INFO  Step1AnalyzerNode      -    🎯 3. 生成回答：整合搜索到的信息，生成针对用户问题的具体答案。
-26-01-28.18:43:50.165 [pool-2-thread-10] INFO  Step1AnalyzerNode      -    🎯 需要调用的工具包括搜索工具以获取最新信息，然后生成一段关于该模型的描述和功能。
-26-01-28.18:43:50.165 [pool-2-thread-10] INFO  Step1AnalyzerNode      - 
-📊 完成度评估: ** 10%
-26-01-28.18:43:50.165 [pool-2-thread-10] INFO  Step1AnalyzerNode      - 
-🔄 任务状态: 继续执行
-26-01-28.18:43:50.165 [pool-2-thread-10] INFO  Step2PrecisionExecutorNode - 
-⚡ 阶段2: 精准任务执行
-26-01-28.18:45:19.837 [SpringApplicationShutdownHook] INFO  GracefulShutdown       - Commencing graceful shutdown. Waiting for active requests to complete
-26-01-28.18:45:59.982 [main            ] INFO  Application            - Starting Application using Java 22 with PID 4380 (D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\classes started by Lenovo in D:\JAVA\study-project\ai-agent-station-new)
-26-01-28.18:45:59.985 [main            ] INFO  Application            - The following 1 profile is active: "dev"
-26-01-28.18:46:02.116 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port 8091 (http)
-26-01-28.18:46:02.135 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8091"]
-26-01-28.18:46:02.137 [main            ] INFO  StandardService        - Starting service [Tomcat]
-26-01-28.18:46:02.137 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/10.1.36]
-26-01-28.18:46:02.283 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
-26-01-28.18:46:02.283 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2235 ms
-26-01-28.18:46:03.269 [main            ] INFO  PgVectorStore          - Using the vector table name: vector_store_openai. Is empty: false
-26-01-28.18:46:03.275 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: vector_store_openai in schema: public
-26-01-28.18:46:03.276 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
-26-01-28.18:46:03.645 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
-26-01-28.18:46:04.285 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8091"]
-26-01-28.18:46:04.296 [main            ] INFO  TomcatWebServer        - Tomcat started on port 8091 (http) with context path '/'
-26-01-28.18:46:04.304 [main            ] INFO  Application            - Started Application in 5.39 seconds (process running for 7.24)
-26-01-28.18:46:04.307 [main            ] INFO  AiAgentAutoConfiguration - AI Agent 自动装配开始，配置: AiAgentAutoConfigProperties(enabled=true, clientIds=[3101, 3102, 3103, 3104])
-26-01-28.18:46:04.308 [main            ] INFO  AiAgentAutoConfiguration - 开始自动装配AI客户端，客户端ID列表: [3101, 3102, 3103, 3104]
-26-01-28.18:46:04.311 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [3101, 3102, 3103, 3104]
-26-01-28.18:46:04.311 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [3101, 3102, 3103, 3104]
-26-01-28.18:46:04.311 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [3101, 3102, 3103, 3104]
-26-01-28.18:46:04.311 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [3101, 3102, 3103, 3104]
-26-01-28.18:46:04.311 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [3101, 3102, 3103, 3104]
-26-01-28.18:46:04.311 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [3101, 3102, 3103, 3104]
-26-01-28.18:46:04.332 [pool-2-thread-1 ] INFO  HikariDataSource       - MainHikariPool - Starting...
-26-01-28.18:46:04.657 [pool-2-thread-1 ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@56ea83df
-26-01-28.18:46:04.660 [pool-2-thread-1 ] INFO  HikariDataSource       - MainHikariPool - Start completed.
-26-01-28.18:46:05.059 [main            ] INFO  RootNode               - Ai Agent 构建，数据加载节点 {"commandIdList":["3101","3102","3103","3104"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
-26-01-28.18:46:05.060 [main            ] INFO  AiClientApiNode        - Ai Agent 构建，API 构建节点 {"commandIdList":["3101","3102","3103","3104"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
-26-01-28.18:46:05.068 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_api_1001
-26-01-28.18:46:05.068 [main            ] INFO  AiClientToolMcpNode    - Ai Agent 构建节点，Tool MCP 工具配置{"commandIdList":["3101","3102","3103","3104"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
-26-01-28.18:46:05.438 [HttpClient-12-Worker-2] INFO  McpAsyncClient         - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[completions=null, experimental={}, logging=null, prompts=PromptCapabilities[listChanged=false], resources=ResourceCapabilities[subscribe=false, listChanged=false], tools=ToolCapabilities[listChanged=false]], Info: Implementation[name=AIsearch, version=1.4.1] and Instructions null
-26-01-28.18:46:05.531 [main            ] INFO  AiClientToolMcpNode    - Tool SSE MCP Initialized InitializeResult[protocolVersion=2024-11-05, capabilities=ServerCapabilities[completions=null, experimental={}, logging=null, prompts=PromptCapabilities[listChanged=false], resources=ResourceCapabilities[subscribe=false, listChanged=false], tools=ToolCapabilities[listChanged=false]], serverInfo=Implementation[name=AIsearch, version=1.4.1], instructions=null]
-26-01-28.18:46:05.534 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_tool_mcp_5006
-26-01-28.18:46:05.534 [main            ] INFO  AiClientModelNode      - Ai Agent 构建节点，Mode 对话模型{"commandIdList":["3101","3102","3103","3104"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
-26-01-28.18:46:05.630 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_model_2001
-26-01-28.18:46:05.630 [main            ] INFO  AiClientAdvisorNode    - Ai Agent 构建，Advisor 顾问角色{"commandIdList":["3101","3102","3103","3104"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
-26-01-28.18:46:05.641 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_advisor_4001
-26-01-28.18:46:05.641 [main            ] INFO  AiClientNode           - Ai Agent 构建节点，客户端{"commandIdList":["3101","3102","3103","3104"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
-26-01-28.18:46:05.720 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_3101
-26-01-28.18:46:05.784 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_3102
-26-01-28.18:46:05.864 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_3103
-26-01-28.18:46:05.866 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_3104
-26-01-28.18:46:05.866 [main            ] INFO  AiAgentAutoConfiguration - AI Agent 自动装配完成，结果: null
-26-01-28.19:02:56.665 [SpringApplicationShutdownHook] INFO  GracefulShutdown       - Commencing graceful shutdown. Waiting for active requests to complete
-26-01-28.19:02:56.683 [tomcat-shutdown ] INFO  GracefulShutdown       - Graceful shutdown complete
-26-01-28.19:02:56.703 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown initiated...
-26-01-28.19:02:56.744 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown completed.
+	... 59 common frames omitted
+Caused by: java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:110)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:89)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:63)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:73)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:899)
+	at com.mysql.cj.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:824)
+	at com.mysql.cj.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:449)
+	at com.mysql.cj.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:242)
+	at com.mysql.cj.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:198)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:137)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:360)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:202)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:461)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:550)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:98)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:111)
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:160)
+	at org.springframework.jdbc.datasource.DataSourceUtils.doGetConnection(DataSourceUtils.java:118)
+	at org.springframework.jdbc.datasource.DataSourceUtils.getConnection(DataSourceUtils.java:81)
+	... 69 common frames omitted
+Caused by: com.mysql.cj.exceptions.CJCommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:61)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:105)
+	at com.mysql.cj.exceptions.ExceptionFactory.createException(ExceptionFactory.java:151)
+	at com.mysql.cj.exceptions.ExceptionFactory.createCommunicationsException(ExceptionFactory.java:167)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:89)
+	at com.mysql.cj.NativeSession.connect(NativeSession.java:120)
+	at com.mysql.cj.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:843)
+	... 83 common frames omitted
+Caused by: java.net.ConnectException: Connection refused: getsockopt
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:752)
+	at com.mysql.cj.protocol.StandardSocketFactory.connect(StandardSocketFactory.java:156)
+	at com.mysql.cj.protocol.a.NativeSocketConnection.connect(NativeSocketConnection.java:63)
+	... 85 common frames omitted
+26-04-15.09:41:32.111 [main            ] INFO  Application            - Starting Application using Java 22 with PID 7284 (D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\classes started by Lenovo in D:\JAVA\study-project\ai-agent-station-new)
+26-04-15.09:41:32.116 [main            ] INFO  Application            - The following 1 profile is active: "dev"
+26-04-15.09:41:34.933 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port 8091 (http)
+26-04-15.09:41:34.957 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8091"]
+26-04-15.09:41:34.959 [main            ] INFO  StandardService        - Starting service [Tomcat]
+26-04-15.09:41:34.959 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/10.1.36]
+26-04-15.09:41:35.107 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+26-04-15.09:41:35.109 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2917 ms
+26-04-15.09:41:35.782 [main            ] INFO  HikariDataSource       - MainHikariPool - Starting...
+26-04-15.09:41:36.178 [main            ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@23ec63af
+26-04-15.09:41:36.180 [main            ] INFO  HikariDataSource       - MainHikariPool - Start completed.
+26-04-15.09:41:36.686 [main            ] INFO  PgVectorStore          - Using the vector table name: document_vector_store. Is empty: false
+26-04-15.09:41:36.693 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: document_vector_store in schema: public
+26-04-15.09:41:36.693 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
+26-04-15.09:41:36.694 [main            ] INFO  HikariDataSource       - PgVectorHikariPool - Starting...
+26-04-15.09:41:36.896 [main            ] INFO  HikariPool             - PgVectorHikariPool - Added connection org.postgresql.jdbc.PgConnection@3fbe0a0
+26-04-15.09:41:36.897 [main            ] INFO  HikariDataSource       - PgVectorHikariPool - Start completed.
+26-04-15.09:41:37.310 [main            ] INFO  PgVectorStore          - Using the vector table name: job_standard_vector_store. Is empty: false
+26-04-15.09:41:37.311 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: job_standard_vector_store in schema: public
+26-04-15.09:41:37.311 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
+26-04-15.09:41:37.473 [main            ] INFO  PgVectorStore          - Using the vector table name: resume_vector_store. Is empty: false
+26-04-15.09:41:37.474 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: resume_vector_store in schema: public
+26-04-15.09:41:37.474 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
+26-04-15.09:41:37.867 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+26-04-15.09:41:38.837 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint beneath base path '/actuator'
+26-04-15.09:41:38.911 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8091"]
+26-04-15.09:41:38.923 [main            ] INFO  TomcatWebServer        - Tomcat started on port 8091 (http) with context path '/'
+26-04-15.09:41:38.935 [main            ] INFO  Application            - Started Application in 7.671 seconds (process running for 8.852)
+26-04-15.09:41:38.942 [main            ] INFO  AiAgentAutoConfiguration - AI Agent 自动装配开始，配置: AiAgentAutoConfigProperties(enabled=true, clientIds=[5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204])
+26-04-15.09:41:38.943 [main            ] INFO  AiAgentAutoConfiguration - 开始自动装配AI客户端，客户端ID列表: [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-15.09:41:38.946 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-15.09:41:38.946 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-15.09:41:38.946 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-15.09:41:38.947 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-15.09:41:38.947 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-15.09:41:38.947 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-15.09:41:39.263 [main            ] INFO  RootNode               - Ai Agent 构建，数据加载节点 {"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-15.09:41:39.263 [main            ] INFO  AiClientApiNode        - Ai Agent 鏋勫缓锛孉PI 鏋勫缓鑺傜偣 {"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-15.09:41:39.273 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_api_1003
+26-04-15.09:41:39.273 [main            ] INFO  AiClientToolMcpNode    - Ai Agent 构建节点，Tool MCP 工具配置{"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-15.09:41:39.273 [main            ] WARN  AiClientToolMcpNode    - 没有需要被初始化的 ai client tool mcp
+26-04-15.09:41:39.273 [main            ] INFO  AiClientModelNode      - Ai Agent 构建节点，Mode 对话模型{"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-15.09:41:39.278 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_model_2004
+26-04-15.09:41:39.278 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_model_2003
+26-04-15.09:41:39.279 [main            ] INFO  AiClientAdvisorNode    - Ai Agent 构建，Advisor 顾问角色{"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-15.09:41:39.299 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_advisor_4001
+26-04-15.09:41:39.387 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_advisor_4002
+26-04-15.09:41:39.387 [main            ] INFO  AiClientNode           - Ai Agent 构建节点，客户端{"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-15.09:41:39.402 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5101
+26-04-15.09:41:39.403 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5102
+26-04-15.09:41:39.403 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5103
+26-04-15.09:41:39.403 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5104
+26-04-15.09:41:39.404 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5201
+26-04-15.09:41:39.404 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5202
+26-04-15.09:41:39.404 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5203
+26-04-15.09:41:39.404 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5204
+26-04-15.09:41:39.404 [main            ] INFO  AiAgentAutoConfiguration - AI Agent 自动装配完成，结果: null
+26-04-15.09:41:39.589 [RMI TCP Connection(2)-10.77.191.175] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
+26-04-15.09:41:39.589 [RMI TCP Connection(2)-10.77.191.175] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
+26-04-15.09:41:39.593 [RMI TCP Connection(2)-10.77.191.175] INFO  DispatcherServlet      - Completed initialization in 4 ms
+26-04-15.09:46:19.873 [http-nio-8091-exec-1] INFO  DocumentWorkspaceServiceImpl - document workspace create start, workspaceName=Java 架构与设计空间, description=用于文档检索、摘要、追问和问答
+26-04-15.09:46:19.882 [http-nio-8091-exec-1] INFO  DocumentWorkspaceServiceImpl - document workspace created, workspaceId=dws_c134709e8f1f, workspaceName=Java 架构与设计空间
+26-04-15.09:46:31.701 [http-nio-8091-exec-6] INFO  DocumentWorkspaceServiceImpl - document upload start, workspaceId=dws_c134709e8f1f, docId=doc_72d2f11c104c, fileName=test.txt, fileType=txt, fileSize=909
+26-04-15.09:46:32.659 [http-nio-8091-exec-6] INFO  DocumentWorkspaceServiceImpl - document parse completed, workspaceId=dws_c134709e8f1f, docId=doc_72d2f11c104c, textLength=385
+26-04-15.09:46:32.680 [http-nio-8091-exec-6] INFO  DocumentWorkspaceServiceImpl - document split completed, workspaceId=dws_c134709e8f1f, docId=doc_72d2f11c104c, chunkCount=1
+26-04-15.09:46:32.691 [http-nio-8091-exec-6] INFO  DocumentWorkspaceServiceImpl - document vector store write start, workspaceId=dws_c134709e8f1f, docId=doc_72d2f11c104c, chunkCount=1
+26-04-15.09:46:33.269 [http-nio-8091-exec-6] INFO  DocumentWorkspaceServiceImpl - document upload completed, workspaceId=dws_c134709e8f1f, docId=doc_72d2f11c104c, chunkCount=1, vectorStatus=COMPLETED
+26-04-15.09:46:52.431 [http-nio-8091-exec-5] INFO  DocumentWorkspaceServiceImpl - document task start, taskType=summary, workspaceId=dws_c134709e8f1f, docId=ALL, retrievalScope=workspace:dws_c134709e8f1f,vectorTable=document_vector_store
+26-04-15.09:46:52.438 [http-nio-8091-exec-5] INFO  DocumentWorkspaceServiceImpl - document query rewritten, taskType=summary, workspaceId=dws_c134709e8f1f, docId=ALL, rewrittenQuery=请基于当前文档空间生成摘要概述
+26-04-15.09:46:52.633 [http-nio-8091-exec-5] INFO  DocumentWorkspaceServiceImpl - document retrieval completed, taskType=summary, workspaceId=dws_c134709e8f1f, docId=ALL, retrievedChunks=1
+26-04-15.09:47:41.755 [http-nio-8091-exec-5] INFO  DocumentWorkspaceServiceImpl - document task completed, taskType=summary, workspaceId=dws_c134709e8f1f, docId=ALL, answerLength=1271
+26-04-15.09:52:32.093 [http-nio-8091-exec-7] INFO  DocumentWorkspaceServiceImpl - document task start, taskType=followup, workspaceId=dws_c134709e8f1f, docId=ALL, retrievalScope=workspace:dws_c134709e8f1f,vectorTable=document_vector_store
+26-04-15.09:52:32.099 [http-nio-8091-exec-7] INFO  DocumentWorkspaceServiceImpl - document query rewritten, taskType=followup, workspaceId=dws_c134709e8f1f, docId=ALL, rewrittenQuery=请从技术评审视角生成文档追问
+26-04-15.09:52:32.677 [http-nio-8091-exec-7] INFO  DocumentWorkspaceServiceImpl - document retrieval completed, taskType=followup, workspaceId=dws_c134709e8f1f, docId=ALL, retrievedChunks=1
+26-04-15.09:53:08.913 [http-nio-8091-exec-7] INFO  DocumentWorkspaceServiceImpl - document task completed, taskType=followup, workspaceId=dws_c134709e8f1f, docId=ALL, answerLength=268
+26-04-15.09:54:03.718 [http-nio-8091-exec-3] INFO  DocumentWorkspaceServiceImpl - document task start, taskType=quiz, workspaceId=dws_c134709e8f1f, docId=ALL, retrievalScope=workspace:dws_c134709e8f1f,vectorTable=document_vector_store
+26-04-15.09:54:03.724 [http-nio-8091-exec-3] INFO  DocumentWorkspaceServiceImpl - document query rewritten, taskType=quiz, workspaceId=dws_c134709e8f1f, docId=ALL, rewrittenQuery=请基于当前文档生成3道客观选择题
+26-04-15.09:54:04.069 [http-nio-8091-exec-3] INFO  DocumentWorkspaceServiceImpl - document retrieval completed, taskType=quiz, workspaceId=dws_c134709e8f1f, docId=ALL, retrievedChunks=1
+26-04-15.09:54:48.357 [http-nio-8091-exec-3] INFO  DocumentWorkspaceServiceImpl - document task completed, taskType=quiz, workspaceId=dws_c134709e8f1f, docId=ALL, answerLength=409
+26-04-15.10:05:28.426 [SpringApplicationShutdownHook] INFO  GracefulShutdown       - Commencing graceful shutdown. Waiting for active requests to complete
+26-04-15.10:05:28.442 [tomcat-shutdown ] INFO  GracefulShutdown       - Graceful shutdown complete
+26-04-15.10:05:28.457 [SpringApplicationShutdownHook] INFO  HikariDataSource       - PgVectorHikariPool - Shutdown initiated...
+26-04-15.10:05:28.461 [SpringApplicationShutdownHook] INFO  HikariDataSource       - PgVectorHikariPool - Shutdown completed.
+26-04-15.10:05:28.463 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown initiated...
+26-04-15.10:05:28.480 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown completed.
+26-04-15.10:15:45.062 [main            ] INFO  Application            - Starting Application using Java 22 with PID 25332 (D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\classes started by Lenovo in D:\JAVA\study-project\ai-agent-station-new)
+26-04-15.10:15:45.063 [main            ] INFO  Application            - The following 1 profile is active: "dev"
+26-04-15.10:15:47.814 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port 8091 (http)
+26-04-15.10:15:47.836 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8091"]
+26-04-15.10:15:47.838 [main            ] INFO  StandardService        - Starting service [Tomcat]
+26-04-15.10:15:47.838 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/10.1.36]
+26-04-15.10:15:48.023 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+26-04-15.10:15:48.024 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2915 ms
+26-04-15.10:15:48.577 [main            ] INFO  HikariDataSource       - MainHikariPool - Starting...
+26-04-15.10:15:48.877 [main            ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@53a09566
+26-04-15.10:15:48.879 [main            ] INFO  HikariDataSource       - MainHikariPool - Start completed.
+26-04-15.10:15:49.272 [main            ] INFO  PgVectorStore          - Using the vector table name: document_vector_store. Is empty: false
+26-04-15.10:15:49.277 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: document_vector_store in schema: public
+26-04-15.10:15:49.279 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
+26-04-15.10:15:49.279 [main            ] INFO  HikariDataSource       - PgVectorHikariPool - Starting...
+26-04-15.10:15:49.449 [main            ] INFO  HikariPool             - PgVectorHikariPool - Added connection org.postgresql.jdbc.PgConnection@59b680ea
+26-04-15.10:15:49.449 [main            ] INFO  HikariDataSource       - PgVectorHikariPool - Start completed.
+26-04-15.10:15:49.851 [main            ] INFO  PgVectorStore          - Using the vector table name: job_standard_vector_store. Is empty: false
+26-04-15.10:15:49.851 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: job_standard_vector_store in schema: public
+26-04-15.10:15:49.851 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
+26-04-15.10:15:49.992 [main            ] INFO  PgVectorStore          - Using the vector table name: resume_vector_store. Is empty: false
+26-04-15.10:15:49.992 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: resume_vector_store in schema: public
+26-04-15.10:15:49.992 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
+26-04-15.10:15:50.377 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+26-04-15.10:15:51.181 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint beneath base path '/actuator'
+26-04-15.10:15:51.246 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8091"]
+26-04-15.10:15:51.256 [main            ] INFO  TomcatWebServer        - Tomcat started on port 8091 (http) with context path '/'
+26-04-15.10:15:51.268 [main            ] INFO  Application            - Started Application in 7.12 seconds (process running for 8.625)
+26-04-15.10:15:51.275 [main            ] INFO  AiAgentAutoConfiguration - AI Agent 自动装配开始，配置: AiAgentAutoConfigProperties(enabled=true, clientIds=[5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204])
+26-04-15.10:15:51.276 [main            ] INFO  AiAgentAutoConfiguration - 开始自动装配AI客户端，客户端ID列表: [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-15.10:15:51.279 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-15.10:15:51.279 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-15.10:15:51.279 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-15.10:15:51.279 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-15.10:15:51.280 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-15.10:15:51.280 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-15.10:15:51.537 [RMI TCP Connection(3)-10.77.191.175] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
+26-04-15.10:15:51.538 [RMI TCP Connection(3)-10.77.191.175] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
+26-04-15.10:15:51.541 [RMI TCP Connection(3)-10.77.191.175] INFO  DispatcherServlet      - Completed initialization in 3 ms
+26-04-15.10:15:51.551 [main            ] INFO  RootNode               - Ai Agent 构建，数据加载节点 {"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-15.10:15:51.552 [main            ] INFO  AiClientApiNode        - Ai Agent 鏋勫缓锛孉PI 鏋勫缓鑺傜偣 {"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-15.10:15:51.562 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_api_1003
+26-04-15.10:15:51.562 [main            ] INFO  AiClientToolMcpNode    - Ai Agent 构建节点，Tool MCP 工具配置{"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-15.10:15:51.563 [main            ] WARN  AiClientToolMcpNode    - 没有需要被初始化的 ai client tool mcp
+26-04-15.10:15:51.563 [main            ] INFO  AiClientModelNode      - Ai Agent 构建节点，Mode 对话模型{"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-15.10:15:51.566 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_model_2004
+26-04-15.10:15:51.566 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_model_2003
+26-04-15.10:15:51.567 [main            ] INFO  AiClientAdvisorNode    - Ai Agent 构建，Advisor 顾问角色{"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-15.10:15:51.594 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_advisor_4001
+26-04-15.10:15:51.658 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_advisor_4002
+26-04-15.10:15:51.658 [main            ] INFO  AiClientNode           - Ai Agent 构建节点，客户端{"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-15.10:15:51.664 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5101
+26-04-15.10:15:51.665 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5102
+26-04-15.10:15:51.665 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5103
+26-04-15.10:15:51.665 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5104
+26-04-15.10:15:51.665 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5201
+26-04-15.10:15:51.666 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5202
+26-04-15.10:15:51.666 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5203
+26-04-15.10:15:51.666 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5204
+26-04-15.10:15:51.666 [main            ] INFO  AiAgentAutoConfiguration - AI Agent 自动装配完成，结果: null
+26-04-15.10:17:09.212 [http-nio-8091-exec-6] INFO  DocumentWorkspaceServiceImpl - document task start, taskType=ask, workspaceId=dws_c134709e8f1f, docId=ALL, retrievalScope=workspace:dws_c134709e8f1f,vectorTable=document_vector_store
+26-04-15.10:17:09.217 [http-nio-8091-exec-6] INFO  DocumentWorkspaceServiceImpl - document query rewritten, taskType=ask, workspaceId=dws_c134709e8f1f, docId=ALL, rewrittenQuery=简短回答，文档主要什么内容
+26-04-15.10:17:09.822 [http-nio-8091-exec-6] INFO  DocumentWorkspaceServiceImpl - document retrieval completed, taskType=ask, workspaceId=dws_c134709e8f1f, docId=ALL, retrievedChunks=1
+26-04-15.10:17:45.843 [http-nio-8091-exec-6] INFO  DocumentWorkspaceServiceImpl - document task completed, taskType=ask, workspaceId=dws_c134709e8f1f, docId=ALL, answerLength=683
+26-04-15.10:32:33.153 [SpringApplicationShutdownHook] INFO  GracefulShutdown       - Commencing graceful shutdown. Waiting for active requests to complete
+26-04-15.10:32:33.175 [tomcat-shutdown ] INFO  GracefulShutdown       - Graceful shutdown complete
+26-04-15.10:32:33.197 [SpringApplicationShutdownHook] INFO  HikariDataSource       - PgVectorHikariPool - Shutdown initiated...
+26-04-15.10:32:33.204 [SpringApplicationShutdownHook] INFO  HikariDataSource       - PgVectorHikariPool - Shutdown completed.
+26-04-15.10:32:33.206 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown initiated...
+26-04-15.10:32:33.226 [SpringApplicationShutdownHook] INFO  HikariDataSource       - MainHikariPool - Shutdown completed.

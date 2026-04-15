@@ -30,6 +30,49 @@ public class ResumeWorkflowSchemaInitializer implements InitializingBean {
                 """);
 
         mysqlJdbcTemplate.execute("""
+                CREATE TABLE IF NOT EXISTS ai_knowledge_space (
+                    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                    space_id VARCHAR(64) NOT NULL UNIQUE,
+                    space_name VARCHAR(128) NOT NULL,
+                    space_type VARCHAR(32) NOT NULL,
+                    description VARCHAR(512) DEFAULT NULL,
+                    status TINYINT DEFAULT 1,
+                    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                )
+                """);
+
+        mysqlJdbcTemplate.execute("""
+                CREATE TABLE IF NOT EXISTS ai_knowledge_document (
+                    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                    doc_id VARCHAR(64) NOT NULL UNIQUE,
+                    space_id VARCHAR(64) NOT NULL,
+                    file_name VARCHAR(255) NOT NULL,
+                    file_type VARCHAR(32) NOT NULL,
+                    file_size BIGINT DEFAULT 0,
+                    parse_status VARCHAR(32) DEFAULT 'PENDING',
+                    chunk_count INT DEFAULT 0,
+                    vector_status VARCHAR(32) DEFAULT 'PENDING',
+                    status TINYINT DEFAULT 1,
+                    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                )
+                """);
+
+        mysqlJdbcTemplate.execute("""
+                CREATE TABLE IF NOT EXISTS ai_knowledge_chunk (
+                    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                    chunk_id VARCHAR(64) NOT NULL UNIQUE,
+                    doc_id VARCHAR(64) NOT NULL,
+                    space_id VARCHAR(64) NOT NULL,
+                    chunk_index INT NOT NULL,
+                    chunk_text LONGTEXT NOT NULL,
+                    metadata_json JSON DEFAULT NULL,
+                    create_time DATETIME DEFAULT CURRENT_TIMESTAMP
+                )
+                """);
+
+        mysqlJdbcTemplate.execute("""
                 CREATE TABLE IF NOT EXISTS resume_knowledge_space (
                     id BIGINT PRIMARY KEY AUTO_INCREMENT,
                     resume_id BIGINT NOT NULL,
@@ -55,6 +98,8 @@ public class ResumeWorkflowSchemaInitializer implements InitializingBean {
                     update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
                 )
                 """);
+        addColumnIfMissing("resume_interview_session", "total_rounds", "INT DEFAULT 3");
+        addColumnIfMissing("resume_interview_session", "final_report", "LONGTEXT");
 
         mysqlJdbcTemplate.execute("""
                 CREATE TABLE IF NOT EXISTS resume_interview_round (
@@ -70,6 +115,8 @@ public class ResumeWorkflowSchemaInitializer implements InitializingBean {
                     update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
                 )
                 """);
+        addColumnIfMissing("resume_interview_round", "score", "VARCHAR(64)");
+        mysqlJdbcTemplate.execute("ALTER TABLE resume_interview_round MODIFY COLUMN score VARCHAR(255) NULL");
 
         pgVectorJdbcTemplate.execute("CREATE EXTENSION IF NOT EXISTS vector");
         pgVectorJdbcTemplate.execute("CREATE EXTENSION IF NOT EXISTS hstore");
@@ -86,10 +133,112 @@ public class ResumeWorkflowSchemaInitializer implements InitializingBean {
                 CREATE INDEX IF NOT EXISTS resume_vector_store_index
                 ON public.resume_vector_store USING hnsw (embedding vector_cosine_ops)
                 """);
+
         mysqlJdbcTemplate.execute("""
                 UPDATE resume_knowledge_space
                 SET vector_table = '%s', update_time = NOW()
                 WHERE vector_table IS NULL OR vector_table <> '%s'
                 """.formatted(AiAgentConfig.RESUME_VECTOR_TABLE, AiAgentConfig.RESUME_VECTOR_TABLE));
+
+        pgVectorJdbcTemplate.execute("""
+                CREATE TABLE IF NOT EXISTS public.job_standard_profile (
+                    id BIGSERIAL PRIMARY KEY,
+                    job_code VARCHAR(64) NOT NULL UNIQUE,
+                    job_name VARCHAR(128) NOT NULL,
+                    job_family VARCHAR(64),
+                    job_level VARCHAR(64),
+                    description TEXT,
+                    status SMALLINT DEFAULT 1,
+                    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+                """);
+        pgVectorJdbcTemplate.execute("""
+                CREATE TABLE IF NOT EXISTS public.job_standard_item (
+                    id BIGSERIAL PRIMARY KEY,
+                    profile_id BIGINT NOT NULL,
+                    job_code VARCHAR(64) NOT NULL,
+                    category VARCHAR(64) NOT NULL,
+                    skill_key VARCHAR(64) NOT NULL,
+                    skill_name VARCHAR(128) NOT NULL,
+                    importance VARCHAR(16) NOT NULL,
+                    expected_level VARCHAR(16) NOT NULL,
+                    standard_summary TEXT,
+                    detailed_requirement TEXT,
+                    scoring_points TEXT,
+                    risk_signals TEXT,
+                    status SMALLINT DEFAULT 1,
+                    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+                """);
+        pgVectorJdbcTemplate.execute("""
+                CREATE INDEX IF NOT EXISTS job_standard_item_job_code_idx
+                ON public.job_standard_item(job_code)
+                """);
+        pgVectorJdbcTemplate.execute("""
+                CREATE INDEX IF NOT EXISTS job_standard_item_skill_key_idx
+                ON public.job_standard_item(skill_key)
+                """);
+        pgVectorJdbcTemplate.execute("""
+                CREATE TABLE IF NOT EXISTS public.job_standard_vector_store (
+                    id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+                    content text,
+                    metadata jsonb,
+                    embedding vector(1024)
+                )
+                """);
+        pgVectorJdbcTemplate.execute("""
+                CREATE INDEX IF NOT EXISTS job_standard_vector_store_index
+                ON public.job_standard_vector_store USING hnsw (embedding vector_cosine_ops)
+                """);
+
+        pgVectorJdbcTemplate.execute("""
+                CREATE TABLE IF NOT EXISTS public.document_vector_store (
+                    id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+                    content text,
+                    metadata jsonb,
+                    embedding vector(1024)
+                )
+                """);
+        pgVectorJdbcTemplate.execute("""
+                CREATE INDEX IF NOT EXISTS document_vector_store_index
+                ON public.document_vector_store USING hnsw (embedding vector_cosine_ops)
+                """);
+
+        syncAutoRuntimeClientModel();
+    }
+
+    private void addColumnIfMissing(String tableName, String columnName, String columnDefinition) {
+        Integer count = mysqlJdbcTemplate.queryForObject(
+                """
+                        SELECT COUNT(1)
+                        FROM information_schema.COLUMNS
+                        WHERE TABLE_SCHEMA = DATABASE()
+                          AND TABLE_NAME = ?
+                          AND COLUMN_NAME = ?
+                        """,
+                Integer.class,
+                tableName,
+                columnName);
+        if (count == null || count == 0) {
+            mysqlJdbcTemplate.execute("ALTER TABLE " + tableName + " ADD COLUMN " + columnName + " " + columnDefinition);
+        }
+    }
+
+    /**
+     * 保留原有“数据库动态装配 client”机制，只在启动时把四步链路的 1/4 步 client
+     * 映射到保留模型方案中的 flash 模型（约定 2004 为 qwen3.5-flash）。
+     */
+    private void syncAutoRuntimeClientModel() {
+        mysqlJdbcTemplate.update("""
+                UPDATE ai_client_config
+                SET target_id = '2004', update_time = NOW()
+                WHERE source_type = 'client'
+                  AND target_type = 'model'
+                  AND source_id IN ('5101', '5104', '5201', '5204')
+                  AND status = 1
+                  AND target_id <> '2004'
+                """);
     }
 }

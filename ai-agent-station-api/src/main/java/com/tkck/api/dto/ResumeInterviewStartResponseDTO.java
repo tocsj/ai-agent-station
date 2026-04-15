@@ -21,5 +21,9 @@ public class ResumeInterviewStartResponseDTO implements Serializable {
 
     private Integer currentRound;
 
+    private Integer totalRounds;
+
+    private String status;
+
     private String openingQuestions;
 }

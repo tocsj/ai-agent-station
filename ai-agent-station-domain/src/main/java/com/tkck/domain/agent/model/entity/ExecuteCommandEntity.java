@@ -27,4 +27,10 @@ public class ExecuteCommandEntity {
 
     private String qaFilterExpression;
 
+    private Long interviewSessionId;
+
+    private Integer interviewRoundNo;
+
+    private Integer interviewTotalRounds;
+
 }

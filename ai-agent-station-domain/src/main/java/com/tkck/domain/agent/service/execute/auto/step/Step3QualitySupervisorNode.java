@@ -6,6 +6,8 @@ import com.tkck.domain.agent.model.entity.ExecuteCommandEntity;
 import com.tkck.domain.agent.model.valobj.AiAgentClientFlowConfigVO;
 import com.tkck.domain.agent.model.valobj.enums.AiClientTypeEnumVO;
 import com.tkck.domain.agent.service.execute.auto.step.factory.DefaultAutoAgentExecuteStrategyFactory;
+import com.tkck.domain.agent.service.runtime.resilience.ExecutionFailure;
+import com.tkck.domain.agent.service.runtime.resilience.ExecutionStage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.stereotype.Service;
@@ -58,18 +60,23 @@ public class Step3QualitySupervisorNode extends AbstractExecuteSupport {
         AiAgentClientFlowConfigVO aiAgentClientFlowConfigVO = dynamicContext.getAiAgentClientFlowConfigVOMap().get(AiClientTypeEnumVO.QUALITY_SUPERVISOR_CLIENT.getCode());
         ChatClient chatClient = getChatClientByClientId(aiAgentClientFlowConfigVO.getClientId());
 
-        String supervisionResult = chatClient
-                .prompt(supervisionPrompt)
-                .advisors(a -> {
-                    a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, requestParameter.getSessionId())
-                            .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 1024);
-                    if (StringUtils.hasText(requestParameter.getQaFilterExpression())) {
-                        a.param(QA_FILTER_EXPRESSION_KEY, requestParameter.getQaFilterExpression());
-                    }
-                })
-                .call().content();
+        String supervisionResult = executeStage(
+                ExecutionStage.STEP3_VERIFY,
+                requestParameter,
+                dynamicContext,
+                () -> chatClient
+                        .prompt(supervisionPrompt)
+                        .advisors(a -> {
+                            a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, requestParameter.getSessionId())
+                                    .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 1024);
+                            if (StringUtils.hasText(requestParameter.getQaFilterExpression())) {
+                                a.param(QA_FILTER_EXPRESSION_KEY, requestParameter.getQaFilterExpression());
+                            }
+                        })
+                        .call().content(),
+                this::buildSupervisionFallback
+        );
 
-        assert supervisionResult != null;
         parseSupervisionResult(dynamicContext, supervisionResult, requestParameter.getSessionId());
         
         // 将监督结果保存到动态上下文中
@@ -238,5 +245,23 @@ public class Step3QualitySupervisorNode extends AbstractExecuteSupport {
             sendSseResult(dynamicContext, result);
         }
     }
-
+        
+    private String buildSupervisionFallback(ExecutionFailure failure) {
+        return """
+                需求匹配度:
+                当前无法完成完整质检，已转为降级质检。
+                内容完整性:
+                结果可作为参考，但未经本轮质量校验。
+                问题识别:
+                建议人工关注关键结论是否充分引用上下文。
+                改进建议:
+                后续可在模型恢复后重新执行质检节点。
+                质量评分:
+                N/A
+                是否通过:
+                OPTIMIZE
+                降级原因:
+                %s
+                """.formatted(failure.getErrorCode().getMessage());
+    }
 }

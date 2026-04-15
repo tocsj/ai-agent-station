@@ -232,7 +232,7 @@ INSERT INTO `ai_client_config` (
     `create_time`,
     `update_time`
 ) VALUES
-('client', '5101', 'model', '2003', '\"\"', 1, NOW(), NOW()),
+('client', '5101', 'model', '2004', '\"\"', 1, NOW(), NOW()),
 ('client', '5101', 'prompt', '9101', '\"\"', 1, NOW(), NOW()),
 ('client', '5101', 'advisor', '4001', '\"\"', 1, NOW(), NOW()),
 ('client', '5101', 'advisor', '4002', '\"\"', 1, NOW(), NOW()),
@@ -244,11 +244,11 @@ INSERT INTO `ai_client_config` (
 ('client', '5103', 'prompt', '9103', '\"\"', 1, NOW(), NOW()),
 ('client', '5103', 'advisor', '4001', '\"\"', 1, NOW(), NOW()),
 ('client', '5103', 'advisor', '4002', '\"\"', 1, NOW(), NOW()),
-('client', '5104', 'model', '2003', '\"\"', 1, NOW(), NOW()),
+('client', '5104', 'model', '2004', '\"\"', 1, NOW(), NOW()),
 ('client', '5104', 'prompt', '9104', '\"\"', 1, NOW(), NOW()),
 ('client', '5104', 'advisor', '4001', '\"\"', 1, NOW(), NOW()),
 ('client', '5104', 'advisor', '4002', '\"\"', 1, NOW(), NOW()),
-('client', '5201', 'model', '2003', '\"\"', 1, NOW(), NOW()),
+('client', '5201', 'model', '2004', '\"\"', 1, NOW(), NOW()),
 ('client', '5201', 'prompt', '9201', '\"\"', 1, NOW(), NOW()),
 ('client', '5201', 'advisor', '4001', '\"\"', 1, NOW(), NOW()),
 ('client', '5201', 'advisor', '4002', '\"\"', 1, NOW(), NOW()),
@@ -260,7 +260,7 @@ INSERT INTO `ai_client_config` (
 ('client', '5203', 'prompt', '9203', '\"\"', 1, NOW(), NOW()),
 ('client', '5203', 'advisor', '4001', '\"\"', 1, NOW(), NOW()),
 ('client', '5203', 'advisor', '4002', '\"\"', 1, NOW(), NOW()),
-('client', '5204', 'model', '2003', '\"\"', 1, NOW(), NOW()),
+('client', '5204', 'model', '2004', '\"\"', 1, NOW(), NOW()),
 ('client', '5204', 'prompt', '9204', '\"\"', 1, NOW(), NOW()),
 ('client', '5204', 'advisor', '4001', '\"\"', 1, NOW(), NOW()),
 ('client', '5204', 'advisor', '4002', '\"\"', 1, NOW(), NOW());

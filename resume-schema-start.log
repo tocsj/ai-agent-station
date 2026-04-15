@@ -1,0 +1,155 @@
+21:59:00,385 |-INFO in ch.qos.logback.classic.LoggerContext[logback] - This is logback-classic version 1.5.16
+21:59:00,391 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - Here is a list of configurators discovered as a service, by rank: 
+21:59:00,392 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 -   org.springframework.boot.logging.logback.RootLogLevelConfigurator
+21:59:00,392 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - They will be invoked in order until ExecutionStatus.DO_NOT_INVOKE_NEXT_IF_ANY is returned.
+21:59:00,392 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - Constructed configurator of type class org.springframework.boot.logging.logback.RootLogLevelConfigurator
+21:59:00,399 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - org.springframework.boot.logging.logback.RootLogLevelConfigurator.configure() call lasted 0 milliseconds. ExecutionStatus=INVOKE_NEXT_IF_ANY
+21:59:00,399 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - Trying to configure with ch.qos.logback.classic.joran.SerializedModelConfigurator
+21:59:00,401 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - Constructed configurator of type class ch.qos.logback.classic.joran.SerializedModelConfigurator
+21:59:00,458 |-INFO in ch.qos.logback.classic.LoggerContext[logback] - Could NOT find resource [logback-test.scmo]
+21:59:00,460 |-INFO in ch.qos.logback.classic.LoggerContext[logback] - Could NOT find resource [logback.scmo]
+21:59:00,460 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - ch.qos.logback.classic.joran.SerializedModelConfigurator.configure() call lasted 59 milliseconds. ExecutionStatus=INVOKE_NEXT_IF_ANY
+21:59:00,460 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - Trying to configure with ch.qos.logback.classic.util.DefaultJoranConfigurator
+21:59:00,461 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - Constructed configurator of type class ch.qos.logback.classic.util.DefaultJoranConfigurator
+21:59:00,463 |-INFO in ch.qos.logback.classic.LoggerContext[logback] - Could NOT find resource [logback-test.xml]
+21:59:00,465 |-INFO in ch.qos.logback.classic.LoggerContext[logback] - Could NOT find resource [logback.xml]
+21:59:00,465 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - ch.qos.logback.classic.util.DefaultJoranConfigurator.configure() call lasted 4 milliseconds. ExecutionStatus=INVOKE_NEXT_IF_ANY
+21:59:00,465 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - Trying to configure with ch.qos.logback.classic.BasicConfigurator
+21:59:00,467 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - Constructed configurator of type class ch.qos.logback.classic.BasicConfigurator
+21:59:00,467 |-INFO in ch.qos.logback.classic.BasicConfigurator@114a85c2 - Setting up default configuration.
+21:59:00,490 |-INFO in ch.qos.logback.core.ConsoleAppender[console] - BEWARE: Writing to the console can be very slow. Avoid logging to the 
+21:59:00,490 |-INFO in ch.qos.logback.core.ConsoleAppender[console] - console in production environments, especially in high volume systems.
+21:59:00,490 |-INFO in ch.qos.logback.core.ConsoleAppender[console] - See also https://logback.qos.ch/codes.html#slowConsole
+21:59:00,492 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - ch.qos.logback.classic.BasicConfigurator.configure() call lasted 25 milliseconds. ExecutionStatus=NEUTRAL
+21:59:01,268 |-INFO in ConfigurationWatchList(mainURL=jar:nested:/D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/target/ai-agent-station-app.jar/!BOOT-INF/classes/!/logback-spring.xml, fileWatchList={}, urlWatchList=[}) - URL [jar:nested:/D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/target/ai-agent-station-app.jar/!BOOT-INF/classes/!/logback-spring.xml] is not of type file
+21:59:01,435 |-WARN in ch.qos.logback.core.joran.action.ConversionRuleAction - [converterClass] attribute is deprecated and replaced by [class]. See element [conversionRule] near line 9
+21:59:01,435 |-WARN in ch.qos.logback.core.joran.action.ConversionRuleAction - [converterClass] attribute is deprecated and replaced by [class]. See element [conversionRule] near line 11
+21:59:01,435 |-WARN in ch.qos.logback.core.joran.action.ConversionRuleAction - [converterClass] attribute is deprecated and replaced by [class]. See element [conversionRule] near line 13
+21:59:01,490 |-INFO in ch.qos.logback.classic.model.processor.ContextNameModelHandler - Setting logger context name as [logback]
+21:59:01,492 |-INFO in ch.qos.logback.core.model.processor.ConversionRuleModelHandler - registering conversion word clr with class [org.springframework.boot.logging.logback.ColorConverter]
+21:59:01,492 |-INFO in ch.qos.logback.core.model.processor.ConversionRuleModelHandler - registering conversion word wex with class [org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter]
+21:59:01,492 |-INFO in ch.qos.logback.core.model.processor.ConversionRuleModelHandler - registering conversion word wEx with class [org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter]
+21:59:01,497 |-WARN in ch.qos.logback.classic.model.processor.ConfigurationModelHandlerFull - Missing watchable .xml or .properties files.
+21:59:01,497 |-WARN in ch.qos.logback.classic.model.processor.ConfigurationModelHandlerFull - Watching .xml files requires that the main configuration file is reachable as a URL
+21:59:01,500 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [CONSOLE]
+21:59:01,500 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+21:59:01,508 |-INFO in ch.qos.logback.core.model.processor.ImplicitModelHandler - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+21:59:01,541 |-INFO in ch.qos.logback.core.ConsoleAppender[CONSOLE] - BEWARE: Writing to the console can be very slow. Avoid logging to the 
+21:59:01,541 |-INFO in ch.qos.logback.core.ConsoleAppender[CONSOLE] - console in production environments, especially in high volume systems.
+21:59:01,541 |-INFO in ch.qos.logback.core.ConsoleAppender[CONSOLE] - See also https://logback.qos.ch/codes.html#slowConsole
+21:59:01,541 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [INFO_FILE]
+21:59:01,541 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.core.rolling.RollingFileAppender]
+21:59:01,545 |-INFO in ch.qos.logback.core.model.processor.ImplicitModelHandler - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+21:59:01,552 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy@1917784974 - setting totalSizeCap to 10 GB
+21:59:01,556 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy@1917784974 - No compression will be used
+21:59:01,557 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy@1917784974 - Will use the pattern ./data/log/log-info-%d{yyyy-MM-dd}.%i.log for the active file
+21:59:01,557 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@37eeec90 - SizeAndTimeBasedFNATP class was renamed as SizeAndTimeBasedFileNamingAndTriggeringPolicy.
+21:59:01,577 |-INFO in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@37eeec90 - The date pattern is 'yyyy-MM-dd' from file name pattern './data/log/log-info-%d{yyyy-MM-dd}.%i.log'.
+21:59:01,577 |-INFO in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@37eeec90 - Roll-over at midnight.
+21:59:01,588 |-INFO in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@37eeec90 - Setting initial period to 2026-04-13T11:42:40.701Z
+21:59:01,588 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@37eeec90 - Direct use of either SizeAndTimeBasedFNATP or SizeAndTimeBasedFileNamingAndTriggeringPolicy 
+21:59:01,588 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@37eeec90 - is deprecated. Please use SizeAndTimeBasedRollingPolicy instead.
+21:59:01,588 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@37eeec90 - For more information see https://logback.qos.ch/manual/appenders.html#SizeAndTimeBasedRollingPolicy
+21:59:01,596 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[INFO_FILE] - Active log file name: ./data/log/log_info.log
+21:59:01,598 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[INFO_FILE] - Setting currentFileLength to 2206358 for .\data\log\log_info.log
+21:59:01,599 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[INFO_FILE] - File property is set to [./data/log/log_info.log]
+21:59:01,600 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [ERROR_FILE]
+21:59:01,600 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.core.rolling.RollingFileAppender]
+21:59:01,602 |-INFO in ch.qos.logback.core.model.processor.ImplicitModelHandler - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+21:59:01,603 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy@855547146 - setting totalSizeCap to 5 GB
+21:59:01,603 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy@855547146 - No compression will be used
+21:59:01,604 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy@855547146 - Will use the pattern ./data/log/log-error-%d{yyyy-MM-dd}.%i.log for the active file
+21:59:01,604 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@c9413d8 - SizeAndTimeBasedFNATP class was renamed as SizeAndTimeBasedFileNamingAndTriggeringPolicy.
+21:59:01,604 |-INFO in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@c9413d8 - The date pattern is 'yyyy-MM-dd' from file name pattern './data/log/log-error-%d{yyyy-MM-dd}.%i.log'.
+21:59:01,604 |-INFO in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@c9413d8 - Roll-over at midnight.
+21:59:01,605 |-INFO in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@c9413d8 - Setting initial period to 2026-04-13T11:41:17.805Z
+21:59:01,605 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@c9413d8 - Direct use of either SizeAndTimeBasedFNATP or SizeAndTimeBasedFileNamingAndTriggeringPolicy 
+21:59:01,605 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@c9413d8 - is deprecated. Please use SizeAndTimeBasedRollingPolicy instead.
+21:59:01,605 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@c9413d8 - For more information see https://logback.qos.ch/manual/appenders.html#SizeAndTimeBasedRollingPolicy
+21:59:01,607 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[ERROR_FILE] - Active log file name: ./data/log/log_error.log
+21:59:01,608 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[ERROR_FILE] - Setting currentFileLength to 549116 for .\data\log\log_error.log
+21:59:01,608 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[ERROR_FILE] - File property is set to [./data/log/log_error.log]
+21:59:01,609 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [ASYNC_FILE_INFO]
+21:59:01,609 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.classic.AsyncAppender]
+21:59:01,613 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [INFO_FILE] to ch.qos.logback.classic.AsyncAppender[ASYNC_FILE_INFO]
+21:59:01,613 |-INFO in ch.qos.logback.classic.AsyncAppender[ASYNC_FILE_INFO] - Attaching appender named [INFO_FILE] to AsyncAppender.
+21:59:01,614 |-INFO in ch.qos.logback.classic.AsyncAppender[ASYNC_FILE_INFO] - Setting discardingThreshold to 0
+21:59:01,614 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [ASYNC_FILE_ERROR]
+21:59:01,614 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.classic.AsyncAppender]
+21:59:01,614 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [ERROR_FILE] to ch.qos.logback.classic.AsyncAppender[ASYNC_FILE_ERROR]
+21:59:01,614 |-INFO in ch.qos.logback.classic.AsyncAppender[ASYNC_FILE_ERROR] - Attaching appender named [ERROR_FILE] to AsyncAppender.
+21:59:01,614 |-INFO in ch.qos.logback.classic.AsyncAppender[ASYNC_FILE_ERROR] - Setting discardingThreshold to 0
+21:59:01,615 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [com.nmys.view] to DEBUG
+21:59:01,615 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@64da2a7 - Propagating DEBUG level on Logger[com.nmys.view] onto the JUL framework
+21:59:01,616 |-INFO in ch.qos.logback.classic.model.processor.RootLoggerModelHandler - Setting level of ROOT logger to INFO
+21:59:01,616 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@64da2a7 - Propagating INFO level on Logger[ROOT] onto the JUL framework
+21:59:01,616 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [CONSOLE] to Logger[ROOT]
+21:59:01,616 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [ASYNC_FILE_INFO] to Logger[ROOT]
+21:59:01,616 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [ASYNC_FILE_ERROR] to Logger[ROOT]
+21:59:01,616 |-INFO in ch.qos.logback.core.model.processor.DefaultProcessor@46074492 - End of configuration.
+21:59:01,616 |-INFO in org.springframework.boot.logging.logback.SpringBootJoranConfigurator@d78795 - Registering current configuration as safe fallback point
+
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.3)
+
+26-04-13.21:59:01.836 [main            ] INFO  Application            - Starting Application v1.0 using Java 17.0.15 with PID 14416 (D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\ai-agent-station-app.jar started by Lenovo in D:\JAVA\study-project\ai-agent-station-new)
+26-04-13.21:59:01.838 [main            ] INFO  Application            - The following 1 profile is active: "dev"
+26-04-13.21:59:05.538 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port 8091 (http)
+26-04-13.21:59:05.571 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8091"]
+26-04-13.21:59:05.574 [main            ] INFO  StandardService        - Starting service [Tomcat]
+26-04-13.21:59:05.574 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/10.1.36]
+26-04-13.21:59:05.651 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+26-04-13.21:59:05.652 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3730 ms
+26-04-13.21:59:06.133 [main            ] INFO  HikariDataSource       - MainHikariPool - Starting...
+26-04-13.21:59:06.597 [main            ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@7fcc3745
+26-04-13.21:59:06.599 [main            ] INFO  HikariDataSource       - MainHikariPool - Start completed.
+26-04-13.21:59:06.754 [main            ] INFO  HikariDataSource       - PgVectorHikariPool - Starting...
+26-04-13.21:59:06.984 [main            ] INFO  HikariPool             - PgVectorHikariPool - Added connection org.postgresql.jdbc.PgConnection@611a2d82
+26-04-13.21:59:06.985 [main            ] INFO  HikariDataSource       - PgVectorHikariPool - Start completed.
+26-04-13.21:59:08.216 [main            ] INFO  PgVectorStore          - Using the vector table name: job_standard_vector_store. Is empty: false
+26-04-13.21:59:08.234 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: job_standard_vector_store in schema: public
+26-04-13.21:59:08.234 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
+26-04-13.21:59:13.316 [main            ] INFO  PgVectorStore          - Using the vector table name: resume_vector_store. Is empty: false
+26-04-13.21:59:13.316 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: resume_vector_store in schema: public
+26-04-13.21:59:13.316 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
+26-04-13.21:59:13.622 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+26-04-13.21:59:14.739 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint beneath base path '/actuator'
+26-04-13.21:59:14.865 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8091"]
+26-04-13.21:59:14.886 [main            ] INFO  TomcatWebServer        - Tomcat started on port 8091 (http) with context path '/'
+26-04-13.21:59:14.918 [main            ] INFO  Application            - Started Application in 14.215 seconds (process running for 15.083)
+26-04-13.21:59:14.996 [main            ] INFO  AiAgentAutoConfiguration - AI Agent 自动装配开始，配置: AiAgentAutoConfigProperties(enabled=true, clientIds=[5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204])
+26-04-13.21:59:14.997 [main            ] INFO  AiAgentAutoConfiguration - 开始自动装配AI客户端，客户端ID列表: [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-13.21:59:15.002 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-13.21:59:15.002 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-13.21:59:15.003 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-13.21:59:15.003 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-13.21:59:15.004 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-13.21:59:15.005 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-13.21:59:15.410 [main            ] INFO  RootNode               - Ai Agent 构建，数据加载节点 {"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-13.21:59:15.410 [main            ] INFO  AiClientApiNode        - Ai Agent 鏋勫缓锛孉PI 鏋勫缓鑺傜偣 {"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-13.21:59:15.419 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_api_1003
+26-04-13.21:59:15.419 [main            ] INFO  AiClientToolMcpNode    - Ai Agent 构建节点，Tool MCP 工具配置{"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-13.21:59:15.419 [main            ] WARN  AiClientToolMcpNode    - 没有需要被初始化的 ai client tool mcp
+26-04-13.21:59:15.419 [main            ] INFO  AiClientModelNode      - Ai Agent 构建节点，Mode 对话模型{"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-13.21:59:15.423 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_model_2004
+26-04-13.21:59:15.423 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_model_2003
+26-04-13.21:59:15.423 [main            ] INFO  AiClientAdvisorNode    - Ai Agent 构建，Advisor 顾问角色{"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-13.21:59:15.448 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_advisor_4001
+26-04-13.21:59:15.533 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_advisor_4002
+26-04-13.21:59:15.533 [main            ] INFO  AiClientNode           - Ai Agent 构建节点，客户端{"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-13.21:59:15.540 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5101
+26-04-13.21:59:15.540 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5102
+26-04-13.21:59:15.540 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5103
+26-04-13.21:59:15.540 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5104
+26-04-13.21:59:15.540 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5201
+26-04-13.21:59:15.540 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5202
+26-04-13.21:59:15.540 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5203
+26-04-13.21:59:15.540 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5204
+26-04-13.21:59:15.540 [main            ] INFO  AiAgentAutoConfiguration - AI Agent 自动装配完成，结果: null

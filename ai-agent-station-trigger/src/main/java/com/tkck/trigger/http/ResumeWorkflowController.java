@@ -1,16 +1,22 @@
 package com.tkck.trigger.http;
 
 import com.tkck.api.dto.ResumeEvaluateRequestDTO;
+import com.tkck.api.dto.ResumeInterviewDetailResponseDTO;
 import com.tkck.api.dto.ResumeInterviewAnswerRequestDTO;
 import com.tkck.api.dto.ResumeInterviewStartRequestDTO;
 import com.tkck.api.dto.ResumeInterviewStartResponseDTO;
 import com.tkck.api.dto.ResumeUploadResponseDTO;
 import com.tkck.api.response.Response;
+import com.tkck.domain.agent.model.entity.AutoAgentExecuteResultEntity;
 import com.tkck.domain.agent.model.entity.ExecuteCommandEntity;
+import com.tkck.domain.agent.service.runtime.resilience.ExecutionErrorCode;
 import com.tkck.domain.agent.service.execute.IExecuteStrategy;
+import com.tkck.domain.resume.model.entity.ResumeInterviewDetailEntity;
+import com.tkck.domain.resume.model.entity.ResumeInterviewRoundEntity;
 import com.tkck.domain.resume.model.entity.ResumeInterviewStartEntity;
 import com.tkck.domain.resume.model.entity.ResumeUploadResultEntity;
 import com.tkck.domain.resume.service.IResumeWorkflowService;
+import com.tkck.trigger.http.sse.SafeSseEmitter;
 import com.tkck.types.enums.ResponseCode;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +26,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter
 
 import javax.annotation.Resource;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -72,6 +79,8 @@ public class ResumeWorkflowController {
                 .data(ResumeInterviewStartResponseDTO.builder()
                         .interviewSessionId(result.getInterviewSessionId())
                         .currentRound(result.getCurrentRound())
+                        .totalRounds(result.getTotalRounds())
+                        .status(result.getStatus())
                         .openingQuestions(result.getOpeningQuestions())
                         .build())
                 .build();
@@ -88,31 +97,78 @@ public class ResumeWorkflowController {
         return executeWithSse(command, response);
     }
 
+    @GetMapping("/interview/{interviewSessionId}")
+    public Response<ResumeInterviewDetailResponseDTO> interviewDetail(@PathVariable Long interviewSessionId) {
+        ResumeInterviewDetailEntity detail = resumeWorkflowService.queryInterviewDetail(interviewSessionId);
+        return Response.<ResumeInterviewDetailResponseDTO>builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(ResumeInterviewDetailResponseDTO.builder()
+                        .interviewSessionId(detail.getInterviewSessionId())
+                        .resumeId(detail.getResumeId())
+                        .knowledgeSpaceId(detail.getKnowledgeSpaceId())
+                        .sessionCode(detail.getSessionCode())
+                        .currentRound(detail.getCurrentRound())
+                        .totalRounds(detail.getTotalRounds())
+                        .status(detail.getStatus())
+                        .openingQuestions(detail.getOpeningQuestions())
+                        .finalReport(detail.getFinalReport())
+                        .rounds(detail.getRounds() == null ? null : detail.getRounds().stream().map(this::toRoundItem).collect(Collectors.toList()))
+                        .build())
+                .build();
+    }
+
     private ResponseBodyEmitter executeWithSse(ExecuteCommandEntity executeCommandEntity, HttpServletResponse response) {
         response.setContentType("text/event-stream");
         response.setCharacterEncoding("UTF-8");
         response.setHeader("Cache-Control", "no-cache");
         response.setHeader("Connection", "keep-alive");
 
-        ResponseBodyEmitter emitter = new ResponseBodyEmitter(Long.MAX_VALUE);
+        SafeSseEmitter emitter = new SafeSseEmitter(Long.MAX_VALUE);
         threadPoolExecutor.execute(() -> {
             try {
                 autoAgentExecuteStrategy.execute(executeCommandEntity, emitter);
             } catch (Exception e) {
                 log.error("resume workflow execute error", e);
                 try {
-                    emitter.send("resume workflow execute error: " + e.getMessage());
+                    String errorMessage = e.getMessage() == null ? "resume workflow execute error" : e.getMessage();
+                    AutoAgentExecuteResultEntity errorResult = AutoAgentExecuteResultEntity.createErrorResult(
+                            errorMessage,
+                            ExecutionErrorCode.SYSTEM_ERROR.getCode(),
+                            "ROOT",
+                            false,
+                            false,
+                            executeCommandEntity.getSessionId()
+                    );
+                    emitter.safeSend("data: " + com.alibaba.fastjson.JSON.toJSONString(errorResult) + "\n\n");
                 } catch (Exception sendEx) {
                     log.error("resume workflow send error", sendEx);
                 }
             } finally {
                 try {
-                    emitter.complete();
+                    emitter.completeSafely();
                 } catch (Exception completeEx) {
                     log.error("resume workflow complete error", completeEx);
                 }
             }
         });
         return emitter;
+    }
+
+    private ResumeInterviewDetailResponseDTO.RoundItem toRoundItem(ResumeInterviewRoundEntity round) {
+        return ResumeInterviewDetailResponseDTO.RoundItem.builder()
+                .roundNo(round.getRoundNo())
+                .questionContent(round.getQuestionContent())
+                .answerContent(round.getAnswerContent())
+                .feedbackContent(round.getFeedbackContent())
+                .strengths(round.getStrengths())
+                .weaknesses(round.getWeaknesses())
+                .resumeEvidence(round.getResumeEvidence())
+                .followUpIntent(round.getFollowUpIntent())
+                .nextQuestion(round.getNextQuestion())
+                .score(round.getScore())
+                .finished(round.getFinished())
+                .status(round.getStatus())
+                .build();
     }
 }

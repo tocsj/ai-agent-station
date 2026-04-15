@@ -17,11 +17,17 @@ public class ResumeWorkflowPromptBuilderTest {
 
     @Test
     public void should_build_interview_answer_message_with_round_context() {
-        String prompt = ResumeWorkflowPromptBuilder.buildInterviewAnswerMessage(99L, 2, "请介绍你如何做缓存一致性", "我会先删缓存再更新数据库");
+        String prompt = ResumeWorkflowPromptBuilder.buildInterviewAnswerMessage(
+                99L,
+                2,
+                3,
+                "请介绍你如何做缓存一致性",
+                "我会先更新数据库再删除缓存。");
 
         Assert.assertTrue(prompt.contains("interviewSessionId=99"));
-        Assert.assertTrue(prompt.contains("第2轮"));
+        Assert.assertTrue(prompt.contains("当前轮次=2/3"));
         Assert.assertTrue(prompt.contains("请介绍你如何做缓存一致性"));
-        Assert.assertTrue(prompt.contains("我会先删缓存再更新数据库"));
+        Assert.assertTrue(prompt.contains("我会先更新数据库再删除缓存。"));
+        Assert.assertTrue(prompt.contains("下一轮问题:"));
     }
 }
