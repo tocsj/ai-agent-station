@@ -61,7 +61,7 @@ spring:
     agent:
       auto-config:
         enabled: true
-        client-ids: 5101,5102,5103,5104,5201,5202,5203,5204
+        client-ids: 5101,5102,5103,5104,5201,5202,5203,5204,5301,5302
 # MyBatis 配置【如需使用记得打开】
 #mybatis:
 #  mapper-locations: classpath:/mybatis/mapper/*.xml

@@ -157,6 +157,37 @@ public class ResumeWorkflowSchemaInitializer implements InitializingBean {
                 )
                 """);
 
+        mysqlJdbcTemplate.execute("""
+                CREATE TABLE IF NOT EXISTS content_publish_channel_config (
+                    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                    channel_code VARCHAR(64) NOT NULL UNIQUE,
+                    channel_name VARCHAR(128) NOT NULL,
+                    auth_type VARCHAR(32) NOT NULL,
+                    credential_json JSON DEFAULT NULL,
+                    verify_status VARCHAR(32) DEFAULT 'UNCONFIGURED',
+                    verify_message VARCHAR(255) DEFAULT NULL,
+                    status TINYINT DEFAULT 1,
+                    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                )
+                """);
+
+        mysqlJdbcTemplate.execute("""
+                CREATE TABLE IF NOT EXISTS content_publish_record (
+                    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                    task_id BIGINT NOT NULL,
+                    channel_code VARCHAR(64) NOT NULL,
+                    action VARCHAR(64) NOT NULL,
+                    request_snapshot LONGTEXT,
+                    response_snapshot LONGTEXT,
+                    status VARCHAR(64) DEFAULT NULL,
+                    external_id VARCHAR(128) DEFAULT NULL,
+                    external_url VARCHAR(512) DEFAULT NULL,
+                    error_message VARCHAR(512) DEFAULT NULL,
+                    create_time DATETIME DEFAULT CURRENT_TIMESTAMP
+                )
+                """);
+
         pgVectorJdbcTemplate.execute("CREATE EXTENSION IF NOT EXISTS vector");
         pgVectorJdbcTemplate.execute("CREATE EXTENSION IF NOT EXISTS hstore");
         pgVectorJdbcTemplate.execute("CREATE EXTENSION IF NOT EXISTS pgcrypto");
@@ -270,6 +301,7 @@ public class ResumeWorkflowSchemaInitializer implements InitializingBean {
      * 映射到保留模型方案中的 flash 模型（约定 2004 为 qwen3.5-flash）。
      */
     private void syncAutoRuntimeClientModel() {
+        ensureContentPublishClients();
         mysqlJdbcTemplate.update("""
                 UPDATE ai_client_config
                 SET target_id = '2004', update_time = NOW()
@@ -279,5 +311,63 @@ public class ResumeWorkflowSchemaInitializer implements InitializingBean {
                   AND status = 1
                   AND target_id <> '2004'
                 """);
+    }
+
+    private void ensureContentPublishClients() {
+        ensureClient("5301", "企业内容发布-高质量生成", "企业内容发布高质量生成客户端");
+        ensureClient("5302", "企业内容发布-轻量处理", "企业内容发布轻量处理客户端");
+        ensureClientModelConfig("5301", "2007");
+        ensureClientModelConfig("5302", "2008");
+    }
+
+    private void ensureClient(String clientId, String clientName, String description) {
+        Integer count = mysqlJdbcTemplate.queryForObject(
+                """
+                        SELECT COUNT(1)
+                        FROM ai_client
+                        WHERE client_id = ?
+                        """,
+                Integer.class,
+                clientId);
+        if (count == null || count == 0) {
+            mysqlJdbcTemplate.update("""
+                            INSERT INTO ai_client (client_id, client_name, description, status, create_time, update_time)
+                            VALUES (?, ?, ?, 1, NOW(), NOW())
+                            """,
+                    clientId, clientName, description);
+        }
+    }
+
+    private void ensureClientModelConfig(String clientId, String modelId) {
+        Integer count = mysqlJdbcTemplate.queryForObject(
+                """
+                        SELECT COUNT(1)
+                        FROM ai_client_config
+                        WHERE source_type = 'client'
+                          AND source_id = ?
+                          AND target_type = 'model'
+                          AND status = 1
+                        """,
+                Integer.class,
+                clientId);
+        if (count == null || count == 0) {
+            mysqlJdbcTemplate.update("""
+                            INSERT INTO ai_client_config
+                            (source_type, source_id, target_type, target_id, ext_param, status, create_time, update_time)
+                            VALUES ('client', ?, 'model', ?, '""', 1, NOW(), NOW())
+                            """,
+                    clientId, modelId);
+            return;
+        }
+        mysqlJdbcTemplate.update("""
+                        UPDATE ai_client_config
+                        SET target_id = ?, update_time = NOW()
+                        WHERE source_type = 'client'
+                          AND source_id = ?
+                          AND target_type = 'model'
+                          AND status = 1
+                          AND target_id <> ?
+                        """,
+                modelId, clientId, modelId);
     }
 }

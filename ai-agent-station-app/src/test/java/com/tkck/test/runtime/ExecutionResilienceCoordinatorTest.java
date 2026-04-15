@@ -1,5 +1,8 @@
 package com.tkck.test.runtime;
 
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.read.ListAppender;
 import com.tkck.domain.agent.service.runtime.resilience.ExecutionErrorCode;
 import com.tkck.domain.agent.service.runtime.resilience.ExecutionFailureContext;
 import com.tkck.domain.agent.service.runtime.resilience.ExecutionResilienceCoordinator;
@@ -10,6 +13,7 @@ import com.tkck.domain.agent.service.runtime.resilience.ExecutionTimeoutPolicy;
 import com.tkck.types.exception.AppException;
 import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -63,6 +67,40 @@ public class ExecutionResilienceCoordinatorTest {
         Assert.assertTrue(result.isDegraded());
         Assert.assertEquals("timeout-fallback", result.getPayload());
         Assert.assertEquals(ExecutionErrorCode.STAGE_TIMEOUT, result.getErrorCode());
+    }
+
+    @Test
+    public void should_log_chinese_timeout_message_with_location() {
+        Logger logger = (Logger) LoggerFactory.getLogger(ExecutionResilienceCoordinator.class);
+        ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
+        listAppender.start();
+        logger.addAppender(listAppender);
+
+        try {
+            ExecutionResilienceCoordinator coordinator = new ExecutionResilienceCoordinator(
+                    ExecutionTimeoutPolicy.builder().timeout(ExecutionStage.CONTENT_TOPIC_PLAN, Duration.ofMillis(50)).build(),
+                    ExecutionRetryPolicy.defaults()
+            );
+
+            coordinator.execute(
+                    ExecutionStage.CONTENT_TOPIC_PLAN,
+                    new ExecutionFailureContext("content-1", "content_automation", "TopicPlannerNode.apply"),
+                    () -> {
+                        Thread.sleep(120);
+                        return "never";
+                    },
+                    failure -> "timeout-fallback"
+            );
+
+            boolean matched = listAppender.list.stream()
+                    .map(ILoggingEvent::getFormattedMessage)
+                    .anyMatch(message -> message.contains("阶段执行降级")
+                            && message.contains("位置=TopicPlannerNode.apply")
+                            && message.contains("CONTENT_TOPIC_PLAN"));
+            Assert.assertTrue(matched);
+        } finally {
+            logger.detachAppender(listAppender);
+        }
     }
 
     @Test

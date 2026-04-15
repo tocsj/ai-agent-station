@@ -87,7 +87,7 @@ public class DocumentWorkspaceController {
     }
 
     @GetMapping("/workspace/{workspaceId}")
-    public Response<DocumentWorkspaceDetailResponseDTO> workspaceDetail(@PathVariable String workspaceId) {
+    public Response<DocumentWorkspaceDetailResponseDTO> workspaceDetail(@PathVariable("workspaceId") String workspaceId) {
         DocumentWorkspaceDetailEntity detail = documentWorkspaceService.queryWorkspaceDetail(workspaceId);
         return Response.<DocumentWorkspaceDetailResponseDTO>builder()
                 .code(ResponseCode.SUCCESS.getCode())

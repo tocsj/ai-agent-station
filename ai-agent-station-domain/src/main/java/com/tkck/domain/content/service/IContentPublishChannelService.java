@@ -10,9 +10,15 @@ public interface IContentPublishChannelService {
 
     ContentPublishChannelConfigEntity saveOrUpdateConfig(String channel, String token);
 
+    ContentPublishChannelConfigEntity saveOrUpdateConfig(String channel, String token, String blogApp, String blogId, String username, String endpoint);
+
     ContentPublishChannelConfigEntity queryConfig(String channel);
 
     ChannelVerifyResultEntity verifyJuejinConfig();
+
+    ChannelVerifyResultEntity verifyCnblogsConfig();
+
+    ChannelVerifyResultEntity verifyDevtoConfig();
 
     void recordPublishAttempt(ContentPublishRecordEntity record);
 

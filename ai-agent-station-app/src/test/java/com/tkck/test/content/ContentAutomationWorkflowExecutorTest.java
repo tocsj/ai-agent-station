@@ -15,6 +15,7 @@ import com.tkck.domain.agent.service.runtime.resilience.ExecutionResilienceCoord
 import com.tkck.domain.content.model.entity.ContentTaskEntity;
 import com.tkck.domain.content.model.entity.PublishResultEntity;
 import com.tkck.domain.content.service.IContentAutomationService;
+import com.tkck.domain.content.service.IContentPublishChannelService;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -45,6 +46,7 @@ public class ContentAutomationWorkflowExecutorTest {
                 .build();
         when(contentAutomationService.queryTask(9L)).thenReturn(task);
         when(contentAutomationService.markTaskRunning(9L, "topic_plan")).thenReturn(task);
+        IContentPublishChannelService publishChannelService = mock(IContentPublishChannelService.class);
 
         ContentAutomationWorkflowExecutor executor = new ContentAutomationWorkflowExecutor(List.of(
                 new TopicPlannerNode(),
@@ -53,7 +55,7 @@ public class ContentAutomationWorkflowExecutorTest {
                 new PolishVerifierNode(),
                 new ComplianceReviewerNode(),
                 new PublishPlannerNode(),
-                new PublishExecutorNode(List.of(new MockPublishAdapter())),
+                new PublishExecutorNode(List.of(new MockPublishAdapter()), publishChannelService),
                 new PublishSummarizerNode()
         ));
         ReflectionTestUtils.setField(executor, "contentAutomationService", contentAutomationService);

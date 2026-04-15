@@ -1,8 +1,10 @@
 package com.tkck.app.content.workflow;
 
 import com.tkck.domain.agent.service.runtime.resilience.ExecutionStage;
+import com.tkck.domain.content.model.entity.ContentPublishRecordEntity;
 import com.tkck.domain.content.model.entity.PublishCommandEntity;
 import com.tkck.domain.content.model.entity.PublishResultEntity;
+import com.tkck.domain.content.service.IContentPublishChannelService;
 import com.tkck.domain.content.service.publish.IPublishAdapter;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -17,10 +19,12 @@ import java.util.stream.Collectors;
 public class PublishExecutorNode extends AbstractContentWorkflowNode {
 
     private final Map<String, IPublishAdapter> publishAdapterMap;
+    private final IContentPublishChannelService contentPublishChannelService;
 
-    public PublishExecutorNode(List<IPublishAdapter> publishAdapters) {
+    public PublishExecutorNode(List<IPublishAdapter> publishAdapters, IContentPublishChannelService contentPublishChannelService) {
         this.publishAdapterMap = publishAdapters.stream()
                 .collect(Collectors.toMap(IPublishAdapter::getChannel, Function.identity()));
+        this.contentPublishChannelService = contentPublishChannelService;
     }
 
     @Override
@@ -56,6 +60,17 @@ public class PublishExecutorNode extends AbstractContentWorkflowNode {
             }
             result = adapter.publish(command);
         }
+        contentPublishChannelService.recordPublishAttempt(ContentPublishRecordEntity.builder()
+                .taskId(context.getTask().getTaskId())
+                .channelCode(result.getChannel())
+                .action(command == null ? "block" : command.getAction())
+                .requestSnapshot(command == null ? null : "title=" + safe(command.getTitle()) + "\nchannel=" + safe(command.getChannel()))
+                .responseSnapshot("status=" + safe(result.getStatus()) + "\nmessage=" + safe(result.getMessage()))
+                .status(result.getStatus())
+                .externalId(result.getExternalId())
+                .externalUrl(result.getExternalUrl())
+                .errorMessage(result.getMessage())
+                .build());
         context.setPublishResult(result);
         return "status=" + result.getStatus()
                 + "\nexternalId=" + safe(result.getExternalId())

@@ -33,8 +33,7 @@ public class PublishPlannerNode extends AbstractContentWorkflowNode {
         if (title.isBlank()) {
             title = context.getTask().getTopic();
         }
-        String compliance = safe(context.getValue("compliance"));
-        String action = shouldBlockPublish(compliance) ? "block" : "save_draft";
+        String action = "save_draft";
         PublishCommandEntity command = PublishCommandEntity.builder()
                 .channel(context.getTask().getChannel())
                 .action(action)
@@ -49,19 +48,5 @@ public class PublishPlannerNode extends AbstractContentWorkflowNode {
         log.info("内容发布规划完成, taskId={}, action={}, channel={}, title={}",
                 context.getTask().getTaskId(), action, command.getChannel(), title);
         return "action=" + action + "\ntitle=" + title + "\ntags=" + safe(context.getTask().getKeywords());
-    }
-
-    private boolean shouldBlockPublish(String compliance) {
-        if (compliance == null || compliance.isBlank()) {
-            return false;
-        }
-        String normalized = compliance.replace('\r', '\n');
-        for (String line : normalized.split("\n")) {
-            String trimmed = line.trim();
-            if (trimmed.startsWith("结论") || trimmed.toUpperCase().startsWith("CONCLUSION")) {
-                return trimmed.toUpperCase().contains("REVISE");
-            }
-        }
-        return false;
     }
 }

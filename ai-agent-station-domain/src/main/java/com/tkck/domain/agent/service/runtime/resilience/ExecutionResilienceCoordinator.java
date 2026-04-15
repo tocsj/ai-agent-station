@@ -1,12 +1,14 @@
 package com.tkck.domain.agent.service.runtime.resilience;
 
 import com.tkck.types.exception.AppException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.util.concurrent.*;
 import java.util.function.Function;
 
+@Slf4j
 @Component
 public class ExecutionResilienceCoordinator {
 
@@ -47,12 +49,21 @@ public class ExecutionResilienceCoordinator {
                 ExecutionFailure failure = new ExecutionFailure(
                         stage, context, errorCode, throwable, attempt, errorCode.isRetryable());
                 if (retryPolicy.shouldRetry(errorCode, attempt)) {
+                    log.warn("阶段执行失败，准备重试 | 场景={} | 阶段={} | 会话={} | 位置={} | 尝试={} | 错误码={} | 原因={}",
+                            context.getScene(), stage.name(), context.getSessionId(), context.getLocation(),
+                            attempt, errorCode.getCode(), simplifyMessage(throwable));
                     sleepQuietly(retryPolicy.nextBackoffMillis(attempt));
                     continue;
                 }
                 if (degradeFunction != null) {
+                    log.error("阶段执行降级 | 场景={} | 阶段={} | 会话={} | 位置={} | 尝试={} | 错误码={} | 原因={}",
+                            context.getScene(), stage.name(), context.getSessionId(), context.getLocation(),
+                            attempt, errorCode.getCode(), simplifyMessage(throwable), throwable);
                     return ExecutionStageResult.degraded(degradeFunction.apply(failure), errorCode, attempt);
                 }
+                log.error("阶段执行失败，终止抛错 | 场景={} | 阶段={} | 会话={} | 位置={} | 尝试={} | 错误码={} | 原因={}",
+                        context.getScene(), stage.name(), context.getSessionId(), context.getLocation(),
+                        attempt, errorCode.getCode(), simplifyMessage(throwable), throwable);
                 throw new AppException(errorCode.getCode(), errorCode.getMessage(), throwable);
             }
         }
@@ -84,5 +95,13 @@ public class ExecutionResilienceCoordinator {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+    }
+
+    private String simplifyMessage(Throwable throwable) {
+        Throwable current = throwable;
+        while (current.getCause() != null && current.getCause() != current) {
+            current = current.getCause();
+        }
+        return current.getClass().getSimpleName() + ": " + (current.getMessage() == null ? "" : current.getMessage());
     }
 }

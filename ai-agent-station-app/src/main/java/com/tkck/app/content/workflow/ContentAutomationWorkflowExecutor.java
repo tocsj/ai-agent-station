@@ -54,13 +54,20 @@ public class ContentAutomationWorkflowExecutor implements StructuredWorkflowExec
                 .build();
 
         for (ContentWorkflowNode node : workflowNodes) {
+            log.info("内容工作流开始执行节点, taskId={}, stepNo={}, stepName={}, stage={}, location={}",
+                    task.getTaskId(), node.stepNo(), node.stepName(), node.stage().name(),
+                    node.getClass().getSimpleName() + ".apply");
             ExecutionStageResult<String> result = executionResilienceCoordinator.execute(
                     node.stage(),
-                    new ExecutionFailureContext(task.getTaskCode(), getTaskType()),
+                    new ExecutionFailureContext(task.getTaskCode(), getTaskType(), node.getClass().getSimpleName() + ".apply"),
                     () -> node.apply(context),
                     failure -> buildFallback(node, context, failure)
             );
             String output = result.getPayload();
+            log.info("内容工作流节点执行结束, taskId={}, stepNo={}, stepName={}, status={}, outputLength={}",
+                    task.getTaskId(), node.stepNo(), node.stepName(),
+                    result.isDegraded() ? "DEGRADED" : "COMPLETED",
+                    output == null ? 0 : output.length());
             contentAutomationService.appendStep(
                     task.getTaskId(),
                     node.stepNo(),
@@ -116,7 +123,11 @@ public class ContentAutomationWorkflowExecutor implements StructuredWorkflowExec
     }
 
     private String buildFallback(ContentWorkflowNode node, ContentWorkflowContext context, ExecutionFailure failure) {
-        return "stage=" + node.stepName() + "\nstatus=DEGRADED\nreason=" + failure.getErrorCode().getCode();
+        return "阶段=" + node.stepName()
+                + "\n状态=DEGRADED"
+                + "\n错误码=" + failure.getErrorCode().getCode()
+                + "\n说明=" + failure.getErrorCode().getMessage()
+                + "\n位置=" + node.getClass().getSimpleName() + ".apply";
     }
 
     private void sendEvent(ResponseBodyEmitter emitter, ContentTaskStreamEventEntity event) throws Exception {

@@ -1,6 +1,8 @@
 package com.tkck.test.content;
 
 import com.tkck.app.content.ContentPublishChannelServiceImpl;
+import com.tkck.app.content.publish.CnblogsMetaWeblogClient;
+import com.tkck.app.content.publish.DevtoApiClient;
 import com.tkck.domain.content.model.entity.ChannelVerifyResultEntity;
 import com.tkck.domain.content.model.entity.ContentPublishChannelConfigEntity;
 import com.tkck.domain.content.model.entity.ContentPublishRecordEntity;
@@ -8,6 +10,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 
 import java.util.List;
@@ -69,5 +72,37 @@ public class ContentPublishChannelServiceTest {
         Assert.assertEquals("VERIFIED", verifyResult.getVerifyStatus());
         Assert.assertEquals(1, records.size());
         Assert.assertEquals("BLOCKED", records.get(0).getStatus());
+    }
+
+    @Test
+    public void shouldClassifyDevtoForbiddenErrorClearly() {
+        JdbcTemplate jdbcTemplate = mock(JdbcTemplate.class);
+        RestClient restClient = mock(RestClient.class);
+        DevtoApiClient devtoApiClient = mock(DevtoApiClient.class);
+        ContentPublishChannelServiceImpl service = new ContentPublishChannelServiceImpl(
+                restClient,
+                mock(CnblogsMetaWeblogClient.class),
+                devtoApiClient);
+        ReflectionTestUtils.setField(service, "mysqlJdbcTemplate", jdbcTemplate);
+
+        when(jdbcTemplate.queryForMap("SELECT * FROM content_publish_channel_config WHERE channel_code = ?", "devto"))
+                .thenReturn(Map.of(
+                        "id", 2L,
+                        "channel_code", "devto",
+                        "channel_name", "Dev.to",
+                        "auth_type", "api_key",
+                        "credential_json", "{\"token\":\"devto-token\",\"baseUrl\":\"https://dev.to\",\"username\":\"tester\"}",
+                        "verify_status", "UNVERIFIED",
+                        "verify_message", "待验证",
+                        "status", 1
+                ));
+        when(devtoApiClient.verify("https://dev.to", "devto-token"))
+                .thenThrow(new HttpClientErrorException(org.springframework.http.HttpStatus.FORBIDDEN, "Forbidden"));
+
+        ChannelVerifyResultEntity result = service.verifyDevtoConfig();
+
+        Assert.assertEquals("FAILED", result.getVerifyStatus());
+        Assert.assertTrue(result.getMessage().contains("HTTP 403"));
+        Assert.assertTrue(result.getMessage().contains("API Key"));
     }
 }

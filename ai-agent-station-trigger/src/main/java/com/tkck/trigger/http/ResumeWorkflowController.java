@@ -98,7 +98,7 @@ public class ResumeWorkflowController {
     }
 
     @GetMapping("/interview/{interviewSessionId}")
-    public Response<ResumeInterviewDetailResponseDTO> interviewDetail(@PathVariable Long interviewSessionId) {
+    public Response<ResumeInterviewDetailResponseDTO> interviewDetail(@PathVariable("interviewSessionId") Long interviewSessionId) {
         ResumeInterviewDetailEntity detail = resumeWorkflowService.queryInterviewDetail(interviewSessionId);
         return Response.<ResumeInterviewDetailResponseDTO>builder()
                 .code(ResponseCode.SUCCESS.getCode())

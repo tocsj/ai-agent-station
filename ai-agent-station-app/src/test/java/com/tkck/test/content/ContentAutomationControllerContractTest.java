@@ -15,6 +15,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
 
 import java.util.List;
@@ -23,6 +25,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class ContentAutomationControllerContractTest {
 
@@ -109,5 +114,34 @@ public class ContentAutomationControllerContractTest {
         Assert.assertEquals(Long.valueOf(21L), historyResponse.getData().get(0).getTaskId());
         Assert.assertEquals(1, stepsResponse.getData().size());
         Assert.assertEquals("topic_plan", stepsResponse.getData().get(0).getStepName());
+    }
+
+    @Test
+    public void shouldBindHistoryLimitRequestParamWithoutCompilerParameterMetadata() throws Exception {
+        IContentAutomationService contentAutomationService = mock(IContentAutomationService.class);
+        ContentAutomationController controller = new ContentAutomationController();
+        ReflectionTestUtils.setField(controller, "contentAutomationService", contentAutomationService);
+
+        when(contentAutomationService.queryTaskHistory(20)).thenReturn(List.of(
+                ContentTaskEntity.builder()
+                        .taskId(21L)
+                        .taskCode("ct_021")
+                        .topic("Agent Runtime 2.0")
+                        .platform("dev.to")
+                        .channel("devto")
+                        .status("COMPLETED")
+                        .currentStep("COMPLETED")
+                        .title("发布结果")
+                        .publishStatus("DRAFT_SAVED")
+                        .build()
+        ));
+
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+
+        mockMvc.perform(get("/api/v1/content/task/history").param("limit", "20"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value("0000"))
+                .andExpect(jsonPath("$.data[0].taskId").value(21))
+                .andExpect(jsonPath("$.data[0].channel").value("devto"));
     }
 }

@@ -3,8 +3,10 @@ package com.tkck.domain.agent.service.runtime.resilience;
 import com.tkck.types.exception.AppException;
 import org.springframework.ai.retry.NonTransientAiException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
+import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
@@ -13,6 +15,17 @@ public class ExecutionErrorClassifier {
 
     public ExecutionErrorCode classify(Throwable throwable) {
         Throwable cause = unwrap(throwable);
+        if (containsCause(throwable, InterruptedException.class)
+                || containsCause(throwable, TimeoutException.class)
+                || containsCause(throwable, SocketTimeoutException.class)) {
+            return ExecutionErrorCode.STAGE_TIMEOUT;
+        }
+        if (cause instanceof ResourceAccessException || cause instanceof IOException) {
+            String message = cause.getMessage() == null ? "" : cause.getMessage();
+            if (message.contains("Request was interrupted") || message.contains("timed out")) {
+                return ExecutionErrorCode.STAGE_TIMEOUT;
+            }
+        }
         if (cause instanceof AppException appException) {
             return ExecutionErrorCode.fromCode(appException.getCode());
         }
@@ -47,5 +60,16 @@ public class ExecutionErrorClassifier {
             current = current.getCause();
         }
         return current;
+    }
+
+    private boolean containsCause(Throwable throwable, Class<? extends Throwable> type) {
+        Throwable current = throwable;
+        while (current != null && current.getCause() != current) {
+            if (type.isInstance(current)) {
+                return true;
+            }
+            current = current.getCause();
+        }
+        return false;
     }
 }

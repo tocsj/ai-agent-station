@@ -114,7 +114,7 @@ public class ContentAutomationController {
     }
 
     @GetMapping("/task/{taskId}")
-    public Response<ContentTaskDetailResponseDTO> taskDetail(@PathVariable Long taskId) {
+    public Response<ContentTaskDetailResponseDTO> taskDetail(@PathVariable("taskId") Long taskId) {
         return Response.<ContentTaskDetailResponseDTO>builder()
                 .code(ResponseCode.SUCCESS.getCode())
                 .info(ResponseCode.SUCCESS.getInfo())
@@ -123,7 +123,7 @@ public class ContentAutomationController {
     }
 
     @GetMapping("/task/history")
-    public Response<List<ContentTaskHistoryItemDTO>> taskHistory(@RequestParam(required = false) Integer limit) {
+    public Response<List<ContentTaskHistoryItemDTO>> taskHistory(@RequestParam(value = "limit", required = false, defaultValue = "20") Integer limit) {
         return Response.<List<ContentTaskHistoryItemDTO>>builder()
                 .code(ResponseCode.SUCCESS.getCode())
                 .info(ResponseCode.SUCCESS.getInfo())
@@ -134,7 +134,7 @@ public class ContentAutomationController {
     }
 
     @GetMapping("/task/{taskId}/steps")
-    public Response<List<ContentTaskDetailResponseDTO.StepItem>> taskSteps(@PathVariable Long taskId) {
+    public Response<List<ContentTaskDetailResponseDTO.StepItem>> taskSteps(@PathVariable("taskId") Long taskId) {
         return Response.<List<ContentTaskDetailResponseDTO.StepItem>>builder()
                 .code(ResponseCode.SUCCESS.getCode())
                 .info(ResponseCode.SUCCESS.getInfo())

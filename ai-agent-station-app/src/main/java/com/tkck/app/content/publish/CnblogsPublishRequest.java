@@ -1,4 +1,4 @@
-package com.tkck.api.dto;
+package com.tkck.app.content.publish;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,12 +9,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ContentPublishChannelConfigSaveRequestDTO {
+public class CnblogsPublishRequest {
 
-    private String channel;
-    private String token;
-    private String blogApp;
-    private String blogId;
-    private String username;
     private String endpoint;
+    private String blogId;
+    private String blogApp;
+    private String username;
+    private String token;
+    private String title;
+    private String contentMarkdown;
 }
