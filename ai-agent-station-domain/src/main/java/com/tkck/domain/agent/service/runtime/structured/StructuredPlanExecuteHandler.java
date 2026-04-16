@@ -35,10 +35,17 @@ public class StructuredPlanExecuteHandler implements ExecutionHandler {
     @Override
     public void execute(ExecuteCommandEntity command, ResponseBodyEmitter emitter) throws Exception {
         String taskType = StringUtils.hasText(command.getTaskType()) ? command.getTaskType() : LEGACY_AUTO_AGENT;
-        StructuredWorkflowExecutor executor = workflowExecutorMap.get(taskType);
+        StructuredWorkflowExecutor executor = workflowExecutorMap.get(resolveExecutorTaskType(taskType));
         if (executor == null) {
             throw new IllegalArgumentException("no structured workflow executor found for taskType=" + taskType);
         }
         executor.execute(command, emitter);
+    }
+
+    private String resolveExecutorTaskType(String taskType) {
+        if ("resume_evaluation".equals(taskType) || "resume_interview".equals(taskType)) {
+            return LEGACY_AUTO_AGENT;
+        }
+        return taskType;
     }
 }

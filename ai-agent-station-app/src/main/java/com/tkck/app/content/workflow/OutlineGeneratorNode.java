@@ -26,7 +26,7 @@ public class OutlineGeneratorNode extends AbstractContentWorkflowNode {
 
     @Override
     public String apply(ContentWorkflowContext context) {
-        String output = generate(ContentPromptBuilder.buildOutlinePrompt(
+        String output = generate(context, ContentPromptBuilder.buildOutlinePrompt(
                 context.getTask(),
                 context.getValue("topicPlan")));
         context.setValue("outline", output);

@@ -26,7 +26,7 @@ public class PolishVerifierNode extends AbstractContentWorkflowNode {
 
     @Override
     public String apply(ContentWorkflowContext context) {
-        String output = generate(ContentPromptBuilder.buildPolishPrompt(
+        String output = generate(context, ContentPromptBuilder.buildPolishPrompt(
                 context.getTask(),
                 context.getValue("draft")));
         context.setValue("polished", output);

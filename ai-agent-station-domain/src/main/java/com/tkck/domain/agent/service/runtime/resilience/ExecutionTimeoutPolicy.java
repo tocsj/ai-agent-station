@@ -18,11 +18,11 @@ public class ExecutionTimeoutPolicy {
 
     public static ExecutionTimeoutPolicy defaults() {
         return builder()
-                .timeout(ExecutionStage.ROOT, Duration.ofSeconds(45))
-                .timeout(ExecutionStage.STEP1_ANALYZE, Duration.ofSeconds(12))
-                .timeout(ExecutionStage.STEP2_EXECUTE, Duration.ofSeconds(25))
-                .timeout(ExecutionStage.STEP3_VERIFY, Duration.ofSeconds(15))
-                .timeout(ExecutionStage.STEP4_SUMMARIZE, Duration.ofSeconds(12))
+                .timeout(ExecutionStage.ROOT, Duration.ofSeconds(180))
+                .timeout(ExecutionStage.STEP1_ANALYZE, Duration.ofSeconds(45))
+                .timeout(ExecutionStage.STEP2_EXECUTE, Duration.ofSeconds(120))
+                .timeout(ExecutionStage.STEP3_VERIFY, Duration.ofSeconds(60))
+                .timeout(ExecutionStage.STEP4_SUMMARIZE, Duration.ofSeconds(45))
                 .timeout(ExecutionStage.CONTENT_TOPIC_PLAN, Duration.ofSeconds(120))
                 .timeout(ExecutionStage.CONTENT_OUTLINE, Duration.ofSeconds(120))
                 .timeout(ExecutionStage.CONTENT_DRAFT, Duration.ofSeconds(180))

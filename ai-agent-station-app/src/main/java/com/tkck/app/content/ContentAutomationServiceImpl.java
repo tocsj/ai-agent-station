@@ -50,6 +50,21 @@ public class ContentAutomationServiceImpl implements IContentAutomationService {
     }
 
     @Override
+    public ContentTaskEntity queryActiveTask() {
+        List<Map<String, Object>> rows = mysqlJdbcTemplate.queryForList("""
+                SELECT *
+                FROM content_task
+                WHERE status IN ('CREATED', 'RUNNING', 'COMPLETED', 'FAILED')
+                ORDER BY update_time DESC, id DESC
+                LIMIT 1
+                """);
+        if (rows.isEmpty()) {
+            return null;
+        }
+        return toTaskEntity(rows.get(0));
+    }
+
+    @Override
     public List<ContentTaskEntity> queryTaskHistory(Integer limit) {
         int size = limit == null ? 20 : Math.max(1, Math.min(limit, 50));
         return mysqlJdbcTemplate.queryForList(

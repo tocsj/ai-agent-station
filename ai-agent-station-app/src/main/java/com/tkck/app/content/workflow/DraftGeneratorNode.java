@@ -26,7 +26,7 @@ public class DraftGeneratorNode extends AbstractContentWorkflowNode {
 
     @Override
     public String apply(ContentWorkflowContext context) {
-        String output = generate(ContentPromptBuilder.buildDraftPrompt(
+        String output = generate(context, ContentPromptBuilder.buildDraftPrompt(
                 context.getTask(),
                 context.getValue("topicPlan"),
                 context.getValue("outline")));

@@ -55,27 +55,35 @@ public class Step4LogExecutionSummaryNode extends AbstractExecuteSupport {
         AiAgentClientFlowConfigVO flowConfig =
                 dynamicContext.getAiAgentClientFlowConfigVOMap().get(AiClientTypeEnumVO.RESPONSE_ASSISTANT.getCode());
         ChatClient chatClient = getChatClientByClientId(flowConfig.getClientId());
+        long stageStart = System.currentTimeMillis();
+        String location = getClass().getSimpleName() + "#generateFinalReport";
 
         String summaryResult = executeStage(
                 ExecutionStage.STEP4_SUMMARIZE,
                 requestParameter,
                 dynamicContext,
-                () -> {
-                    String content = chatClient
-                            .prompt(summaryPrompt)
-                            .advisors(a -> {
-                                a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, requestParameter.getSessionId() + "-summary")
-                                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 256);
-                                if (StringUtils.hasText(requestParameter.getQaFilterExpression())) {
-                                    a.param(QA_FILTER_EXPRESSION_KEY, requestParameter.getQaFilterExpression());
-                                }
-                            })
-                            .call()
-                            .content();
-                    return content == null ? "" : content;
-                },
+                () -> callChatClientWithAudit(
+                        requestParameter,
+                        dynamicContext,
+                        ExecutionStage.STEP4_SUMMARIZE,
+                        "step4_summarize",
+                        flowConfig.getClientId(),
+                        location,
+                        () -> chatClient
+                                .prompt(summaryPrompt)
+                                .advisors(a -> {
+                                    a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, requestParameter.getSessionId() + "-summary")
+                                            .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 256);
+                                    if (StringUtils.hasText(requestParameter.getQaFilterExpression())) {
+                                        a.param(QA_FILTER_EXPRESSION_KEY, requestParameter.getQaFilterExpression());
+                                    }
+                                })
+                                .call()
+                                .chatResponse()
+                ),
                 failure -> buildSummaryFallback(requestParameter, dynamicContext, failure)
         );
+        recordStageMetric(requestParameter, dynamicContext, ExecutionStage.STEP4_SUMMARIZE, "step4_summarize", flowConfig.getClientId(), location, System.currentTimeMillis() - stageStart);
 
         dynamicContext.setValue("finalSummary", summaryResult);
         logFinalReport(dynamicContext, summaryResult, requestParameter.getSessionId());

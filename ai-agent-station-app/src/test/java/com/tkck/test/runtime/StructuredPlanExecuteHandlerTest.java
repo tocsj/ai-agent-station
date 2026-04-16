@@ -32,4 +32,28 @@ public class StructuredPlanExecuteHandlerTest {
 
         verify(contentExecutor).execute(command, emitter);
     }
+
+    @Test
+    public void should_route_resume_task_types_to_legacy_auto_agent_executor() throws Exception {
+        StructuredWorkflowExecutor legacyExecutor = mock(StructuredWorkflowExecutor.class);
+        StructuredWorkflowExecutor contentExecutor = mock(StructuredWorkflowExecutor.class);
+        when(legacyExecutor.getTaskType()).thenReturn(StructuredPlanExecuteHandler.LEGACY_AUTO_AGENT);
+        when(contentExecutor.getTaskType()).thenReturn("content_automation");
+        StructuredPlanExecuteHandler handler = new StructuredPlanExecuteHandler(List.of(legacyExecutor, contentExecutor));
+        ResponseBodyEmitter emitter = new ResponseBodyEmitter();
+        ExecuteCommandEntity resumeEvaluation = ExecuteCommandEntity.builder()
+                .executionMode(ExecutionMode.STRUCTURED_PLAN_EXECUTE)
+                .taskType("resume_evaluation")
+                .build();
+        ExecuteCommandEntity resumeInterview = ExecuteCommandEntity.builder()
+                .executionMode(ExecutionMode.STRUCTURED_PLAN_EXECUTE)
+                .taskType("resume_interview")
+                .build();
+
+        handler.execute(resumeEvaluation, emitter);
+        handler.execute(resumeInterview, emitter);
+
+        verify(legacyExecutor).execute(resumeEvaluation, emitter);
+        verify(legacyExecutor).execute(resumeInterview, emitter);
+    }
 }

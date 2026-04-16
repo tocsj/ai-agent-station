@@ -26,7 +26,7 @@ public class TopicPlannerNode extends AbstractContentWorkflowNode {
 
     @Override
     public String apply(ContentWorkflowContext context) {
-        String output = generate(ContentPromptBuilder.buildTopicPrompt(context.getTask()));
+        String output = generate(context, ContentPromptBuilder.buildTopicPrompt(context.getTask()));
         context.setValue("topicPlan", output);
         return output;
     }

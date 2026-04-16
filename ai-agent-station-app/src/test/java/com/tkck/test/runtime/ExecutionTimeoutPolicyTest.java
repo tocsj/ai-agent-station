@@ -13,6 +13,11 @@ public class ExecutionTimeoutPolicyTest {
     public void shouldAllowLongerTimeoutForContentStrongModelStages() {
         ExecutionTimeoutPolicy policy = ExecutionTimeoutPolicy.defaults();
 
+        Assert.assertEquals(Duration.ofSeconds(180), policy.getTimeout(ExecutionStage.ROOT));
+        Assert.assertEquals(Duration.ofSeconds(45), policy.getTimeout(ExecutionStage.STEP1_ANALYZE));
+        Assert.assertEquals(Duration.ofSeconds(120), policy.getTimeout(ExecutionStage.STEP2_EXECUTE));
+        Assert.assertEquals(Duration.ofSeconds(60), policy.getTimeout(ExecutionStage.STEP3_VERIFY));
+        Assert.assertEquals(Duration.ofSeconds(45), policy.getTimeout(ExecutionStage.STEP4_SUMMARIZE));
         Assert.assertEquals(Duration.ofSeconds(120), policy.getTimeout(ExecutionStage.CONTENT_TOPIC_PLAN));
         Assert.assertEquals(Duration.ofSeconds(120), policy.getTimeout(ExecutionStage.CONTENT_OUTLINE));
         Assert.assertEquals(Duration.ofSeconds(180), policy.getTimeout(ExecutionStage.CONTENT_DRAFT));

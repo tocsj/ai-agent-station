@@ -11,4 +11,8 @@ public interface ContentWorkflowNode {
     ExecutionStage stage();
 
     String apply(ContentWorkflowContext context) throws Exception;
+
+    default String clientId() {
+        return "";
+    }
 }

@@ -34,6 +34,12 @@ public class ExecuteCommandEntity {
 
     private String qaFilterExpression;
 
+    private Long resumeId;
+
+    private Long knowledgeSpaceId;
+
+    private Long resumeEvaluationTaskId;
+
     private Long interviewSessionId;
 
     private Integer interviewRoundNo;

@@ -30,7 +30,12 @@ public class DocumentWorkspaceAskServiceTest {
 
         DocumentWorkspaceServiceImpl service = new DocumentWorkspaceServiceImpl(mysqlJdbcTemplate, documentVectorStore, tokenTextSplitter) {
             @Override
-            protected String generateAnswer(String prompt, List<Document> documents) {
+            protected String generateAnswer(String traceId,
+                                            String taskType,
+                                            String workspaceId,
+                                            String sessionId,
+                                            String prompt,
+                                            List<Document> documents) {
                 return "based-on-retrieval";
             }
         };

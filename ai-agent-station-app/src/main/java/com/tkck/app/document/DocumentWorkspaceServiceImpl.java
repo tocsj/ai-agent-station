@@ -3,14 +3,22 @@ package com.tkck.app.document;
 import com.alibaba.fastjson.JSON;
 import com.tkck.config.AiAgentConfig;
 import com.tkck.domain.agent.model.valobj.enums.AiAgentEnumVO;
+import com.tkck.domain.audit.model.entity.AuditEventEntity;
+import com.tkck.domain.audit.model.entity.AuditExecutionMetricEntity;
+import com.tkck.domain.audit.model.entity.AuditLlmCallMetricEntity;
+import com.tkck.domain.audit.model.entity.AuditStepMetricEntity;
+import com.tkck.domain.audit.service.IAuditMonitoringService;
 import com.tkck.domain.document.model.entity.DocumentFileEntity;
 import com.tkck.domain.document.model.entity.DocumentRetrievedChunkEntity;
+import com.tkck.domain.document.model.entity.DocumentTaskRecordEntity;
 import com.tkck.domain.document.model.entity.DocumentTaskResultEntity;
 import com.tkck.domain.document.model.entity.DocumentWorkspaceDetailEntity;
 import com.tkck.domain.document.model.entity.DocumentWorkspaceEntity;
 import com.tkck.domain.document.service.IDocumentWorkspaceService;
 import jakarta.annotation.Resource;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.metadata.Usage;
+import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.reader.tika.TikaDocumentReader;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
@@ -47,6 +55,8 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
 
     @Resource
     private ApplicationContext applicationContext;
+    @Resource
+    private IAuditMonitoringService auditMonitoringService;
 
     public DocumentWorkspaceServiceImpl(@Qualifier("mysqlJdbcTemplate") JdbcTemplate mysqlJdbcTemplate,
                                         @Qualifier("documentVectorStore") VectorStore documentVectorStore,
@@ -96,6 +106,15 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
         return rows.stream()
                 .map(this::toWorkspaceEntity)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public DocumentWorkspaceDetailEntity queryActiveWorkspace() {
+        List<DocumentWorkspaceEntity> workspaces = listWorkspaces();
+        if (workspaces.isEmpty()) {
+            return null;
+        }
+        return queryWorkspaceDetail(workspaces.get(0).getWorkspaceId());
     }
 
     @Override
@@ -206,6 +225,7 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
         return executeDocumentTask(
                 workspaceId,
                 docId,
+                "ask",
                 question,
                 DocumentWorkspacePromptBuilder.buildAskPrompt(workspaceId, docId, question)
         );
@@ -217,6 +237,7 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
         return executeDocumentTask(
                 workspaceId,
                 docId,
+                "summary",
                 "请基于当前文档空间生成" + actualMode,
                 DocumentWorkspacePromptBuilder.buildSummaryPrompt(workspaceId, docId, actualMode)
         );
@@ -228,6 +249,7 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
         return executeDocumentTask(
                 workspaceId,
                 docId,
+                "followup",
                 "请从" + actualPerspective + "视角生成文档追问",
                 DocumentWorkspacePromptBuilder.buildFollowupPrompt(workspaceId, docId, actualPerspective)
         );
@@ -240,9 +262,33 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
         return executeDocumentTask(
                 workspaceId,
                 docId,
+                "quiz",
                 "请基于当前文档生成" + actualCount + "道" + actualQuizType,
                 DocumentWorkspacePromptBuilder.buildQuizPrompt(workspaceId, docId, actualCount, actualQuizType)
         );
+    }
+
+    @Override
+    public List<DocumentTaskRecordEntity> queryRecentTasks(String workspaceId, Integer limit) {
+        int actualLimit = normalizeLimit(limit, 10, 50);
+        List<Map<String, Object>> rows;
+        if (StringUtils.hasText(workspaceId)) {
+            rows = mysqlJdbcTemplate.queryForList("""
+                    SELECT *
+                    FROM document_task_record
+                    WHERE workspace_id = ?
+                    ORDER BY create_time DESC, id DESC
+                    LIMIT ?
+                    """, workspaceId, actualLimit);
+        } else {
+            rows = mysqlJdbcTemplate.queryForList("""
+                    SELECT *
+                    FROM document_task_record
+                    ORDER BY create_time DESC, id DESC
+                    LIMIT ?
+                    """, actualLimit);
+        }
+        return rows.stream().map(this::toDocumentTaskRecord).collect(Collectors.toList());
     }
 
     protected String readDocumentText(byte[] bytes, String fileName) {
@@ -263,26 +309,80 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
         return content.toString();
     }
 
-    protected String generateAnswer(String prompt, List<Document> documents) {
+    protected String generateAnswer(String traceId,
+                                    String taskType,
+                                    String workspaceId,
+                                    String sessionId,
+                                    String prompt,
+                                    List<Document> documents) {
         String finalContext = buildFinalContext(documents);
         if (applicationContext == null) {
             return prompt + "\n\n检索上下文:\n" + finalContext;
         }
 
+        long startTime = System.currentTimeMillis();
         ChatClient chatClient = getChatClient("5201");
-        return chatClient.prompt(prompt + "\n\n检索到的文档上下文:\n" + finalContext)
+        ChatResponse response = chatClient.prompt(prompt + "\n\n检索到的文档上下文:\n" + finalContext)
                 .call()
-                .content();
+                .chatResponse();
+        String content = response == null || response.getResult() == null || response.getResult().getOutput() == null
+                ? ""
+                : safe(response.getResult().getOutput().getText());
+        Usage usage = response == null || response.getMetadata() == null ? null : response.getMetadata().getUsage();
+        if (auditMonitoringService != null) {
+            auditMonitoringService.recordLlmCall(AuditLlmCallMetricEntity.builder()
+                    .traceId(traceId)
+                    .taskType("document_workspace")
+                    .taskSubType(taskType)
+                    .taskId(workspaceId)
+                    .sessionId(sessionId)
+                    .stepName(taskType)
+                    .stage("DOCUMENT_" + taskType.toUpperCase())
+                    .clientId("5201")
+                    .modelCode("5201")
+                    .status("SUCCESS")
+                    .durationMs(System.currentTimeMillis() - startTime)
+                    .promptTokens(usage == null ? 0L : usage.getPromptTokens())
+                    .completionTokens(usage == null ? 0L : usage.getCompletionTokens())
+                    .totalTokens(usage == null ? 0L : usage.getTotalTokens())
+                    .location("DocumentWorkspaceServiceImpl#generateAnswer")
+                    .build());
+        }
+        return content;
     }
 
     private DocumentTaskResultEntity executeDocumentTask(String workspaceId,
                                                          String docId,
+                                                         String taskType,
                                                          String query,
                                                          String prompt) {
-        String taskType = resolveTaskType(prompt);
+        String traceId = "trace_" + UUID.randomUUID().toString().replace("-", "").substring(0, 16);
+        String sessionId = "document-" + workspaceId + "-" + taskType + "-" + UUID.randomUUID().toString().replace("-", "").substring(0, 8);
         String retrievalScope = buildRetrievalScope(workspaceId, docId);
         log.info("document task start, taskType={}, workspaceId={}, docId={}, retrievalScope={}",
                 taskType, workspaceId, docId == null ? "ALL" : docId, retrievalScope);
+        if (auditMonitoringService != null) {
+            auditMonitoringService.startExecution(AuditExecutionMetricEntity.builder()
+                    .traceId(traceId)
+                    .taskType("document_workspace")
+                    .taskSubType(taskType)
+                    .taskId(workspaceId)
+                    .sessionId(sessionId)
+                    .executionMode("SINGLE_SHOT")
+                    .status("RUNNING")
+                    .build());
+            auditMonitoringService.recordEvent(AuditEventEntity.builder()
+                    .eventType("DOCUMENT_TASK_START")
+                    .bizType("document_workspace")
+                    .bizId(workspaceId)
+                    .sessionId(sessionId)
+                    .executionMode("SINGLE_SHOT")
+                    .status("RUNNING")
+                    .location("DocumentWorkspaceServiceImpl#executeDocumentTask")
+                    .metadataJson(JSON.toJSONString(Map.of("traceId", traceId, "taskType", taskType, "docId", docId == null ? "ALL" : docId)))
+                    .build());
+        }
+        long startTime = System.currentTimeMillis();
         try {
             validateWorkspace(workspaceId);
             validateDocument(workspaceId, docId);
@@ -296,21 +396,112 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
                     taskType, workspaceId, docId == null ? "ALL" : docId, retrievedDocuments == null ? 0 : retrievedDocuments.size());
 
             DocumentTaskResultEntity result = DocumentTaskResultEntity.builder()
-                    .answer(generateAnswer(prompt, retrievedDocuments))
+                    .answer(generateAnswer(traceId, taskType, workspaceId, sessionId, prompt, retrievedDocuments))
                     .rewrittenQuery(rewrittenQuery)
                     .retrievalScope(retrievalScope)
                     .finalContext(finalContext)
                     .retrievedChunks(toChunkTexts(retrievedDocuments))
                     .retrievedChunkDetails(toRetrievedChunkDetails(retrievedDocuments))
                     .build();
+            persistDocumentTaskRecord(workspaceId, docId, taskType, query, result, "SUCCESS", null);
             log.info("document task completed, taskType={}, workspaceId={}, docId={}, answerLength={}",
                     taskType, workspaceId, docId == null ? "ALL" : docId, result.getAnswer() == null ? 0 : result.getAnswer().length());
+            if (auditMonitoringService != null) {
+                auditMonitoringService.recordStep(AuditStepMetricEntity.builder()
+                        .traceId(traceId)
+                        .taskId(workspaceId)
+                        .sessionId(sessionId)
+                        .stepNo(1)
+                        .stepName(taskType)
+                        .stage("DOCUMENT_" + taskType.toUpperCase())
+                        .clientId("5201")
+                        .modelCode("5201")
+                        .status("SUCCESS")
+                        .durationMs(System.currentTimeMillis() - startTime)
+                        .retryCount(0)
+                        .timeoutFlag(false)
+                        .degradedFlag(false)
+                        .location("DocumentWorkspaceServiceImpl#executeDocumentTask")
+                        .build());
+                auditMonitoringService.finishExecution(traceId, "SUCCESS", System.currentTimeMillis() - startTime);
+                auditMonitoringService.recordEvent(AuditEventEntity.builder()
+                        .eventType("DOCUMENT_TASK_COMPLETE")
+                        .bizType("document_workspace")
+                        .bizId(workspaceId)
+                        .sessionId(sessionId)
+                        .executionMode("SINGLE_SHOT")
+                        .status("SUCCESS")
+                        .location("DocumentWorkspaceServiceImpl#executeDocumentTask")
+                        .metadataJson(JSON.toJSONString(Map.of("traceId", traceId, "taskType", taskType, "docId", docId == null ? "ALL" : docId)))
+                        .build());
+            }
             return result;
         } catch (Exception e) {
+            persistDocumentTaskRecord(workspaceId, docId, taskType, query, null, "FAILED", e.getMessage());
             log.error("document task failed, taskType={}, workspaceId={}, docId={}, message={}",
                     taskType, workspaceId, docId == null ? "ALL" : docId, e.getMessage(), e);
+            if (auditMonitoringService != null) {
+                auditMonitoringService.recordStep(AuditStepMetricEntity.builder()
+                        .traceId(traceId)
+                        .taskId(workspaceId)
+                        .sessionId(sessionId)
+                        .stepNo(1)
+                        .stepName(taskType)
+                        .stage("DOCUMENT_" + taskType.toUpperCase())
+                        .clientId("5201")
+                        .modelCode("5201")
+                        .status("FAILED")
+                        .durationMs(System.currentTimeMillis() - startTime)
+                        .retryCount(0)
+                        .timeoutFlag(false)
+                        .degradedFlag(false)
+                        .errorCode(e.getClass().getSimpleName())
+                        .errorMessage(e.getMessage())
+                        .location("DocumentWorkspaceServiceImpl#executeDocumentTask")
+                        .build());
+                auditMonitoringService.finishExecution(traceId, "FAILED", System.currentTimeMillis() - startTime);
+                auditMonitoringService.recordEvent(AuditEventEntity.builder()
+                        .eventType("DOCUMENT_TASK_FAILED")
+                        .bizType("document_workspace")
+                        .bizId(workspaceId)
+                        .sessionId(sessionId)
+                        .executionMode("SINGLE_SHOT")
+                        .status("FAILED")
+                        .errorCode(e.getClass().getSimpleName())
+                        .errorMessage(e.getMessage())
+                        .location("DocumentWorkspaceServiceImpl#executeDocumentTask")
+                        .metadataJson(JSON.toJSONString(Map.of("traceId", traceId, "taskType", taskType, "docId", docId == null ? "ALL" : docId)))
+                        .build());
+            }
             throw e;
         }
+    }
+
+    private void persistDocumentTaskRecord(String workspaceId,
+                                           String docId,
+                                           String mode,
+                                           String question,
+                                           DocumentTaskResultEntity result,
+                                           String status,
+                                           String errorMessage) {
+        mysqlJdbcTemplate.update("""
+                        INSERT INTO document_task_record
+                        (workspace_id, doc_id, mode, question, answer, rewritten_query, retrieval_scope, final_context,
+                         retrieved_chunks_json, retrieved_chunk_details_json, status, error_message)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        """,
+                workspaceId,
+                docId,
+                mode,
+                question,
+                result == null ? null : result.getAnswer(),
+                result == null ? null : result.getRewrittenQuery(),
+                result == null ? null : result.getRetrievalScope(),
+                result == null ? null : result.getFinalContext(),
+                result == null ? null : JSON.toJSONString(result.getRetrievedChunks()),
+                result == null ? null : JSON.toJSONString(result.getRetrievedChunkDetails()),
+                status,
+                errorMessage);
     }
 
     private void validateWorkspace(String workspaceId) {
@@ -477,6 +668,10 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
         return text.length() <= maxLength ? text : text.substring(0, maxLength);
     }
 
+    private String safe(String text) {
+        return text == null ? "" : text;
+    }
+
     private String resolveTaskType(String prompt) {
         if (prompt == null) {
             return "ask";
@@ -507,5 +702,33 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
                 .documentCount(row.get("document_count") == null ? 0 : ((Number) row.get("document_count")).intValue())
                 .updateTime(row.get("update_time") == null ? null : String.valueOf(row.get("update_time")))
                 .build();
+    }
+
+    private DocumentTaskRecordEntity toDocumentTaskRecord(Map<String, Object> row) {
+        String retrievedChunksJson = (String) row.get("retrieved_chunks_json");
+        String retrievedChunkDetailsJson = (String) row.get("retrieved_chunk_details_json");
+        return DocumentTaskRecordEntity.builder()
+                .taskId(((Number) row.get("id")).longValue())
+                .workspaceId((String) row.get("workspace_id"))
+                .docId((String) row.get("doc_id"))
+                .mode((String) row.get("mode"))
+                .question((String) row.get("question"))
+                .answer((String) row.get("answer"))
+                .rewrittenQuery((String) row.get("rewritten_query"))
+                .retrievalScope((String) row.get("retrieval_scope"))
+                .finalContext((String) row.get("final_context"))
+                .retrievedChunks(retrievedChunksJson == null ? List.of() : JSON.parseArray(retrievedChunksJson, String.class))
+                .retrievedChunkDetails(retrievedChunkDetailsJson == null ? List.of() : JSON.parseArray(retrievedChunkDetailsJson, DocumentRetrievedChunkEntity.class))
+                .status((String) row.get("status"))
+                .errorMessage((String) row.get("error_message"))
+                .createTime(row.get("create_time") == null ? null : String.valueOf(row.get("create_time")))
+                .build();
+    }
+
+    private int normalizeLimit(Integer limit, int defaultValue, int maxValue) {
+        if (limit == null || limit <= 0) {
+            return defaultValue;
+        }
+        return Math.min(limit, maxValue);
     }
 }

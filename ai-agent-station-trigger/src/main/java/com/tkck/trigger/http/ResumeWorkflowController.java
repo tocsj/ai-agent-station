@@ -1,10 +1,12 @@
 package com.tkck.trigger.http;
 
 import com.tkck.api.dto.ResumeEvaluateRequestDTO;
+import com.tkck.api.dto.ResumeEvaluationTaskResponseDTO;
 import com.tkck.api.dto.ResumeInterviewDetailResponseDTO;
 import com.tkck.api.dto.ResumeInterviewAnswerRequestDTO;
 import com.tkck.api.dto.ResumeInterviewStartRequestDTO;
 import com.tkck.api.dto.ResumeInterviewStartResponseDTO;
+import com.tkck.api.dto.ResumeProfileItemDTO;
 import com.tkck.api.dto.ResumeUploadResponseDTO;
 import com.tkck.api.response.Response;
 import com.tkck.domain.agent.model.entity.AutoAgentExecuteResultEntity;
@@ -14,6 +16,7 @@ import com.tkck.domain.agent.service.execute.IExecuteStrategy;
 import com.tkck.domain.resume.model.entity.ResumeInterviewDetailEntity;
 import com.tkck.domain.resume.model.entity.ResumeInterviewRoundEntity;
 import com.tkck.domain.resume.model.entity.ResumeInterviewStartEntity;
+import com.tkck.domain.resume.model.entity.ResumeEvaluationTaskEntity;
 import com.tkck.domain.resume.model.entity.ResumeUploadResultEntity;
 import com.tkck.domain.resume.service.IResumeWorkflowService;
 import com.tkck.trigger.http.sse.SafeSseEmitter;
@@ -25,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.stream.Collectors;
 
@@ -97,7 +101,39 @@ public class ResumeWorkflowController {
         return executeWithSse(command, response);
     }
 
-    @GetMapping("/interview/{interviewSessionId}")
+    @GetMapping("/profile/recent")
+    public Response<List<ResumeProfileItemDTO>> recentProfiles(@RequestParam(value = "limit", required = false, defaultValue = "20") Integer limit) {
+        return Response.<List<ResumeProfileItemDTO>>builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(resumeWorkflowService.queryRecentResumes(limit).stream()
+                        .map(this::toProfileItem)
+                        .collect(Collectors.toList()))
+                .build();
+    }
+
+    @GetMapping("/evaluation/active")
+    public Response<ResumeEvaluationTaskResponseDTO> activeEvaluation() {
+        ResumeEvaluationTaskEntity task = resumeWorkflowService.queryActiveEvaluationTask();
+        return Response.<ResumeEvaluationTaskResponseDTO>builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(task == null ? null : toEvaluationTask(task))
+                .build();
+    }
+
+    @GetMapping("/evaluation/recent")
+    public Response<List<ResumeEvaluationTaskResponseDTO>> recentEvaluations(@RequestParam(value = "limit", required = false, defaultValue = "20") Integer limit) {
+        return Response.<List<ResumeEvaluationTaskResponseDTO>>builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(resumeWorkflowService.queryRecentEvaluationTasks(limit).stream()
+                        .map(this::toEvaluationTask)
+                        .collect(Collectors.toList()))
+                .build();
+    }
+
+    @GetMapping("/interview/{interviewSessionId:\\d+}")
     public Response<ResumeInterviewDetailResponseDTO> interviewDetail(@PathVariable("interviewSessionId") Long interviewSessionId) {
         ResumeInterviewDetailEntity detail = resumeWorkflowService.queryInterviewDetail(interviewSessionId);
         return Response.<ResumeInterviewDetailResponseDTO>builder()
@@ -115,6 +151,16 @@ public class ResumeWorkflowController {
                         .finalReport(detail.getFinalReport())
                         .rounds(detail.getRounds() == null ? null : detail.getRounds().stream().map(this::toRoundItem).collect(Collectors.toList()))
                         .build())
+                .build();
+    }
+
+    @GetMapping("/interview/active")
+    public Response<ResumeInterviewDetailResponseDTO> activeInterview() {
+        ResumeInterviewDetailEntity detail = resumeWorkflowService.queryActiveInterviewDetail();
+        return Response.<ResumeInterviewDetailResponseDTO>builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(detail == null ? null : toInterviewDetail(detail))
                 .build();
     }
 
@@ -169,6 +215,49 @@ public class ResumeWorkflowController {
                 .score(round.getScore())
                 .finished(round.getFinished())
                 .status(round.getStatus())
+                .build();
+    }
+
+    private ResumeInterviewDetailResponseDTO toInterviewDetail(ResumeInterviewDetailEntity detail) {
+        return ResumeInterviewDetailResponseDTO.builder()
+                .interviewSessionId(detail.getInterviewSessionId())
+                .resumeId(detail.getResumeId())
+                .knowledgeSpaceId(detail.getKnowledgeSpaceId())
+                .sessionCode(detail.getSessionCode())
+                .currentRound(detail.getCurrentRound())
+                .totalRounds(detail.getTotalRounds())
+                .status(detail.getStatus())
+                .openingQuestions(detail.getOpeningQuestions())
+                .finalReport(detail.getFinalReport())
+                .rounds(detail.getRounds() == null ? null : detail.getRounds().stream().map(this::toRoundItem).collect(Collectors.toList()))
+                .build();
+    }
+
+    private ResumeProfileItemDTO toProfileItem(ResumeUploadResultEntity profile) {
+        return ResumeProfileItemDTO.builder()
+                .resumeId(profile.getResumeId())
+                .knowledgeSpaceId(profile.getKnowledgeSpaceId())
+                .knowledgeTag(profile.getKnowledgeTag())
+                .fileName(profile.getFileName())
+                .chunkCount(profile.getChunkCount())
+                .createTime(profile.getCreateTime())
+                .updateTime(profile.getUpdateTime())
+                .build();
+    }
+
+    private ResumeEvaluationTaskResponseDTO toEvaluationTask(ResumeEvaluationTaskEntity task) {
+        return ResumeEvaluationTaskResponseDTO.builder()
+                .taskId(task.getTaskId())
+                .resumeId(task.getResumeId())
+                .knowledgeSpaceId(task.getKnowledgeSpaceId())
+                .sessionId(task.getSessionId())
+                .question(task.getQuestion())
+                .status(task.getStatus())
+                .report(task.getReport())
+                .traceId(task.getTraceId())
+                .errorMessage(task.getErrorMessage())
+                .createTime(task.getCreateTime())
+                .updateTime(task.getUpdateTime())
                 .build();
     }
 }

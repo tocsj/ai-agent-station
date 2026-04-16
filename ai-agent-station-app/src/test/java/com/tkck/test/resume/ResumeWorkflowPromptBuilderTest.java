@@ -30,4 +30,13 @@ public class ResumeWorkflowPromptBuilderTest {
         Assert.assertTrue(prompt.contains("我会先更新数据库再删除缓存。"));
         Assert.assertTrue(prompt.contains("下一轮问题:"));
     }
+
+    @Test
+    public void should_build_single_question_opening_prompt() {
+        String prompt = ResumeWorkflowPromptBuilder.buildInterviewOpeningPrompt(7L, 8L, "项目A，缓存设计，性能优化");
+
+        Assert.assertTrue(prompt.contains("只生成 1 个首轮面试问题"));
+        Assert.assertTrue(prompt.contains("只输出一个问题正文"));
+        Assert.assertFalse(prompt.contains("输出 3 个循序渐进的模拟面试问题"));
+    }
 }

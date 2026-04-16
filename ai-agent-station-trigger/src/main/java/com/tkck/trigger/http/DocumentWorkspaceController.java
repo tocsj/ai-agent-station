@@ -5,6 +5,7 @@ import com.tkck.api.dto.DocumentFollowupRequestDTO;
 import com.tkck.api.dto.DocumentQuizRequestDTO;
 import com.tkck.api.dto.DocumentRetrievedChunkDTO;
 import com.tkck.api.dto.DocumentSummaryRequestDTO;
+import com.tkck.api.dto.DocumentTaskRecordResponseDTO;
 import com.tkck.api.dto.DocumentTaskResultResponseDTO;
 import com.tkck.api.dto.DocumentUploadResponseDTO;
 import com.tkck.api.dto.DocumentWorkspaceCreateRequestDTO;
@@ -14,6 +15,7 @@ import com.tkck.api.dto.DocumentWorkspaceListItemDTO;
 import com.tkck.api.response.Response;
 import com.tkck.domain.document.model.entity.DocumentFileEntity;
 import com.tkck.domain.document.model.entity.DocumentTaskResultEntity;
+import com.tkck.domain.document.model.entity.DocumentTaskRecordEntity;
 import com.tkck.domain.document.model.entity.DocumentWorkspaceDetailEntity;
 import com.tkck.domain.document.model.entity.DocumentWorkspaceEntity;
 import com.tkck.domain.document.service.IDocumentWorkspaceService;
@@ -86,7 +88,7 @@ public class DocumentWorkspaceController {
                 .build();
     }
 
-    @GetMapping("/workspace/{workspaceId}")
+    @GetMapping("/workspace/{workspaceId:^(?!active$).+}")
     public Response<DocumentWorkspaceDetailResponseDTO> workspaceDetail(@PathVariable("workspaceId") String workspaceId) {
         DocumentWorkspaceDetailEntity detail = documentWorkspaceService.queryWorkspaceDetail(workspaceId);
         return Response.<DocumentWorkspaceDetailResponseDTO>builder()
@@ -102,6 +104,28 @@ public class DocumentWorkspaceController {
                                 .map(this::toDocumentItem)
                                 .collect(Collectors.toList()))
                         .build())
+                .build();
+    }
+
+    @GetMapping("/workspace/active")
+    public Response<DocumentWorkspaceDetailResponseDTO> activeWorkspace() {
+        DocumentWorkspaceDetailEntity detail = documentWorkspaceService.queryActiveWorkspace();
+        return Response.<DocumentWorkspaceDetailResponseDTO>builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(detail == null ? null : toWorkspaceDetail(detail))
+                .build();
+    }
+
+    @GetMapping("/task/recent")
+    public Response<List<DocumentTaskRecordResponseDTO>> recentTasks(@RequestParam(value = "workspaceId", required = false) String workspaceId,
+                                                                     @RequestParam(value = "limit", required = false, defaultValue = "10") Integer limit) {
+        return Response.<List<DocumentTaskRecordResponseDTO>>builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(documentWorkspaceService.queryRecentTasks(workspaceId, limit).stream()
+                        .map(this::toTaskRecord)
+                        .collect(Collectors.toList()))
                 .build();
     }
 
@@ -166,6 +190,19 @@ public class DocumentWorkspaceController {
                 .build();
     }
 
+    private DocumentWorkspaceDetailResponseDTO toWorkspaceDetail(DocumentWorkspaceDetailEntity detail) {
+        return DocumentWorkspaceDetailResponseDTO.builder()
+                .workspaceId(detail.getWorkspaceId())
+                .workspaceName(detail.getWorkspaceName())
+                .description(detail.getDescription())
+                .status(detail.getStatus())
+                .documentCount(detail.getDocumentCount())
+                .documents(detail.getDocuments() == null ? null : detail.getDocuments().stream()
+                        .map(this::toDocumentItem)
+                        .collect(Collectors.toList()))
+                .build();
+    }
+
     private DocumentTaskResultResponseDTO toTaskResult(DocumentTaskResultEntity result) {
         return DocumentTaskResultResponseDTO.builder()
                 .answer(result.getAnswer())
@@ -182,6 +219,33 @@ public class DocumentWorkspaceController {
                                 .preview(item.getPreview())
                                 .build())
                         .collect(Collectors.toList()))
+                .build();
+    }
+
+    private DocumentTaskRecordResponseDTO toTaskRecord(DocumentTaskRecordEntity result) {
+        return DocumentTaskRecordResponseDTO.builder()
+                .taskId(result.getTaskId())
+                .workspaceId(result.getWorkspaceId())
+                .docId(result.getDocId())
+                .mode(result.getMode())
+                .question(result.getQuestion())
+                .answer(result.getAnswer())
+                .rewrittenQuery(result.getRewrittenQuery())
+                .retrievalScope(result.getRetrievalScope())
+                .finalContext(result.getFinalContext())
+                .retrievedChunks(result.getRetrievedChunks())
+                .retrievedChunkDetails(result.getRetrievedChunkDetails() == null ? null : result.getRetrievedChunkDetails().stream()
+                        .map(item -> DocumentRetrievedChunkDTO.builder()
+                                .workspaceId(item.getWorkspaceId())
+                                .docId(item.getDocId())
+                                .fileName(item.getFileName())
+                                .chunkIndex(item.getChunkIndex())
+                                .preview(item.getPreview())
+                                .build())
+                        .collect(Collectors.toList()))
+                .status(result.getStatus())
+                .errorMessage(result.getErrorMessage())
+                .createTime(result.getCreateTime())
                 .build();
     }
 

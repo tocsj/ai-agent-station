@@ -26,7 +26,7 @@ public class PublishSummarizerNode extends AbstractContentWorkflowNode {
 
     @Override
     public String apply(ContentWorkflowContext context) {
-        String output = generate(ContentPromptBuilder.buildPublishSummaryPrompt(
+        String output = generate(context, ContentPromptBuilder.buildPublishSummaryPrompt(
                 context.getTask(),
                 safe(context.getValue("polished")),
                 safe(context.getValue("compliance")),

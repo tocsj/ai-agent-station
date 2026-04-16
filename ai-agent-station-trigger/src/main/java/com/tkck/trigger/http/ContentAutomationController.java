@@ -113,12 +113,22 @@ public class ContentAutomationController {
         return emitter;
     }
 
-    @GetMapping("/task/{taskId}")
+    @GetMapping("/task/{taskId:\\d+}")
     public Response<ContentTaskDetailResponseDTO> taskDetail(@PathVariable("taskId") Long taskId) {
         return Response.<ContentTaskDetailResponseDTO>builder()
                 .code(ResponseCode.SUCCESS.getCode())
                 .info(ResponseCode.SUCCESS.getInfo())
                 .data(toTaskDetail(contentAutomationService.queryTask(taskId)))
+                .build();
+    }
+
+    @GetMapping("/task/active")
+    public Response<ContentTaskDetailResponseDTO> activeTask() {
+        ContentTaskEntity task = contentAutomationService.queryActiveTask();
+        return Response.<ContentTaskDetailResponseDTO>builder()
+                .code(ResponseCode.SUCCESS.getCode())
+                .info(ResponseCode.SUCCESS.getInfo())
+                .data(task == null ? null : toTaskDetail(task))
                 .build();
     }
 
@@ -133,7 +143,7 @@ public class ContentAutomationController {
                 .build();
     }
 
-    @GetMapping("/task/{taskId}/steps")
+    @GetMapping("/task/{taskId:\\d+}/steps")
     public Response<List<ContentTaskDetailResponseDTO.StepItem>> taskSteps(@PathVariable("taskId") Long taskId) {
         return Response.<List<ContentTaskDetailResponseDTO.StepItem>>builder()
                 .code(ResponseCode.SUCCESS.getCode())

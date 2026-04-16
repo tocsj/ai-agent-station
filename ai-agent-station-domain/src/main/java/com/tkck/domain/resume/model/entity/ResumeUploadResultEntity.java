@@ -20,4 +20,8 @@ public class ResumeUploadResultEntity {
     private String fileName;
 
     private Integer chunkCount;
+
+    private String createTime;
+
+    private String updateTime;
 }

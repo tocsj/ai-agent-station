@@ -13,6 +13,8 @@ public interface IContentAutomationService {
 
     ContentTaskEntity queryTask(Long taskId);
 
+    ContentTaskEntity queryActiveTask();
+
     List<ContentTaskEntity> queryTaskHistory(Integer limit);
 
     List<ContentTaskStepEntity> queryTaskSteps(Long taskId);

@@ -73,6 +73,27 @@ public class ResumeWorkflowSchemaInitializer implements InitializingBean {
                 """);
 
         mysqlJdbcTemplate.execute("""
+                CREATE TABLE IF NOT EXISTS document_task_record (
+                    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                    workspace_id VARCHAR(64) NOT NULL,
+                    doc_id VARCHAR(64) DEFAULT NULL,
+                    mode VARCHAR(32) NOT NULL,
+                    question TEXT,
+                    answer LONGTEXT,
+                    rewritten_query TEXT,
+                    retrieval_scope VARCHAR(512) DEFAULT NULL,
+                    final_context LONGTEXT,
+                    retrieved_chunks_json LONGTEXT,
+                    retrieved_chunk_details_json LONGTEXT,
+                    status VARCHAR(32) NOT NULL,
+                    error_message VARCHAR(512) DEFAULT NULL,
+                    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    INDEX idx_document_task_workspace_time (workspace_id, create_time),
+                    INDEX idx_document_task_mode_time (mode, create_time)
+                )
+                """);
+
+        mysqlJdbcTemplate.execute("""
                 CREATE TABLE IF NOT EXISTS resume_knowledge_space (
                     id BIGINT PRIMARY KEY AUTO_INCREMENT,
                     resume_id BIGINT NOT NULL,
@@ -82,6 +103,24 @@ public class ResumeWorkflowSchemaInitializer implements InitializingBean {
                     status TINYINT DEFAULT 1,
                     create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
                     update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                )
+                """);
+
+        mysqlJdbcTemplate.execute("""
+                CREATE TABLE IF NOT EXISTS resume_evaluation_task (
+                    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                    resume_id BIGINT NOT NULL,
+                    knowledge_space_id BIGINT NOT NULL,
+                    session_id VARCHAR(128) NOT NULL,
+                    question TEXT,
+                    status VARCHAR(32) NOT NULL,
+                    report LONGTEXT,
+                    trace_id VARCHAR(64) DEFAULT NULL,
+                    error_message VARCHAR(512) DEFAULT NULL,
+                    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                    INDEX idx_resume_eval_resume_time (resume_id, create_time),
+                    INDEX idx_resume_eval_status_time (status, create_time)
                 )
                 """);
 
@@ -185,6 +224,117 @@ public class ResumeWorkflowSchemaInitializer implements InitializingBean {
                     external_url VARCHAR(512) DEFAULT NULL,
                     error_message VARCHAR(512) DEFAULT NULL,
                     create_time DATETIME DEFAULT CURRENT_TIMESTAMP
+                )
+                """);
+
+        mysqlJdbcTemplate.execute("""
+                CREATE TABLE IF NOT EXISTS audit_event (
+                    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                    event_id VARCHAR(64) NOT NULL UNIQUE,
+                    event_type VARCHAR(64) NOT NULL,
+                    biz_type VARCHAR(64) NOT NULL,
+                    biz_id VARCHAR(64) DEFAULT NULL,
+                    session_id VARCHAR(128) DEFAULT NULL,
+                    execution_mode VARCHAR(64) DEFAULT NULL,
+                    operator_id VARCHAR(64) DEFAULT 'global',
+                    operator_name VARCHAR(128) DEFAULT '全局账号',
+                    request_uri VARCHAR(255) DEFAULT NULL,
+                    request_method VARCHAR(16) DEFAULT NULL,
+                    status VARCHAR(32) NOT NULL,
+                    error_code VARCHAR(64) DEFAULT NULL,
+                    error_message VARCHAR(512) DEFAULT NULL,
+                    location VARCHAR(255) DEFAULT NULL,
+                    metadata_json JSON DEFAULT NULL,
+                    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    INDEX idx_audit_event_biz (biz_type, biz_id),
+                    INDEX idx_audit_event_type_status (event_type, status),
+                    INDEX idx_audit_event_create_time (create_time)
+                )
+                """);
+
+        mysqlJdbcTemplate.execute("""
+                CREATE TABLE IF NOT EXISTS agent_execution_metric (
+                    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                    trace_id VARCHAR(64) NOT NULL UNIQUE,
+                    task_type VARCHAR(64) NOT NULL,
+                    task_sub_type VARCHAR(64) DEFAULT NULL,
+                    task_id VARCHAR(64) DEFAULT NULL,
+                    session_id VARCHAR(128) DEFAULT NULL,
+                    execution_mode VARCHAR(64) DEFAULT NULL,
+                    status VARCHAR(32) NOT NULL,
+                    total_duration_ms BIGINT DEFAULT 0,
+                    step_count INT DEFAULT 0,
+                    success_step_count INT DEFAULT 0,
+                    failed_step_count INT DEFAULT 0,
+                    timeout_count INT DEFAULT 0,
+                    retry_count INT DEFAULT 0,
+                    degraded_count INT DEFAULT 0,
+                    model_calls INT DEFAULT 0,
+                    prompt_tokens BIGINT DEFAULT 0,
+                    completion_tokens BIGINT DEFAULT 0,
+                    total_tokens BIGINT DEFAULT 0,
+                    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    finish_time DATETIME DEFAULT NULL,
+                    INDEX idx_execution_metric_task (task_type, task_id),
+                    INDEX idx_execution_metric_status_time (status, create_time)
+                )
+                """);
+
+        mysqlJdbcTemplate.execute("""
+                CREATE TABLE IF NOT EXISTS agent_step_metric (
+                    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                    trace_id VARCHAR(64) NOT NULL,
+                    task_id VARCHAR(64) DEFAULT NULL,
+                    session_id VARCHAR(128) DEFAULT NULL,
+                    step_no INT NOT NULL,
+                    step_name VARCHAR(64) NOT NULL,
+                    stage VARCHAR(64) NOT NULL,
+                    client_id VARCHAR(64) DEFAULT NULL,
+                    model_code VARCHAR(64) DEFAULT NULL,
+                    status VARCHAR(32) NOT NULL,
+                    duration_ms BIGINT DEFAULT 0,
+                    retry_count INT DEFAULT 0,
+                    timeout_flag TINYINT DEFAULT 0,
+                    degraded_flag TINYINT DEFAULT 0,
+                    error_code VARCHAR(64) DEFAULT NULL,
+                    error_message VARCHAR(512) DEFAULT NULL,
+                    location VARCHAR(255) DEFAULT NULL,
+                    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    INDEX idx_step_metric_trace (trace_id),
+                    INDEX idx_step_metric_name_time (step_name, create_time),
+                    INDEX idx_step_metric_status_time (status, create_time)
+                )
+                """);
+        addColumnIfMissing("agent_execution_metric", "task_sub_type", "VARCHAR(64) DEFAULT NULL");
+        addColumnIfMissing("agent_execution_metric", "prompt_tokens", "BIGINT DEFAULT 0");
+        addColumnIfMissing("agent_execution_metric", "completion_tokens", "BIGINT DEFAULT 0");
+        addColumnIfMissing("agent_execution_metric", "total_tokens", "BIGINT DEFAULT 0");
+
+        mysqlJdbcTemplate.execute("""
+                CREATE TABLE IF NOT EXISTS agent_llm_call_metric (
+                    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                    call_id VARCHAR(64) NOT NULL UNIQUE,
+                    trace_id VARCHAR(64) NOT NULL,
+                    task_type VARCHAR(64) NOT NULL,
+                    task_sub_type VARCHAR(64) DEFAULT NULL,
+                    task_id VARCHAR(64) DEFAULT NULL,
+                    session_id VARCHAR(128) DEFAULT NULL,
+                    step_name VARCHAR(64) NOT NULL,
+                    stage VARCHAR(64) DEFAULT NULL,
+                    client_id VARCHAR(64) DEFAULT NULL,
+                    model_code VARCHAR(64) DEFAULT NULL,
+                    status VARCHAR(32) NOT NULL,
+                    duration_ms BIGINT DEFAULT 0,
+                    prompt_tokens BIGINT DEFAULT 0,
+                    completion_tokens BIGINT DEFAULT 0,
+                    total_tokens BIGINT DEFAULT 0,
+                    error_code VARCHAR(64) DEFAULT NULL,
+                    error_message VARCHAR(512) DEFAULT NULL,
+                    location VARCHAR(255) DEFAULT NULL,
+                    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    INDEX idx_llm_call_trace (trace_id),
+                    INDEX idx_llm_call_task_time (task_type, create_time),
+                    INDEX idx_llm_call_model_time (client_id, model_code, create_time)
                 )
                 """);
 

@@ -1,6 +1,7 @@
 package com.tkck.domain.document.service;
 
 import com.tkck.domain.document.model.entity.DocumentFileEntity;
+import com.tkck.domain.document.model.entity.DocumentTaskRecordEntity;
 import com.tkck.domain.document.model.entity.DocumentTaskResultEntity;
 import com.tkck.domain.document.model.entity.DocumentWorkspaceDetailEntity;
 import com.tkck.domain.document.model.entity.DocumentWorkspaceEntity;
@@ -14,6 +15,8 @@ public interface IDocumentWorkspaceService {
 
     List<DocumentWorkspaceEntity> listWorkspaces();
 
+    DocumentWorkspaceDetailEntity queryActiveWorkspace();
+
     DocumentFileEntity upload(String workspaceId, MultipartFile file) throws Exception;
 
     DocumentWorkspaceDetailEntity queryWorkspaceDetail(String workspaceId);
@@ -25,4 +28,6 @@ public interface IDocumentWorkspaceService {
     DocumentTaskResultEntity followup(String workspaceId, String docId, String perspective);
 
     DocumentTaskResultEntity quiz(String workspaceId, String docId, Integer questionCount, String quizType);
+
+    List<DocumentTaskRecordEntity> queryRecentTasks(String workspaceId, Integer limit);
 }

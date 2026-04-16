@@ -68,27 +68,37 @@ public class Step1AnalyzerNode extends AbstractExecuteSupport {
         AiAgentClientFlowConfigVO flowConfig =
                 dynamicContext.getAiAgentClientFlowConfigVOMap().get(AiClientTypeEnumVO.TASK_ANALYZER_CLIENT.getCode());
         ChatClient chatClient = getChatClientByClientId(flowConfig.getClientId());
+        long stageStart = System.currentTimeMillis();
+        String location = getClass().getSimpleName() + "#doApply";
 
         String analysisResult = executeStage(
                 ExecutionStage.STEP1_ANALYZE,
                 requestParameter,
                 dynamicContext,
                 () -> {
-                    String content = chatClient
-                            .prompt(analysisPrompt)
-                            .advisors(a -> {
-                                a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, requestParameter.getSessionId())
-                                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 256);
-                                if (StringUtils.hasText(requestParameter.getQaFilterExpression())) {
-                                    a.param(QA_FILTER_EXPRESSION_KEY, requestParameter.getQaFilterExpression());
-                                }
-                            })
-                            .call()
-                            .content();
-                    return content == null ? "" : content;
+                    return callChatClientWithAudit(
+                            requestParameter,
+                            dynamicContext,
+                            ExecutionStage.STEP1_ANALYZE,
+                            "step1_analyze",
+                            flowConfig.getClientId(),
+                            location,
+                            () -> chatClient
+                                    .prompt(analysisPrompt)
+                                    .advisors(a -> {
+                                        a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, requestParameter.getSessionId())
+                                                .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 256);
+                                        if (StringUtils.hasText(requestParameter.getQaFilterExpression())) {
+                                            a.param(QA_FILTER_EXPRESSION_KEY, requestParameter.getQaFilterExpression());
+                                        }
+                                    })
+                                    .call()
+                                    .chatResponse()
+                    );
                 },
                 failure -> buildAnalysisFallback(failure)
         );
+        recordStageMetric(requestParameter, dynamicContext, ExecutionStage.STEP1_ANALYZE, "step1_analyze", flowConfig.getClientId(), location, System.currentTimeMillis() - stageStart);
 
         parseAnalysisResult(dynamicContext, analysisResult, requestParameter.getSessionId());
         dynamicContext.setValue("analysisResult", analysisResult);

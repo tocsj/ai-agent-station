@@ -25,13 +25,13 @@ public class ComplianceReviewerNode extends AbstractContentWorkflowNode {
     }
 
     @Override
-    protected String clientId() {
+    public String clientId() {
         return "5302";
     }
 
     @Override
     public String apply(ContentWorkflowContext context) {
-        String output = generate(ContentPromptBuilder.buildCompliancePrompt(
+        String output = generate(context, ContentPromptBuilder.buildCompliancePrompt(
                 context.getTask(),
                 context.getValue("polished")));
         context.setValue("compliance", output);

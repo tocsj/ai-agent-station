@@ -10,6 +10,7 @@ import com.tkck.app.content.workflow.PublishExecutorNode;
 import com.tkck.app.content.workflow.PublishPlannerNode;
 import com.tkck.app.content.workflow.PublishSummarizerNode;
 import com.tkck.app.content.workflow.TopicPlannerNode;
+import com.tkck.domain.audit.service.IAuditMonitoringService;
 import com.tkck.domain.agent.model.entity.ExecuteCommandEntity;
 import com.tkck.domain.agent.service.runtime.resilience.ExecutionResilienceCoordinator;
 import com.tkck.domain.content.model.entity.ContentTaskEntity;
@@ -47,6 +48,9 @@ public class ContentAutomationWorkflowExecutorTest {
         when(contentAutomationService.queryTask(9L)).thenReturn(task);
         when(contentAutomationService.markTaskRunning(9L, "topic_plan")).thenReturn(task);
         IContentPublishChannelService publishChannelService = mock(IContentPublishChannelService.class);
+        IAuditMonitoringService auditMonitoringService = mock(IAuditMonitoringService.class);
+        PublishExecutorNode publishExecutorNode = new PublishExecutorNode(List.of(new MockPublishAdapter()), publishChannelService);
+        ReflectionTestUtils.setField(publishExecutorNode, "auditMonitoringService", auditMonitoringService);
 
         ContentAutomationWorkflowExecutor executor = new ContentAutomationWorkflowExecutor(List.of(
                 new TopicPlannerNode(),
@@ -55,11 +59,12 @@ public class ContentAutomationWorkflowExecutorTest {
                 new PolishVerifierNode(),
                 new ComplianceReviewerNode(),
                 new PublishPlannerNode(),
-                new PublishExecutorNode(List.of(new MockPublishAdapter()), publishChannelService),
+                publishExecutorNode,
                 new PublishSummarizerNode()
         ));
         ReflectionTestUtils.setField(executor, "contentAutomationService", contentAutomationService);
         ReflectionTestUtils.setField(executor, "executionResilienceCoordinator", new ExecutionResilienceCoordinator());
+        ReflectionTestUtils.setField(executor, "auditMonitoringService", auditMonitoringService);
 
         CapturingEmitter emitter = new CapturingEmitter();
         executor.execute(ExecuteCommandEntity.builder()

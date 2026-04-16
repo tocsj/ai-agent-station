@@ -4,6 +4,7 @@ import com.tkck.config.AiAgentConfig;
 import com.tkck.domain.agent.model.entity.ExecuteCommandEntity;
 import com.tkck.domain.agent.model.valobj.enums.AiAgentEnumVO;
 import com.tkck.domain.agent.service.execute.auto.step.factory.DefaultAutoAgentExecuteStrategyFactory;
+import com.tkck.domain.resume.model.entity.ResumeEvaluationTaskEntity;
 import com.tkck.domain.resume.model.entity.ResumeInterviewDetailEntity;
 import com.tkck.domain.resume.model.entity.ResumeInterviewRoundEntity;
 import com.tkck.domain.resume.model.entity.ResumeInterviewStartEntity;
@@ -11,6 +12,7 @@ import com.tkck.domain.resume.model.entity.ResumeUploadResultEntity;
 import com.tkck.domain.resume.service.IResumeWorkflowService;
 import jakarta.annotation.Resource;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.reader.tika.TikaDocumentReader;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
@@ -44,16 +46,12 @@ public class ResumeWorkflowServiceImpl implements IResumeWorkflowService {
 
     @Resource(name = "mysqlJdbcTemplate")
     private JdbcTemplate mysqlJdbcTemplate;
-
     @Resource(name = "vectorStore")
     private VectorStore vectorStore;
-
     @Resource(name = "jobStandardVectorStore")
     private VectorStore jobStandardVectorStore;
-
     @Resource
     private TokenTextSplitter tokenTextSplitter;
-
     @Resource
     private ApplicationContext applicationContext;
 
@@ -62,7 +60,6 @@ public class ResumeWorkflowServiceImpl implements IResumeWorkflowService {
         if (file == null || file.isEmpty()) {
             throw new IllegalArgumentException("resume file is empty");
         }
-
         byte[] bytes = file.getBytes();
         String fileName = file.getOriginalFilename() == null ? "resume.pdf" : file.getOriginalFilename();
         String rawText = readResumeText(bytes, fileName);
@@ -72,13 +69,11 @@ public class ResumeWorkflowServiceImpl implements IResumeWorkflowService {
         List<Document> splitDocuments = tokenTextSplitter.apply(List.of(new Document(rawText)));
         for (int i = 0; i < splitDocuments.size(); i++) {
             Document document = splitDocuments.get(i);
-            Map<String, Object> metadata = ResumeMetadataSupport.buildChunkMetadata(knowledgeSpaceId, resumeId, fileName, i);
-            metadata.forEach(document.getMetadata()::put);
+            ResumeMetadataSupport.buildChunkMetadata(knowledgeSpaceId, resumeId, fileName, i)
+                    .forEach(document.getMetadata()::put);
         }
         vectorStore.accept(splitDocuments);
-
-        mysqlJdbcTemplate.update(
-                "UPDATE resume_knowledge_space SET chunk_count = ?, update_time = NOW() WHERE id = ?",
+        mysqlJdbcTemplate.update("UPDATE resume_knowledge_space SET chunk_count = ?, update_time = NOW() WHERE id = ?",
                 splitDocuments.size(), knowledgeSpaceId);
 
         return ResumeUploadResultEntity.builder()
@@ -91,50 +86,90 @@ public class ResumeWorkflowServiceImpl implements IResumeWorkflowService {
     }
 
     @Override
+    public List<ResumeUploadResultEntity> queryRecentResumes(Integer limit) {
+        List<Map<String, Object>> rows = mysqlJdbcTemplate.queryForList("""
+                SELECT p.id AS resume_id, p.file_name, p.create_time, p.update_time,
+                       k.id AS knowledge_space_id, k.knowledge_tag, k.chunk_count
+                FROM resume_profile p
+                LEFT JOIN resume_knowledge_space k ON p.id = k.resume_id AND k.status = 1
+                WHERE p.status = 1
+                ORDER BY p.update_time DESC, p.id DESC
+                LIMIT ?
+                """, normalizeLimit(limit, 20, 50));
+        return rows.stream().map(this::toResumeUploadResult).toList();
+    }
+
+    @Override
     public ExecuteCommandEntity buildResumeEvaluationCommand(Long resumeId, Long knowledgeSpaceId, String question, String sessionId, Integer maxStep) {
-        String resumeText = mysqlJdbcTemplate.queryForObject(
-                "SELECT raw_text FROM resume_profile WHERE id = ?",
-                String.class,
-                resumeId);
-        String jobCode = "java_backend";
-        String jobStandardContext = retrieveJobStandardContext(jobCode,
-                (question == null || question.isBlank() ? "请评估这份简历与 Java 后端岗位的匹配度" : question)
-                        + "\n简历摘要:\n" + truncate(resumeText, 1200));
+        String actualSessionId = sessionId == null || sessionId.isBlank() ? "resume-eval-" + knowledgeSpaceId : sessionId;
+        String actualQuestion = question == null || question.isBlank() ? "evaluate resume" : question;
+        String resumeText = mysqlJdbcTemplate.queryForObject("SELECT raw_text FROM resume_profile WHERE id = ?", String.class, resumeId);
+        String jobStandardContext = retrieveJobStandardContext("java_backend", actualQuestion + "\n" + truncate(resumeText, 1200));
+        Long evaluationTaskId = insertResumeEvaluationTask(resumeId, knowledgeSpaceId, actualSessionId, actualQuestion);
 
         return ExecuteCommandEntity.builder()
                 .aiAgentId("1001")
-                .sessionId(sessionId == null || sessionId.isBlank() ? "resume-eval-" + knowledgeSpaceId : sessionId)
+                .taskType("resume_evaluation")
+                .subType("evaluation")
+                .sessionId(actualSessionId)
                 .maxStep(maxStep == null ? 3 : maxStep)
                 .qaFilterExpression(ResumeMetadataSupport.buildKnowledgeFilterExpression(knowledgeSpaceId))
+                .resumeId(resumeId)
+                .knowledgeSpaceId(knowledgeSpaceId)
+                .resumeEvaluationTaskId(evaluationTaskId)
                 .message(ResumeWorkflowPromptBuilder.buildEvaluationMessage(resumeId, knowledgeSpaceId, question)
-                        + "\n\n岗位标准参考(jobCode=" + jobCode + "):\n"
-                        + jobStandardContext
-                        + "\n\n额外要求:\n"
-                        + "1. 结论必须同时参考候选人简历片段与岗位标准片段。\n"
-                        + "2. 明确指出命中的技能标准、弱匹配项和缺失项。\n"
-                        + "3. 如果岗位标准片段未覆盖某结论，不能强行下判断。")
+                        + "\n\nJob standard reference:\n" + jobStandardContext)
                 .build();
     }
 
     @Override
+    public ResumeEvaluationTaskEntity queryActiveEvaluationTask() {
+        List<Map<String, Object>> rows = mysqlJdbcTemplate.queryForList("""
+                SELECT * FROM resume_evaluation_task
+                ORDER BY update_time DESC, id DESC
+                LIMIT 1
+                """);
+        return rows.isEmpty() ? null : toResumeEvaluationTask(rows.get(0));
+    }
+
+    @Override
+    public List<ResumeEvaluationTaskEntity> queryRecentEvaluationTasks(Integer limit) {
+        List<Map<String, Object>> rows = mysqlJdbcTemplate.queryForList("""
+                SELECT * FROM resume_evaluation_task
+                ORDER BY update_time DESC, id DESC
+                LIMIT ?
+                """, normalizeLimit(limit, 20, 50));
+        return rows.stream().map(this::toResumeEvaluationTask).toList();
+    }
+
+    @Override
+    public void persistResumeEvaluationResult(ExecuteCommandEntity executeCommandEntity,
+                                              DefaultAutoAgentExecuteStrategyFactory.DynamicContext dynamicContext,
+                                              String status,
+                                              String errorMessage) {
+        if (executeCommandEntity.getResumeEvaluationTaskId() == null) {
+            return;
+        }
+        String report = dynamicContext == null ? null : dynamicContext.getValue("finalSummary");
+        if (report == null || report.isBlank()) {
+            report = dynamicContext == null ? null : dynamicContext.getValue("executionResult");
+        }
+        String traceId = dynamicContext == null ? null : dynamicContext.getValue("traceId");
+        mysqlJdbcTemplate.update("""
+                UPDATE resume_evaluation_task
+                SET status = ?, report = ?, trace_id = ?, error_message = ?, update_time = NOW()
+                WHERE id = ?
+                """, status, report, traceId, errorMessage, executeCommandEntity.getResumeEvaluationTaskId());
+    }
+
+    @Override
     public ResumeInterviewStartEntity startInterview(Long resumeId, Long knowledgeSpaceId) {
-        String resumeText = mysqlJdbcTemplate.queryForObject(
-                "SELECT raw_text FROM resume_profile WHERE id = ?",
-                String.class,
-                resumeId);
-        ChatClient chatClient = getChatClient("5201");
-        String openingQuestions = chatClient.prompt(
-                        ResumeWorkflowPromptBuilder.buildInterviewOpeningPrompt(
-                                resumeId,
-                                knowledgeSpaceId,
-                                truncate(resumeText, 3000)))
-                .call()
-                .content();
-        List<String> openingQuestionList = parseQuestionList(openingQuestions);
-        String firstQuestion = openingQuestionList.isEmpty() ? openingQuestions : openingQuestionList.get(0);
+        String resumeText = mysqlJdbcTemplate.queryForObject("SELECT raw_text FROM resume_profile WHERE id = ?", String.class, resumeId);
+        String firstQuestion = generateOpeningQuestion(resumeId, knowledgeSpaceId, resumeText);
+        String sessionCode = "interview-" + UUID.randomUUID();
+        String actualOpeningQuestions = firstQuestion;
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        String sessionCode = "interview-" + UUID.randomUUID();
         mysqlJdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(
                     "INSERT INTO resume_interview_session (resume_id, knowledge_space_id, session_code, opening_questions, current_round, total_rounds, status) VALUES (?, ?, ?, ?, ?, ?, ?)",
@@ -142,14 +177,13 @@ public class ResumeWorkflowServiceImpl implements IResumeWorkflowService {
             ps.setLong(1, resumeId);
             ps.setLong(2, knowledgeSpaceId);
             ps.setString(3, sessionCode);
-            ps.setString(4, openingQuestions);
+            ps.setString(4, actualOpeningQuestions);
             ps.setInt(5, 1);
             ps.setInt(6, FIXED_INTERVIEW_TOTAL_ROUNDS);
             ps.setString(7, "STARTED");
             return ps;
         }, keyHolder);
         Long interviewSessionId = keyHolder.getKey().longValue();
-
         mysqlJdbcTemplate.update(
                 "INSERT INTO resume_interview_round (interview_session_id, round_no, question_content, status) VALUES (?, ?, ?, ?)",
                 interviewSessionId, 1, firstQuestion, "ASKED");
@@ -159,7 +193,7 @@ public class ResumeWorkflowServiceImpl implements IResumeWorkflowService {
                 .currentRound(1)
                 .totalRounds(FIXED_INTERVIEW_TOTAL_ROUNDS)
                 .status("STARTED")
-                .openingQuestions(openingQuestions)
+                .openingQuestions(firstQuestion)
                 .build();
     }
 
@@ -170,53 +204,43 @@ public class ResumeWorkflowServiceImpl implements IResumeWorkflowService {
                 interviewSessionId);
         String status = (String) sessionRow.get("status");
         if ("FINISHED".equalsIgnoreCase(status)) {
-            throw new IllegalStateException("当前面试已结束，不能继续作答。interviewSessionId=" + interviewSessionId);
+            throw new IllegalStateException("interview already finished, interviewSessionId=" + interviewSessionId);
         }
-
         Integer currentRound = ((Number) sessionRow.get("current_round")).intValue();
         Integer actualRound = roundNo == null ? currentRound : roundNo;
         if (!actualRound.equals(currentRound)) {
-            throw new IllegalStateException("当前轮次与会话进度不一致，请先刷新面试详情。interviewSessionId="
-                    + interviewSessionId + ", expectedRound=" + currentRound + ", actualRound=" + actualRound);
+            throw new IllegalStateException("interview round mismatch, interviewSessionId=" + interviewSessionId);
         }
-
         Integer totalRounds = sessionRow.get("total_rounds") == null
                 ? FIXED_INTERVIEW_TOTAL_ROUNDS
                 : ((Number) sessionRow.get("total_rounds")).intValue();
         Long knowledgeSpaceId = ((Number) sessionRow.get("knowledge_space_id")).longValue();
-
         List<String> questionRows = mysqlJdbcTemplate.queryForList(
                 "SELECT question_content FROM resume_interview_round WHERE interview_session_id = ? AND round_no = ?",
-                String.class,
-                interviewSessionId,
-                actualRound);
+                String.class, interviewSessionId, actualRound);
         if (questionRows.isEmpty()) {
-            throw new IllegalStateException("当前轮次不存在，请先刷新面试详情后再继续。interviewSessionId="
-                    + interviewSessionId + ", roundNo=" + actualRound);
+            throw new IllegalStateException("interview round not found, interviewSessionId=" + interviewSessionId);
         }
         String currentQuestion = questionRows.get(0);
-
         mysqlJdbcTemplate.update(
                 "UPDATE resume_interview_round SET answer_content = ?, status = ?, update_time = NOW() WHERE interview_session_id = ? AND round_no = ?",
                 answer, "ANSWERED", interviewSessionId, actualRound);
-        mysqlJdbcTemplate.update(
-                "UPDATE resume_interview_session SET status = ?, update_time = NOW() WHERE id = ?",
+        mysqlJdbcTemplate.update("UPDATE resume_interview_session SET status = ?, update_time = NOW() WHERE id = ?",
                 "IN_PROGRESS", interviewSessionId);
 
         return ExecuteCommandEntity.builder()
                 .aiAgentId("1002")
+                .taskType("resume_interview")
+                .subType("round_answer")
                 .sessionId(sessionId == null || sessionId.isBlank() ? "resume-interview-" + interviewSessionId : sessionId)
                 .maxStep(maxStep == null ? 3 : maxStep)
                 .qaFilterExpression(ResumeMetadataSupport.buildKnowledgeFilterExpression(knowledgeSpaceId))
+                .knowledgeSpaceId(knowledgeSpaceId)
                 .interviewSessionId(interviewSessionId)
                 .interviewRoundNo(actualRound)
                 .interviewTotalRounds(totalRounds)
                 .message(ResumeWorkflowPromptBuilder.buildInterviewAnswerMessage(
-                        interviewSessionId,
-                        actualRound,
-                        totalRounds,
-                        currentQuestion,
-                        answer))
+                        interviewSessionId, actualRound, totalRounds, currentQuestion, answer))
                 .build();
     }
 
@@ -226,14 +250,12 @@ public class ResumeWorkflowServiceImpl implements IResumeWorkflowService {
         if (executeCommandEntity.getInterviewSessionId() == null || executeCommandEntity.getInterviewRoundNo() == null) {
             return;
         }
-
         Long interviewSessionId = executeCommandEntity.getInterviewSessionId();
         Integer roundNo = executeCommandEntity.getInterviewRoundNo();
         Integer totalRounds = executeCommandEntity.getInterviewTotalRounds() == null
                 ? FIXED_INTERVIEW_TOTAL_ROUNDS
                 : executeCommandEntity.getInterviewTotalRounds();
         boolean finalRound = roundNo >= totalRounds;
-
         String finalSummary = dynamicContext.getValue("finalSummary");
         if (finalSummary == null || finalSummary.isBlank()) {
             finalSummary = dynamicContext.getValue("executionResult");
@@ -241,7 +263,6 @@ public class ResumeWorkflowServiceImpl implements IResumeWorkflowService {
         if (finalSummary == null) {
             finalSummary = "";
         }
-
         ResumeInterviewStructuredResult structuredResult = ResumeInterviewStructuredResultParser.parse(finalSummary, finalRound);
         String score = extractCompactScore(structuredResult.getScore() == null ? finalSummary : structuredResult.getScore());
         String nextQuestion = structuredResult.getNextQuestion();
@@ -249,33 +270,20 @@ public class ResumeWorkflowServiceImpl implements IResumeWorkflowService {
 
         mysqlJdbcTemplate.update(
                 "UPDATE resume_interview_round SET feedback_content = ?, next_question = ?, score = ?, status = ?, update_time = NOW() WHERE interview_session_id = ? AND round_no = ?",
-                finalSummary,
-                finalRound ? null : truncate(nextQuestion, 500),
-                score,
-                "EVALUATED",
-                interviewSessionId,
-                roundNo);
-
+                finalSummary, finalRound ? null : truncate(nextQuestion, 500), score, "EVALUATED", interviewSessionId, roundNo);
         if (finalRound) {
             mysqlJdbcTemplate.update(
                     "UPDATE resume_interview_session SET current_round = ?, status = ?, final_report = ?, update_time = NOW() WHERE id = ?",
-                    roundNo,
-                    "FINISHED",
-                    finalReport == null || finalReport.isBlank() ? finalSummary : finalReport,
-                    interviewSessionId);
+                    roundNo, "FINISHED", finalReport == null || finalReport.isBlank() ? finalSummary : finalReport, interviewSessionId);
             return;
         }
-
         Integer nextRound = roundNo + 1;
         String actualNextQuestion = (nextQuestion == null || nextQuestion.isBlank())
-                ? "请继续基于上一轮回答中的薄弱点，展开更深入的技术说明。"
+                ? "请继续基于上一轮回答中的薄弱点，展开更深入的技术追问。"
                 : nextQuestion;
-
         Integer exists = mysqlJdbcTemplate.queryForObject(
                 "SELECT COUNT(1) FROM resume_interview_round WHERE interview_session_id = ? AND round_no = ?",
-                Integer.class,
-                interviewSessionId,
-                nextRound);
+                Integer.class, interviewSessionId, nextRound);
         if (exists != null && exists == 0) {
             mysqlJdbcTemplate.update(
                     "INSERT INTO resume_interview_round (interview_session_id, round_no, question_content, status) VALUES (?, ?, ?, ?)",
@@ -285,12 +293,8 @@ public class ResumeWorkflowServiceImpl implements IResumeWorkflowService {
                     "UPDATE resume_interview_round SET question_content = ?, status = ?, update_time = NOW() WHERE interview_session_id = ? AND round_no = ?",
                     actualNextQuestion, "ASKED", interviewSessionId, nextRound);
         }
-
-        mysqlJdbcTemplate.update(
-                "UPDATE resume_interview_session SET current_round = ?, status = ?, update_time = NOW() WHERE id = ?",
-                nextRound,
-                "IN_PROGRESS",
-                interviewSessionId);
+        mysqlJdbcTemplate.update("UPDATE resume_interview_session SET current_round = ?, status = ?, update_time = NOW() WHERE id = ?",
+                nextRound, "IN_PROGRESS", interviewSessionId);
     }
 
     @Override
@@ -298,22 +302,19 @@ public class ResumeWorkflowServiceImpl implements IResumeWorkflowService {
         Map<String, Object> sessionRow = mysqlJdbcTemplate.queryForMap(
                 "SELECT id, resume_id, knowledge_space_id, session_code, opening_questions, current_round, total_rounds, status, final_report FROM resume_interview_session WHERE id = ?",
                 interviewSessionId);
-
         List<Map<String, Object>> roundRows = mysqlJdbcTemplate.queryForList(
                 "SELECT round_no, question_content, answer_content, feedback_content, next_question, score, status FROM resume_interview_round WHERE interview_session_id = ? ORDER BY round_no ASC",
                 interviewSessionId);
-
-        List<ResumeInterviewRoundEntity> rounds = new ArrayList<>();
         int totalRounds = sessionRow.get("total_rounds") == null
                 ? FIXED_INTERVIEW_TOTAL_ROUNDS
                 : ((Number) sessionRow.get("total_rounds")).intValue();
+        List<ResumeInterviewRoundEntity> rounds = new ArrayList<>();
         for (Map<String, Object> row : roundRows) {
-            int roundNo = ((Number) row.get("round_no")).intValue();
-            boolean finalRound = roundNo >= totalRounds;
+            int actualRoundNo = ((Number) row.get("round_no")).intValue();
             String feedbackContent = (String) row.get("feedback_content");
-            ResumeInterviewStructuredResult parsed = ResumeInterviewStructuredResultParser.parse(feedbackContent, finalRound);
+            ResumeInterviewStructuredResult parsed = ResumeInterviewStructuredResultParser.parse(feedbackContent, actualRoundNo >= totalRounds);
             rounds.add(ResumeInterviewRoundEntity.builder()
-                    .roundNo(roundNo)
+                    .roundNo(actualRoundNo)
                     .questionContent((String) row.get("question_content"))
                     .answerContent((String) row.get("answer_content"))
                     .feedbackContent(feedbackContent)
@@ -327,7 +328,6 @@ public class ResumeWorkflowServiceImpl implements IResumeWorkflowService {
                     .status((String) row.get("status"))
                     .build());
         }
-
         return ResumeInterviewDetailEntity.builder()
                 .interviewSessionId(((Number) sessionRow.get("id")).longValue())
                 .resumeId(((Number) sessionRow.get("resume_id")).longValue())
@@ -342,6 +342,18 @@ public class ResumeWorkflowServiceImpl implements IResumeWorkflowService {
                 .build();
     }
 
+    @Override
+    public ResumeInterviewDetailEntity queryActiveInterviewDetail() {
+        List<Map<String, Object>> rows = mysqlJdbcTemplate.queryForList("""
+                SELECT id
+                FROM resume_interview_session
+                ORDER BY CASE WHEN status IN ('STARTED', 'IN_PROGRESS') THEN 0 ELSE 1 END,
+                         update_time DESC, id DESC
+                LIMIT 1
+                """);
+        return rows.isEmpty() ? null : queryInterviewDetail(((Number) rows.get(0).get("id")).longValue());
+    }
+
     private String readResumeText(byte[] bytes, String fileName) {
         ByteArrayResource resource = new ByteArrayResource(bytes) {
             @Override
@@ -349,15 +361,74 @@ public class ResumeWorkflowServiceImpl implements IResumeWorkflowService {
                 return fileName;
             }
         };
-        TikaDocumentReader reader = new TikaDocumentReader(resource);
-        List<Document> documents = reader.get();
         StringBuilder content = new StringBuilder();
-        for (Document document : documents) {
+        for (Document document : new TikaDocumentReader(resource).get()) {
             if (document.getText() != null) {
                 content.append(document.getText()).append("\n");
             }
         }
         return content.toString();
+    }
+
+    private String generateOpeningQuestion(Long resumeId, Long knowledgeSpaceId, String resumeText) {
+        String fallback = "请结合你简历中最有代表性的项目，介绍项目目标、你的职责，以及你解决过的一个关键技术问题。";
+        if (applicationContext == null) {
+            return fallback;
+        }
+        try {
+            String interviewContext = retrieveInterviewOpeningContext(knowledgeSpaceId, resumeText);
+            ChatClient chatClient = (ChatClient) applicationContext.getBean(AiAgentEnumVO.AI_CLIENT.getBeanName("5201"));
+            ChatResponse response = chatClient.prompt(ResumeWorkflowPromptBuilder.buildInterviewOpeningPrompt(
+                            resumeId,
+                            knowledgeSpaceId,
+                            interviewContext))
+                    .call()
+                    .chatResponse();
+            if (response == null || response.getResult() == null || response.getResult().getOutput() == null) {
+                return fallback;
+            }
+            String text = response.getResult().getOutput().getText();
+            String normalized = normalizeOpeningQuestion(text);
+            return normalized == null || normalized.isBlank() ? fallback : normalized;
+        } catch (Exception ignored) {
+            return fallback;
+        }
+    }
+
+    private String retrieveInterviewOpeningContext(Long knowledgeSpaceId, String resumeText) {
+        List<Document> documents = vectorStore.similaritySearch(SearchRequest.builder()
+                .query("候选人的项目经历、核心职责、技术栈、架构设计、性能优化、排障经验、业务结果")
+                .topK(4)
+                .similarityThreshold(0.1d)
+                .filterExpression(ResumeMetadataSupport.buildKnowledgeFilterExpression(knowledgeSpaceId))
+                .build());
+        if (documents == null || documents.isEmpty()) {
+            return truncate(resumeText, 1800);
+        }
+        StringBuilder context = new StringBuilder();
+        for (int i = 0; i < documents.size(); i++) {
+            Document document = documents.get(i);
+            context.append("[片段").append(i + 1).append("]\n")
+                    .append(truncate(document.getText(), 600))
+                    .append("\n");
+        }
+        return truncate(context.toString(), 2400);
+    }
+
+    private String normalizeOpeningQuestion(String text) {
+        if (text == null || text.isBlank()) {
+            return null;
+        }
+        List<String> questions = parseQuestionList(text.replace("\r\n", "\n").trim());
+        if (!questions.isEmpty()) {
+            return truncate(questions.get(0), 220);
+        }
+        String normalized = text.trim();
+        int lineBreak = normalized.indexOf('\n');
+        if (lineBreak > 0) {
+            normalized = normalized.substring(0, lineBreak).trim();
+        }
+        return truncate(normalized, 220);
     }
 
     private Long insertResumeProfile(String fileName, byte[] bytes, String rawText) {
@@ -391,8 +462,42 @@ public class ResumeWorkflowServiceImpl implements IResumeWorkflowService {
         return keyHolder.getKey().longValue();
     }
 
-    private ChatClient getChatClient(String clientId) {
-        return (ChatClient) applicationContext.getBean(AiAgentEnumVO.AI_CLIENT.getBeanName(clientId));
+    private Long insertResumeEvaluationTask(Long resumeId, Long knowledgeSpaceId, String sessionId, String question) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        mysqlJdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(
+                    "INSERT INTO resume_evaluation_task (resume_id, knowledge_space_id, session_id, question, status) VALUES (?, ?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS);
+            ps.setLong(1, resumeId);
+            ps.setLong(2, knowledgeSpaceId);
+            ps.setString(3, sessionId);
+            ps.setString(4, question);
+            ps.setString(5, "RUNNING");
+            return ps;
+        }, keyHolder);
+        return keyHolder.getKey().longValue();
+    }
+
+    private String retrieveJobStandardContext(String jobCode, String queryText) {
+        List<Document> documents = jobStandardVectorStore.similaritySearch(
+                SearchRequest.builder()
+                        .query(truncate(queryText, 1500))
+                        .topK(6)
+                        .similarityThreshold(0.1)
+                        .filterExpression(JobStandardMetadataSupport.buildJobFilterExpression(jobCode))
+                        .build());
+        if (documents == null || documents.isEmpty()) {
+            return "No job standard chunks retrieved. Use general Java backend standards conservatively.";
+        }
+        StringBuilder builder = new StringBuilder();
+        int index = 1;
+        for (Document document : documents) {
+            if (builder.length() > 0) {
+                builder.append("\n");
+            }
+            builder.append(index++).append(". ").append(truncate(document.getText(), 280));
+        }
+        return builder.toString();
     }
 
     private String truncate(String text, int maxLength) {
@@ -411,35 +516,8 @@ public class ResumeWorkflowServiceImpl implements IResumeWorkflowService {
         if (matcher.find()) {
             return truncate(matcher.group(1).replaceAll("\\s+", ""), MAX_SCORE_LENGTH);
         }
-
-        String compact = firstLine
-                .replace("：", ":")
-                .replaceAll("[*#>`-]", " ")
-                .replaceAll("\\s+", " ")
-                .trim();
+        String compact = firstLine.replaceAll("[*#>`-]", " ").replaceAll("\\s+", " ").trim();
         return compact.isBlank() ? "N/A" : truncate(compact, MAX_SCORE_LENGTH);
-    }
-
-    private String retrieveJobStandardContext(String jobCode, String queryText) {
-        List<Document> documents = jobStandardVectorStore.similaritySearch(
-                SearchRequest.builder()
-                        .query(truncate(queryText, 1500))
-                        .topK(6)
-                        .similarityThreshold(0.1)
-                        .filterExpression(JobStandardMetadataSupport.buildJobFilterExpression(jobCode))
-                        .build());
-        if (documents == null || documents.isEmpty()) {
-            return "未检索到岗位标准，请按 Java 后端通用标准谨慎评估。";
-        }
-        StringBuilder builder = new StringBuilder();
-        int index = 1;
-        for (Document document : documents) {
-            if (builder.length() > 0) {
-                builder.append("\n");
-            }
-            builder.append(index++).append(". ").append(truncate(document.getText(), 280));
-        }
-        return builder.toString();
     }
 
     private List<String> parseQuestionList(String openingQuestions) {
@@ -453,8 +531,7 @@ public class ResumeWorkflowServiceImpl implements IResumeWorkflowService {
             if (line.isEmpty()) {
                 continue;
             }
-            String normalized = line.replaceFirst("^[0-9]+[.、]\\s*", "")
-                    .replaceFirst("^[-*]\\s*", "");
+            String normalized = line.replaceFirst("^[0-9]+[.、]\\s*", "").replaceFirst("^[-*]\\s*", "");
             if (!normalized.isBlank()) {
                 questions.add(normalized);
             }
@@ -463,5 +540,40 @@ public class ResumeWorkflowServiceImpl implements IResumeWorkflowService {
             questions.add(openingQuestions.trim());
         }
         return questions;
+    }
+
+    private ResumeUploadResultEntity toResumeUploadResult(Map<String, Object> row) {
+        return ResumeUploadResultEntity.builder()
+                .resumeId(row.get("resume_id") == null ? null : ((Number) row.get("resume_id")).longValue())
+                .knowledgeSpaceId(row.get("knowledge_space_id") == null ? null : ((Number) row.get("knowledge_space_id")).longValue())
+                .knowledgeTag((String) row.get("knowledge_tag"))
+                .fileName((String) row.get("file_name"))
+                .chunkCount(row.get("chunk_count") == null ? 0 : ((Number) row.get("chunk_count")).intValue())
+                .createTime(row.get("create_time") == null ? null : String.valueOf(row.get("create_time")))
+                .updateTime(row.get("update_time") == null ? null : String.valueOf(row.get("update_time")))
+                .build();
+    }
+
+    private ResumeEvaluationTaskEntity toResumeEvaluationTask(Map<String, Object> row) {
+        return ResumeEvaluationTaskEntity.builder()
+                .taskId(((Number) row.get("id")).longValue())
+                .resumeId(row.get("resume_id") == null ? null : ((Number) row.get("resume_id")).longValue())
+                .knowledgeSpaceId(row.get("knowledge_space_id") == null ? null : ((Number) row.get("knowledge_space_id")).longValue())
+                .sessionId((String) row.get("session_id"))
+                .question((String) row.get("question"))
+                .status((String) row.get("status"))
+                .report((String) row.get("report"))
+                .traceId((String) row.get("trace_id"))
+                .errorMessage((String) row.get("error_message"))
+                .createTime(row.get("create_time") == null ? null : String.valueOf(row.get("create_time")))
+                .updateTime(row.get("update_time") == null ? null : String.valueOf(row.get("update_time")))
+                .build();
+    }
+
+    private int normalizeLimit(Integer limit, int defaultValue, int maxValue) {
+        if (limit == null || limit <= 0) {
+            return defaultValue;
+        }
+        return Math.min(limit, maxValue);
     }
 }

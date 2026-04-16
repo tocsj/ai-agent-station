@@ -68,23 +68,35 @@ public class Step2PrecisionExecutorNode extends AbstractExecuteSupport{
         final String finalExecutionPrompt = executionPrompt;
         AiAgentClientFlowConfigVO aiAgentClientFlowConfigVO = dynamicContext.getAiAgentClientFlowConfigVOMap().get(AiClientTypeEnumVO.PRECISION_EXECUTOR_CLIENT.getCode());
         ChatClient chatClient = getChatClientByClientId(aiAgentClientFlowConfigVO.getClientId());
+        long stageStart = System.currentTimeMillis();
+        String location = getClass().getSimpleName() + "#doApply";
 
         String executionResult = executeStage(
                 ExecutionStage.STEP2_EXECUTE,
                 requestParameter,
                 dynamicContext,
-                () -> chatClient
-                        .prompt(finalExecutionPrompt)
-                        .advisors(a -> {
-                            a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, requestParameter.getSessionId())
-                                    .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 1024);
-                            if (StringUtils.hasText(requestParameter.getQaFilterExpression())) {
-                                a.param(QA_FILTER_EXPRESSION_KEY, requestParameter.getQaFilterExpression());
-                            }
-                        })
-                        .call().content(),
+                () -> callChatClientWithAudit(
+                        requestParameter,
+                        dynamicContext,
+                        ExecutionStage.STEP2_EXECUTE,
+                        "step2_execute",
+                        aiAgentClientFlowConfigVO.getClientId(),
+                        location,
+                        () -> chatClient
+                                .prompt(finalExecutionPrompt)
+                                .advisors(a -> {
+                                    a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, requestParameter.getSessionId())
+                                            .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 1024);
+                                    if (StringUtils.hasText(requestParameter.getQaFilterExpression())) {
+                                        a.param(QA_FILTER_EXPRESSION_KEY, requestParameter.getQaFilterExpression());
+                                    }
+                                })
+                                .call()
+                                .chatResponse()
+                ),
                 failure -> buildExecutionFallback(requestParameter, finalAnalysisResult, failure)
         );
+        recordStageMetric(requestParameter, dynamicContext, ExecutionStage.STEP2_EXECUTE, "step2_execute", aiAgentClientFlowConfigVO.getClientId(), location, System.currentTimeMillis() - stageStart);
 
         parseExecutionResult(dynamicContext, executionResult, requestParameter.getSessionId());
         

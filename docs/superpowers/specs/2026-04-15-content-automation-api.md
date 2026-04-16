@@ -235,7 +235,67 @@ Frontend usage:
   - `GET /task/{taskId}/steps`
 - use returned detail + steps to restore the full page
 
-## 6. Frontend State Mapping
+## 6. Query Active Task
+
+`GET /task/active`
+
+Response when there is a recent task:
+
+```json
+{
+  "code": "0000",
+  "info": "成功",
+  "data": {
+    "taskId": 21,
+    "taskCode": "ct_021",
+    "executionMode": "STRUCTURED_PLAN_EXECUTE",
+    "topic": "企业级 AI Agent 编排平台",
+    "platform": "Dev.to",
+    "style": "专业",
+    "keywords": "AI Agent,Java,DDD",
+    "channel": "devto",
+    "status": "RUNNING",
+    "currentStep": "draft",
+    "title": "标题",
+    "outlineText": "大纲",
+    "draftContent": "初稿",
+    "finalContent": null,
+    "complianceResult": null,
+    "publishStatus": null,
+    "publishExternalId": null,
+    "publishExternalUrl": null,
+    "summaryText": null,
+    "createTime": "2026-04-15 11:40:00.0",
+    "updateTime": "2026-04-15 11:41:00.0"
+  }
+}
+```
+
+Response when there is no task:
+
+```json
+{
+  "code": "0000",
+  "info": "成功",
+  "data": null
+}
+```
+
+Frontend usage:
+- call this API when entering the content automation page
+- if `data != null`, store `taskId` as `activeContentTaskId`
+- then call:
+  - `GET /task/{taskId}`
+  - `GET /task/{taskId}/steps`
+- if `status=RUNNING`, show the recovered task as running and poll detail/steps every 2-5 seconds
+- do not call `/task/create` during recovery
+- do not auto-open a second SSE stream unless the user explicitly clicks continue/retry
+
+Selection rule:
+- backend returns the latest task whose status is `CREATED`, `RUNNING`, `COMPLETED`, or `FAILED`
+- priority is by `update_time DESC, id DESC`
+
+## 7. Frontend State Mapping
 
 Suggested page state:
 
@@ -300,7 +360,7 @@ type ContentStreamEvent = {
 }
 ```
 
-## 7. Recommended Frontend Flow
+## 8. Recommended Frontend Flow
 
 ### New task flow
 1. call `POST /task/create`
@@ -315,6 +375,18 @@ type ContentStreamEvent = {
    - center: title / outline / draft / final content
    - right: step timeline + publish result
 
+### Page restore flow
+1. enter content automation page
+2. call `GET /task/active`
+3. if `data == null`, show empty create-task state
+4. if `data != null`, keep `taskId`
+5. call:
+   - `GET /task/{taskId}`
+   - `GET /task/{taskId}/steps`
+6. hydrate page from detail + steps
+7. if task is `RUNNING`, show running state and poll detail/steps
+8. if user starts a new task, create a new `sessionId`, do not reuse the previous one
+
 ### History dialog flow
 1. click “历史记录”
 2. call `GET /task/history?limit=20`
@@ -325,7 +397,7 @@ type ContentStreamEvent = {
    - `GET /task/{taskId}/steps`
 6. close dialog and replace current page state with selected task data
 
-## 8. Frontend Rendering Rules
+## 9. Frontend Rendering Rules
 
 1. SSE is incremental only
 - do not treat SSE as final truth
@@ -349,7 +421,17 @@ type ContentStreamEvent = {
 - `publish_execute` -> publish result area
 - `publish_summary` -> summary area
 
-## 9. Current Publish Boundary
+5. Route switching must preserve task identity
+- persist `activeContentTaskId` in global store and `localStorage` or `sessionStorage`
+- page component memory is not reliable because route switching unmounts components
+- when returning to the page, recover from backend detail + steps
+
+6. Session IDs must be unique per task
+- suggested format: `content-${taskId}-${Date.now()}`
+- do not reuse one `sessionId` across two running tasks
+- this avoids chat memory or audit data being mixed across tasks
+
+## 10. Current Publish Boundary
 
 Current `channel` support:
 - `mock`
@@ -363,7 +445,7 @@ Current publish status:
 - `BLOCKED`
 - `NOT_EXECUTED`
 
-## 10. Channel Config API
+## 11. Channel Config API
 
 Base path: `/api/v1/content/channel`
 
@@ -479,7 +561,7 @@ Response:
 Frontend usage:
 - render publish attempt history in right-side panel or detail dialog
 
-## 11. Juejin Boundary
+## 12. Juejin Boundary
 
 Current juejin integration:
 - global single-account config
@@ -491,7 +573,7 @@ Current limitation:
 - official public API found in this round supports token verification, but does not expose a stable public article publish API
 - therefore current `channel=juejin` execution will be blocked with an explicit message after planning, rather than faking a publish success
 
-## 12. Cnblogs MetaWeblog Draft Publish
+## 13. Cnblogs MetaWeblog Draft Publish
 
 Current `cnblogs` integration:
 - global single-account config

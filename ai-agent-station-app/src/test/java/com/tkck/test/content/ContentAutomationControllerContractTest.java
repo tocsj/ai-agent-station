@@ -3,8 +3,8 @@ package com.tkck.test.content;
 import com.tkck.api.dto.ContentTaskCreateRequestDTO;
 import com.tkck.api.dto.ContentTaskCreateResponseDTO;
 import com.tkck.api.dto.ContentTaskDetailResponseDTO;
-import com.tkck.api.dto.ContentTaskHistoryItemDTO;
 import com.tkck.api.dto.ContentTaskExecuteRequestDTO;
+import com.tkck.api.dto.ContentTaskHistoryItemDTO;
 import com.tkck.api.response.Response;
 import com.tkck.domain.agent.service.execute.IExecuteStrategy;
 import com.tkck.domain.content.model.entity.ContentTaskEntity;
@@ -40,40 +40,39 @@ public class ContentAutomationControllerContractTest {
         ReflectionTestUtils.setField(controller, "autoAgentExecuteStrategy", executeStrategy);
         ReflectionTestUtils.setField(controller, "threadPoolExecutor", java.util.concurrent.Executors.newFixedThreadPool(1));
 
-        when(contentAutomationService.createTask(any())).thenReturn(ContentTaskEntity.builder()
+        ContentTaskEntity task = ContentTaskEntity.builder()
                 .taskId(21L)
                 .taskCode("ct_021")
                 .executionMode("STRUCTURED_PLAN_EXECUTE")
                 .status("CREATED")
                 .currentStep("CREATED")
                 .topic("Agent Runtime 2.0")
-                .platform("公众号")
-                .style("专业")
+                .platform("dev.to")
+                .style("professional")
                 .keywords("AI,Runtime")
                 .channel("mock")
-                .build());
-        when(contentAutomationService.queryTask(21L)).thenReturn(ContentTaskEntity.builder()
+                .build();
+        when(contentAutomationService.createTask(any())).thenReturn(task);
+        when(contentAutomationService.queryTask(21L)).thenReturn(task);
+        when(contentAutomationService.queryActiveTask()).thenReturn(ContentTaskEntity.builder()
                 .taskId(21L)
                 .taskCode("ct_021")
-                .executionMode("STRUCTURED_PLAN_EXECUTE")
-                .status("CREATED")
-                .currentStep("CREATED")
                 .topic("Agent Runtime 2.0")
-                .platform("公众号")
-                .style("专业")
-                .keywords("AI,Runtime")
+                .platform("dev.to")
                 .channel("mock")
+                .status("RUNNING")
+                .currentStep("draft")
                 .build());
         when(contentAutomationService.queryTaskHistory(20)).thenReturn(List.of(
                 ContentTaskEntity.builder()
                         .taskId(21L)
                         .taskCode("ct_021")
                         .topic("Agent Runtime 2.0")
-                        .platform("公众号")
+                        .platform("dev.to")
                         .channel("mock")
                         .status("COMPLETED")
                         .currentStep("COMPLETED")
-                        .title("标题")
+                        .title("title")
                         .publishStatus("DRAFT_SAVED")
                         .build()
         ));
@@ -92,8 +91,8 @@ public class ContentAutomationControllerContractTest {
 
         Response<ContentTaskCreateResponseDTO> createResponse = controller.createTask(ContentTaskCreateRequestDTO.builder()
                 .topic("Agent Runtime 2.0")
-                .platform("公众号")
-                .style("专业")
+                .platform("dev.to")
+                .style("professional")
                 .keywords("AI,Runtime")
                 .channel("mock")
                 .build());
@@ -103,6 +102,7 @@ public class ContentAutomationControllerContractTest {
                 .maxStep(8)
                 .build(), mock(HttpServletResponse.class));
         Response<ContentTaskDetailResponseDTO> detailResponse = controller.taskDetail(21L);
+        Response<ContentTaskDetailResponseDTO> activeResponse = controller.activeTask();
         Response<List<ContentTaskHistoryItemDTO>> historyResponse = controller.taskHistory(20);
         Response<List<ContentTaskDetailResponseDTO.StepItem>> stepsResponse = controller.taskSteps(21L);
 
@@ -110,6 +110,8 @@ public class ContentAutomationControllerContractTest {
         Assert.assertEquals(Long.valueOf(21L), createResponse.getData().getTaskId());
         Assert.assertNotNull(emitter);
         Assert.assertEquals(Long.valueOf(21L), detailResponse.getData().getTaskId());
+        Assert.assertEquals(Long.valueOf(21L), activeResponse.getData().getTaskId());
+        Assert.assertEquals("RUNNING", activeResponse.getData().getStatus());
         Assert.assertEquals(1, historyResponse.getData().size());
         Assert.assertEquals(Long.valueOf(21L), historyResponse.getData().get(0).getTaskId());
         Assert.assertEquals(1, stepsResponse.getData().size());
@@ -131,7 +133,7 @@ public class ContentAutomationControllerContractTest {
                         .channel("devto")
                         .status("COMPLETED")
                         .currentStep("COMPLETED")
-                        .title("发布结果")
+                        .title("result")
                         .publishStatus("DRAFT_SAVED")
                         .build()
         ));
@@ -143,5 +145,31 @@ public class ContentAutomationControllerContractTest {
                 .andExpect(jsonPath("$.code").value("0000"))
                 .andExpect(jsonPath("$.data[0].taskId").value(21))
                 .andExpect(jsonPath("$.data[0].channel").value("devto"));
+    }
+
+    @Test
+    public void shouldQueryActiveTaskForPageRestore() throws Exception {
+        IContentAutomationService contentAutomationService = mock(IContentAutomationService.class);
+        ContentAutomationController controller = new ContentAutomationController();
+        ReflectionTestUtils.setField(controller, "contentAutomationService", contentAutomationService);
+
+        when(contentAutomationService.queryActiveTask()).thenReturn(ContentTaskEntity.builder()
+                .taskId(22L)
+                .taskCode("ct_022")
+                .topic("restore")
+                .platform("dev.to")
+                .channel("devto")
+                .status("RUNNING")
+                .currentStep("draft")
+                .build());
+
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+
+        mockMvc.perform(get("/api/v1/content/task/active"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value("0000"))
+                .andExpect(jsonPath("$.data.taskId").value(22))
+                .andExpect(jsonPath("$.data.status").value("RUNNING"))
+                .andExpect(jsonPath("$.data.currentStep").value("draft"));
     }
 }

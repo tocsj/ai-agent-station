@@ -59,23 +59,35 @@ public class Step3QualitySupervisorNode extends AbstractExecuteSupport {
         // 获取对话客户端
         AiAgentClientFlowConfigVO aiAgentClientFlowConfigVO = dynamicContext.getAiAgentClientFlowConfigVOMap().get(AiClientTypeEnumVO.QUALITY_SUPERVISOR_CLIENT.getCode());
         ChatClient chatClient = getChatClientByClientId(aiAgentClientFlowConfigVO.getClientId());
+        long stageStart = System.currentTimeMillis();
+        String location = getClass().getSimpleName() + "#doApply";
 
         String supervisionResult = executeStage(
                 ExecutionStage.STEP3_VERIFY,
                 requestParameter,
                 dynamicContext,
-                () -> chatClient
-                        .prompt(supervisionPrompt)
-                        .advisors(a -> {
-                            a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, requestParameter.getSessionId())
-                                    .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 1024);
-                            if (StringUtils.hasText(requestParameter.getQaFilterExpression())) {
-                                a.param(QA_FILTER_EXPRESSION_KEY, requestParameter.getQaFilterExpression());
-                            }
-                        })
-                        .call().content(),
+                () -> callChatClientWithAudit(
+                        requestParameter,
+                        dynamicContext,
+                        ExecutionStage.STEP3_VERIFY,
+                        "step3_verify",
+                        aiAgentClientFlowConfigVO.getClientId(),
+                        location,
+                        () -> chatClient
+                                .prompt(supervisionPrompt)
+                                .advisors(a -> {
+                                    a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, requestParameter.getSessionId())
+                                            .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 1024);
+                                    if (StringUtils.hasText(requestParameter.getQaFilterExpression())) {
+                                        a.param(QA_FILTER_EXPRESSION_KEY, requestParameter.getQaFilterExpression());
+                                    }
+                                })
+                                .call()
+                                .chatResponse()
+                ),
                 this::buildSupervisionFallback
         );
+        recordStageMetric(requestParameter, dynamicContext, ExecutionStage.STEP3_VERIFY, "step3_verify", aiAgentClientFlowConfigVO.getClientId(), location, System.currentTimeMillis() - stageStart);
 
         parseSupervisionResult(dynamicContext, supervisionResult, requestParameter.getSessionId());
         

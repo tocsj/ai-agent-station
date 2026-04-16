@@ -26,18 +26,19 @@ public class ResumeWorkflowPromptBuilder {
 
     public static String buildInterviewOpeningPrompt(Long resumeId, Long knowledgeSpaceId, String resumeText) {
         return """
-                你是一名技术面试官。请基于这份候选人简历，输出 3 个循序渐进的模拟面试问题，作为固定三轮面试的起点。
+                你是一名技术面试官。请基于这份候选人简历上下文，只生成 1 个首轮面试问题。
                 上下文:
                 - resumeId=%d
                 - knowledgeSpaceId=%d
 
-                简历摘要:
+                召回片段:
                 %s
 
                 输出要求:
-                1. 问题必须紧贴候选人真实经历与项目内容。
-                2. 难度逐轮提升，从基础认知到项目细节再到深度追问。
-                3. 直接输出编号问题列表，不要输出解释。
+                1. 问题必须紧贴候选人真实经历与项目内容，优先围绕项目、职责、技术取舍、问题排查。
+                2. 这只是首轮问题，难度要适中，适合先让候选人展开说明。
+                3. 不要泛泛而谈，不要问与简历无关的模板题。
+                4. 只输出一个问题正文，不要输出编号，不要输出解释。
                 """.formatted(resumeId, knowledgeSpaceId, resumeText);
     }
 
