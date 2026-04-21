@@ -1,0 +1,45 @@
+services:
+  mysql:
+    image: mysql:8.0.32
+    container_name: ai-agent-station-mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - "13306:3306"
+    volumes:
+      - ai-agent-station-mysql-data:/var/lib/mysql
+      - ../mysql/sql:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p123456"]
+      interval: 5s
+      timeout: 10s
+      retries: 20
+      start_period: 20s
+
+  pgvector:
+    image: pgvector/pgvector:0.8.1-pg16
+    container_name: ai-agent-station-pgvector
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Shanghai
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ai-agent-station-pgvector-data:/var/lib/postgresql/data
+      - ../rag-file/pgvector-init.sql:/docker-entrypoint-initdb.d/01-pgvector-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      interval: 5s
+      timeout: 10s
+      retries: 20
+      start_period: 20s
+
+volumes:
+  ai-agent-station-mysql-data:
+  ai-agent-station-pgvector-data:
