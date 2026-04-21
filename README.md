@@ -65,7 +65,9 @@ export DASHSCOPE_API_KEY="你的模型服务Key"
 
 ### 4.2 配置数据库里的模型 API Key
 
-MySQL 初始化脚本里的 `ai_client_api.api_key` 是占位值。启动 MySQL 后，需要写入你自己的 Key。
+MySQL 初始化脚本里的 `ai_client_api` 已经导出基础 API 配置，包括 `api_id`、`base_url`、`completions_path`、`embeddings_path`。其中 `base_url` 会随 SQL 自动导入，不需要手动补。
+
+为了避免泄露密钥，`ai_client_api.api_key` 使用占位值 `REPLACE_WITH_MODEL_API_KEY`。启动 MySQL 后，需要写入你自己的 Key。
 
 ```bash
 docker exec -it ai-agent-station-mysql mysql -uroot -p123456 ai-agent-station
@@ -80,6 +82,14 @@ WHERE api_id = '1003';
 ```
 
 如果你没有 `1001`、`1002` 对应服务的 Key，可以保持占位值。当前主要业务客户端使用 `1003` 下的通义兼容模型配置。
+
+默认导出的 API 配置：
+
+| api_id | base_url |
+| --- | --- |
+| `1001` | `https://free.v36.cm` |
+| `1002` | `https://api.hunyuan.cloud.tencent.com` |
+| `1003` | `https://dashscope.aliyuncs.com/compatible-mode/` |
 
 ## 5. 启动后端
 
