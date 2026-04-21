@@ -1,0 +1,440 @@
+16:28:40,984 |-INFO in ch.qos.logback.classic.LoggerContext[logback] - This is logback-classic version 1.5.16
+16:28:40,991 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - Here is a list of configurators discovered as a service, by rank: 
+16:28:40,991 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 -   org.springframework.boot.logging.logback.RootLogLevelConfigurator
+16:28:40,991 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - They will be invoked in order until ExecutionStatus.DO_NOT_INVOKE_NEXT_IF_ANY is returned.
+16:28:40,991 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - Constructed configurator of type class org.springframework.boot.logging.logback.RootLogLevelConfigurator
+16:28:40,998 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - org.springframework.boot.logging.logback.RootLogLevelConfigurator.configure() call lasted 0 milliseconds. ExecutionStatus=INVOKE_NEXT_IF_ANY
+16:28:40,998 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - Trying to configure with ch.qos.logback.classic.joran.SerializedModelConfigurator
+16:28:41,000 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - Constructed configurator of type class ch.qos.logback.classic.joran.SerializedModelConfigurator
+16:28:41,085 |-INFO in ch.qos.logback.classic.LoggerContext[logback] - Could NOT find resource [logback-test.scmo]
+16:28:41,087 |-INFO in ch.qos.logback.classic.LoggerContext[logback] - Could NOT find resource [logback.scmo]
+16:28:41,087 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - ch.qos.logback.classic.joran.SerializedModelConfigurator.configure() call lasted 87 milliseconds. ExecutionStatus=INVOKE_NEXT_IF_ANY
+16:28:41,087 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - Trying to configure with ch.qos.logback.classic.util.DefaultJoranConfigurator
+16:28:41,088 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - Constructed configurator of type class ch.qos.logback.classic.util.DefaultJoranConfigurator
+16:28:41,092 |-INFO in ch.qos.logback.classic.LoggerContext[logback] - Could NOT find resource [logback-test.xml]
+16:28:41,094 |-INFO in ch.qos.logback.classic.LoggerContext[logback] - Could NOT find resource [logback.xml]
+16:28:41,094 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - ch.qos.logback.classic.util.DefaultJoranConfigurator.configure() call lasted 6 milliseconds. ExecutionStatus=INVOKE_NEXT_IF_ANY
+16:28:41,094 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - Trying to configure with ch.qos.logback.classic.BasicConfigurator
+16:28:41,097 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - Constructed configurator of type class ch.qos.logback.classic.BasicConfigurator
+16:28:41,097 |-INFO in ch.qos.logback.classic.BasicConfigurator@114a85c2 - Setting up default configuration.
+16:28:41,134 |-INFO in ch.qos.logback.core.ConsoleAppender[console] - BEWARE: Writing to the console can be very slow. Avoid logging to the 
+16:28:41,134 |-INFO in ch.qos.logback.core.ConsoleAppender[console] - console in production environments, especially in high volume systems.
+16:28:41,134 |-INFO in ch.qos.logback.core.ConsoleAppender[console] - See also https://logback.qos.ch/codes.html#slowConsole
+16:28:41,135 |-INFO in ch.qos.logback.classic.util.ContextInitializer@12cd9150 - ch.qos.logback.classic.BasicConfigurator.configure() call lasted 38 milliseconds. ExecutionStatus=NEUTRAL
+16:28:42,089 |-INFO in ConfigurationWatchList(mainURL=jar:nested:/D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/target/ai-agent-station-app.jar/!BOOT-INF/classes/!/logback-spring.xml, fileWatchList={}, urlWatchList=[}) - URL [jar:nested:/D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/target/ai-agent-station-app.jar/!BOOT-INF/classes/!/logback-spring.xml] is not of type file
+16:28:42,182 |-WARN in ch.qos.logback.core.joran.action.ConversionRuleAction - [converterClass] attribute is deprecated and replaced by [class]. See element [conversionRule] near line 9
+16:28:42,182 |-WARN in ch.qos.logback.core.joran.action.ConversionRuleAction - [converterClass] attribute is deprecated and replaced by [class]. See element [conversionRule] near line 11
+16:28:42,182 |-WARN in ch.qos.logback.core.joran.action.ConversionRuleAction - [converterClass] attribute is deprecated and replaced by [class]. See element [conversionRule] near line 13
+16:28:42,248 |-INFO in ch.qos.logback.classic.model.processor.ContextNameModelHandler - Setting logger context name as [logback]
+16:28:42,253 |-INFO in ch.qos.logback.core.model.processor.ConversionRuleModelHandler - registering conversion word clr with class [org.springframework.boot.logging.logback.ColorConverter]
+16:28:42,254 |-INFO in ch.qos.logback.core.model.processor.ConversionRuleModelHandler - registering conversion word wex with class [org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter]
+16:28:42,254 |-INFO in ch.qos.logback.core.model.processor.ConversionRuleModelHandler - registering conversion word wEx with class [org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter]
+16:28:42,260 |-WARN in ch.qos.logback.classic.model.processor.ConfigurationModelHandlerFull - Missing watchable .xml or .properties files.
+16:28:42,260 |-WARN in ch.qos.logback.classic.model.processor.ConfigurationModelHandlerFull - Watching .xml files requires that the main configuration file is reachable as a URL
+16:28:42,261 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [CONSOLE]
+16:28:42,262 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+16:28:42,271 |-INFO in ch.qos.logback.core.model.processor.ImplicitModelHandler - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+16:28:42,304 |-INFO in ch.qos.logback.core.ConsoleAppender[CONSOLE] - BEWARE: Writing to the console can be very slow. Avoid logging to the 
+16:28:42,304 |-INFO in ch.qos.logback.core.ConsoleAppender[CONSOLE] - console in production environments, especially in high volume systems.
+16:28:42,304 |-INFO in ch.qos.logback.core.ConsoleAppender[CONSOLE] - See also https://logback.qos.ch/codes.html#slowConsole
+16:28:42,304 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [INFO_FILE]
+16:28:42,304 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.core.rolling.RollingFileAppender]
+16:28:42,310 |-INFO in ch.qos.logback.core.model.processor.ImplicitModelHandler - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+16:28:42,324 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy@1917784974 - setting totalSizeCap to 10 GB
+16:28:42,329 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy@1917784974 - No compression will be used
+16:28:42,330 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy@1917784974 - Will use the pattern ./data/log/log-info-%d{yyyy-MM-dd}.%i.log for the active file
+16:28:42,330 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@37eeec90 - SizeAndTimeBasedFNATP class was renamed as SizeAndTimeBasedFileNamingAndTriggeringPolicy.
+16:28:42,352 |-INFO in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@37eeec90 - The date pattern is 'yyyy-MM-dd' from file name pattern './data/log/log-info-%d{yyyy-MM-dd}.%i.log'.
+16:28:42,352 |-INFO in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@37eeec90 - Roll-over at midnight.
+16:28:42,363 |-INFO in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@37eeec90 - Setting initial period to 2026-04-16T07:52:39.328Z
+16:28:42,363 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@37eeec90 - Direct use of either SizeAndTimeBasedFNATP or SizeAndTimeBasedFileNamingAndTriggeringPolicy 
+16:28:42,363 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@37eeec90 - is deprecated. Please use SizeAndTimeBasedRollingPolicy instead.
+16:28:42,363 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@37eeec90 - For more information see https://logback.qos.ch/manual/appenders.html#SizeAndTimeBasedRollingPolicy
+16:28:42,371 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[INFO_FILE] - Active log file name: ./data/log/log_info.log
+16:28:42,375 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[INFO_FILE] - Setting currentFileLength to 262220 for .\data\log\log_info.log
+16:28:42,377 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[INFO_FILE] - File property is set to [./data/log/log_info.log]
+16:28:42,379 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [ERROR_FILE]
+16:28:42,379 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.core.rolling.RollingFileAppender]
+16:28:42,380 |-INFO in ch.qos.logback.core.model.processor.ImplicitModelHandler - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+16:28:42,381 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy@855547146 - setting totalSizeCap to 5 GB
+16:28:42,382 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy@855547146 - No compression will be used
+16:28:42,382 |-INFO in c.q.l.core.rolling.TimeBasedRollingPolicy@855547146 - Will use the pattern ./data/log/log-error-%d{yyyy-MM-dd}.%i.log for the active file
+16:28:42,382 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@c9413d8 - SizeAndTimeBasedFNATP class was renamed as SizeAndTimeBasedFileNamingAndTriggeringPolicy.
+16:28:42,382 |-INFO in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@c9413d8 - The date pattern is 'yyyy-MM-dd' from file name pattern './data/log/log-error-%d{yyyy-MM-dd}.%i.log'.
+16:28:42,382 |-INFO in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@c9413d8 - Roll-over at midnight.
+16:28:42,383 |-INFO in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@c9413d8 - Setting initial period to 2026-04-16T05:14:55.136Z
+16:28:42,383 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@c9413d8 - Direct use of either SizeAndTimeBasedFNATP or SizeAndTimeBasedFileNamingAndTriggeringPolicy 
+16:28:42,383 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@c9413d8 - is deprecated. Please use SizeAndTimeBasedRollingPolicy instead.
+16:28:42,383 |-WARN in ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP@c9413d8 - For more information see https://logback.qos.ch/manual/appenders.html#SizeAndTimeBasedRollingPolicy
+16:28:42,386 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[ERROR_FILE] - Active log file name: ./data/log/log_error.log
+16:28:42,386 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[ERROR_FILE] - Setting currentFileLength to 108238 for .\data\log\log_error.log
+16:28:42,386 |-INFO in ch.qos.logback.core.rolling.RollingFileAppender[ERROR_FILE] - File property is set to [./data/log/log_error.log]
+16:28:42,388 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [ASYNC_FILE_INFO]
+16:28:42,388 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.classic.AsyncAppender]
+16:28:42,391 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [INFO_FILE] to ch.qos.logback.classic.AsyncAppender[ASYNC_FILE_INFO]
+16:28:42,391 |-INFO in ch.qos.logback.classic.AsyncAppender[ASYNC_FILE_INFO] - Attaching appender named [INFO_FILE] to AsyncAppender.
+16:28:42,391 |-INFO in ch.qos.logback.classic.AsyncAppender[ASYNC_FILE_INFO] - Setting discardingThreshold to 0
+16:28:42,391 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [ASYNC_FILE_ERROR]
+16:28:42,391 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.classic.AsyncAppender]
+16:28:42,393 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [ERROR_FILE] to ch.qos.logback.classic.AsyncAppender[ASYNC_FILE_ERROR]
+16:28:42,393 |-INFO in ch.qos.logback.classic.AsyncAppender[ASYNC_FILE_ERROR] - Attaching appender named [ERROR_FILE] to AsyncAppender.
+16:28:42,393 |-INFO in ch.qos.logback.classic.AsyncAppender[ASYNC_FILE_ERROR] - Setting discardingThreshold to 0
+16:28:42,393 |-INFO in ch.qos.logback.classic.model.processor.LoggerModelHandler - Setting level of logger [com.nmys.view] to DEBUG
+16:28:42,394 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@64da2a7 - Propagating DEBUG level on Logger[com.nmys.view] onto the JUL framework
+16:28:42,395 |-INFO in ch.qos.logback.classic.model.processor.RootLoggerModelHandler - Setting level of ROOT logger to INFO
+16:28:42,395 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@64da2a7 - Propagating INFO level on Logger[ROOT] onto the JUL framework
+16:28:42,395 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [CONSOLE] to Logger[ROOT]
+16:28:42,395 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [ASYNC_FILE_INFO] to Logger[ROOT]
+16:28:42,395 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [ASYNC_FILE_ERROR] to Logger[ROOT]
+16:28:42,396 |-INFO in ch.qos.logback.core.model.processor.DefaultProcessor@46074492 - End of configuration.
+16:28:42,396 |-INFO in org.springframework.boot.logging.logback.SpringBootJoranConfigurator@d78795 - Registering current configuration as safe fallback point
+
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.3)
+
+26-04-16.16:28:42.644 [main            ] INFO  Application            - Starting Application v1.0 using Java 17.0.15 with PID 16044 (D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\ai-agent-station-app.jar started by Lenovo in D:\JAVA\study-project\ai-agent-station-new)
+26-04-16.16:28:42.646 [main            ] INFO  Application            - The following 1 profile is active: "dev"
+26-04-16.16:28:47.753 [main            ] INFO  TomcatWebServer        - Tomcat initialized with port 8091 (http)
+26-04-16.16:28:47.819 [main            ] INFO  Http11NioProtocol      - Initializing ProtocolHandler ["http-nio-8091"]
+26-04-16.16:28:47.823 [main            ] INFO  StandardService        - Starting service [Tomcat]
+26-04-16.16:28:47.825 [main            ] INFO  StandardEngine         - Starting Servlet engine: [Apache Tomcat/10.1.36]
+26-04-16.16:28:47.934 [main            ] INFO  [/]                    - Initializing Spring embedded WebApplicationContext
+26-04-16.16:28:47.935 [main            ] INFO  ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5211 ms
+26-04-16.16:28:48.999 [main            ] INFO  HikariDataSource       - MainHikariPool - Starting...
+26-04-16.16:28:49.809 [main            ] INFO  HikariPool             - MainHikariPool - Added connection com.mysql.cj.jdbc.ConnectionImpl@aedc426
+26-04-16.16:28:49.814 [main            ] INFO  HikariDataSource       - MainHikariPool - Start completed.
+26-04-16.16:28:50.118 [main            ] INFO  HikariDataSource       - PgVectorHikariPool - Starting...
+26-04-16.16:28:51.221 [main            ] INFO  HikariPool             - PgVectorHikariPool - Added connection org.postgresql.jdbc.PgConnection@20a946d9
+26-04-16.16:28:51.222 [main            ] INFO  HikariDataSource       - PgVectorHikariPool - Start completed.
+26-04-16.16:28:53.830 [main            ] INFO  PgVectorStore          - Using the vector table name: job_standard_vector_store. Is empty: false
+26-04-16.16:28:53.840 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: job_standard_vector_store in schema: public
+26-04-16.16:28:53.842 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
+26-04-16.16:28:54.235 [main            ] INFO  PgVectorStore          - Using the vector table name: resume_vector_store. Is empty: false
+26-04-16.16:28:54.241 [main            ] INFO  PgVectorStore          - Initializing PGVectorStore schema for table: resume_vector_store in schema: public
+26-04-16.16:28:54.242 [main            ] INFO  PgVectorStore          - vectorTableValidationsEnabled false
+26-04-16.16:28:54.952 [main            ] INFO  OptionalValidatorFactoryBean - Failed to set up a Bean Validation provider: jakarta.validation.NoProviderFoundException: Unable to create a Configuration, because no Jakarta Bean Validation provider could be found. Add a provider like Hibernate Validator (RI) to your classpath.
+26-04-16.16:28:56.851 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint beneath base path '/actuator'
+26-04-16.16:28:57.110 [main            ] INFO  Http11NioProtocol      - Starting ProtocolHandler ["http-nio-8091"]
+26-04-16.16:28:57.143 [main            ] INFO  TomcatWebServer        - Tomcat started on port 8091 (http) with context path '/'
+26-04-16.16:28:57.203 [main            ] INFO  Application            - Started Application in 15.792 seconds (process running for 17.075)
+26-04-16.16:28:57.331 [main            ] INFO  AiAgentAutoConfiguration - AI Agent 自动装配开始，配置: AiAgentAutoConfigProperties(enabled=true, clientIds=[5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204])
+26-04-16.16:28:57.333 [main            ] INFO  AiAgentAutoConfiguration - 开始自动装配AI客户端，客户端ID列表: [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-16.16:28:57.338 [pool-2-thread-1 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_api) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-16.16:28:57.340 [pool-2-thread-2 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_model) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-16.16:28:57.341 [pool-2-thread-3 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_tool_mcp) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-16.16:28:57.341 [pool-2-thread-4 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_system_prompt) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-16.16:28:57.342 [pool-2-thread-5 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client_advisor) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-16.16:28:57.343 [pool-2-thread-6 ] INFO  AiClientLoadDataStrategy - 查询配置数据(ai_client) [5101, 5102, 5103, 5104, 5201, 5202, 5203, 5204]
+26-04-16.16:28:57.889 [main            ] INFO  RootNode               - Ai Agent 构建，数据加载节点 {"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-16.16:28:57.890 [main            ] INFO  AiClientApiNode        - Ai Agent 鏋勫缓锛孉PI 鏋勫缓鑺傜偣 {"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-16.16:28:57.904 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_api_1003
+26-04-16.16:28:57.905 [main            ] INFO  AiClientToolMcpNode    - Ai Agent 构建节点，Tool MCP 工具配置{"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-16.16:28:57.905 [main            ] WARN  AiClientToolMcpNode    - 没有需要被初始化的 ai client tool mcp
+26-04-16.16:28:57.906 [main            ] INFO  AiClientModelNode      - Ai Agent 构建节点，Mode 对话模型{"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-16.16:28:57.911 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_model_2004
+26-04-16.16:28:57.912 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_model_2003
+26-04-16.16:28:57.912 [main            ] INFO  AiClientAdvisorNode    - Ai Agent 构建，Advisor 顾问角色{"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-16.16:28:57.950 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_advisor_4001
+26-04-16.16:28:58.080 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_advisor_4002
+26-04-16.16:28:58.081 [main            ] INFO  AiClientNode           - Ai Agent 构建节点，客户端{"commandIdList":["5101","5102","5103","5104","5201","5202","5203","5204"],"commandType":"client","loadDataStrategy":"aiClientLoadDataStrategy"}
+26-04-16.16:28:58.097 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5101
+26-04-16.16:28:58.099 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5102
+26-04-16.16:28:58.100 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5103
+26-04-16.16:28:58.101 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5104
+26-04-16.16:28:58.102 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5201
+26-04-16.16:28:58.102 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5202
+26-04-16.16:28:58.103 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5203
+26-04-16.16:28:58.103 [main            ] INFO  AbstractArmorySupport  - 成功注册Bean: ai_client_5204
+26-04-16.16:28:58.104 [main            ] INFO  AiAgentAutoConfiguration - AI Agent 自动装配完成，结果: null
+26-04-16.16:29:17.653 [http-nio-8091-exec-6] INFO  [/]                    - Initializing Spring DispatcherServlet 'dispatcherServlet'
+26-04-16.16:29:17.654 [http-nio-8091-exec-6] INFO  DispatcherServlet      - Initializing Servlet 'dispatcherServlet'
+26-04-16.16:29:17.659 [http-nio-8091-exec-6] INFO  DispatcherServlet      - Completed initialization in 3 ms
+26-04-16.16:29:17.778 [http-nio-8091-exec-5] WARN  DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'interviewSessionId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "active"]
+26-04-16.16:30:10.390 [http-nio-8091-exec-10] WARN  DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'interviewSessionId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "active"]
+26-04-16.16:30:10.413 [http-nio-8091-exec-3] WARN  DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'interviewSessionId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "active"]
+26-04-16.16:31:23.331 [http-nio-8091-exec-6] WARN  DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unexpected character ('r' (code 114)): was expecting double-quote to start field name]
+26-04-16.16:32:30.766 [http-nio-8091-exec-2] WARN  DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'interviewSessionId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "active"]
+26-04-16.16:32:30.778 [http-nio-8091-exec-8] WARN  DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'interviewSessionId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "active"]
+26-04-16.16:33:06.092 [http-nio-8091-exec-9] WARN  DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'interviewSessionId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "active"]
+26-04-16.16:33:06.106 [http-nio-8091-exec-10] WARN  DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'interviewSessionId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "active"]
+26-04-16.16:33:08.713 [http-nio-8091-exec-6] WARN  DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'interviewSessionId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "active"]
+26-04-16.16:33:41.465 [pool-2-thread-7 ] INFO  RootNode               - === 动态多轮执行测试开始 ====
+26-04-16.16:33:41.466 [pool-2-thread-7 ] INFO  RootNode               - 用户输入: 你正在处理模拟面试回答评估任务。
+上下文:
+- interviewSessionId=21
+- 当前轮次=1/3
+
+当前题目:
+在电商业务的高并发场景下，你提到熟悉 Redis 和 MQ，请问在设计库存扣减或下单接口时，如何利用这两者协同工作来防止超卖并有效削峰填谷？
+
+候选人回答:
+我会用 Redis 预扣库存，MQ 做异步下单削峰，并通过 Lua 保证扣减原子性。
+
+评估要求:
+1. 结合简历知识空间和当前题目评估回答质量，不要脱离上下文泛评。
+2. 评分要体现候选人对问题的覆盖度、技术准确性、表达完整性。
+3. 点评要指出答得好的地方、遗漏点、风险点和下一步该追问什么。
+4. 如果不是最后一轮，下一轮问题必须更深入，且与当前回答暴露的薄弱点相关。
+5. 如果已经是最后一轮，必须给出整体面试总结，能够直接用于最终反馈。
+6. 本轮评分只能输出短格式，如 8/10，长度不超过 12 个字符。
+7. 非最后一轮总输出控制在 180 个中文字符以内；最后一轮控制在 260 个中文字符以内。
+8. 不要输出长段落，不要添加额外标题。
+
+你必须严格按下面结构输出，不要增加无关段落：
+本轮评分:
+本轮点评:
+薄弱点:
+下一轮问题:
+面试状态: CONTINUE
+
+
+26-04-16.16:33:41.466 [pool-2-thread-7 ] INFO  RootNode               - 最大执行步数: 5
+26-04-16.16:33:41.468 [pool-2-thread-7 ] INFO  RootNode               - 会话ID: resume-interview-21-1776328421409
+26-04-16.16:33:41.480 [pool-2-thread-7 ] INFO  Step1AnalyzerNode      - 
+🎯 === 执行第 1 步 ===
+26-04-16.16:33:41.481 [pool-2-thread-7 ] INFO  Step1AnalyzerNode      - 
+📊 阶段1: 任务状态分析
+26-04-16.16:34:41.727 [pool-2-thread-7 ] INFO  Step1AnalyzerNode      - 
+📊 === 第 1 步分析结果 ===
+26-04-16.16:34:41.732 [pool-2-thread-7 ] INFO  Step2PrecisionExecutorNode - 
+⚡ 阶段2: 精准任务执行
+26-04-16.16:34:45.083 [pool-2-thread-7 ] INFO  Step2PrecisionExecutorNode - 
+⚡ === 第 1 步执行结果 ===
+26-04-16.16:34:45.088 [pool-2-thread-7 ] INFO  Step3QualitySupervisorNode - 
+🔍 阶段3: 质量监督检查
+26-04-16.16:35:12.829 [http-nio-8091-exec-4] WARN  DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'interviewSessionId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "active"]
+26-04-16.16:35:12.839 [http-nio-8091-exec-6] WARN  DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'interviewSessionId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "active"]
+26-04-16.16:35:15.393 [http-nio-8091-exec-7] WARN  DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'interviewSessionId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "active"]
+26-04-16.16:35:26.071 [pool-2-thread-7 ] INFO  Step3QualitySupervisorNode - 
+🔍 === 第 1 步监督结果 ===
+26-04-16.16:35:26.076 [pool-2-thread-7 ] INFO  Step3QualitySupervisorNode -    📝 需求匹配度: 完美匹配用户原始需求，针对提供的执行结果进行了严格的结构和逻辑评估。
+26-04-16.16:35:26.077 [pool-2-thread-7 ] INFO  Step3QualitySupervisorNode -    📝 内容完整性: 涵盖了评分标准、简历背景一致性、技术深度及后续追问方向，无遗漏。
+26-04-16.16:35:26.077 [pool-2-thread-7 ] INFO  Step3QualitySupervisorNode - 
+⚠️ 问题识别:
+26-04-16.16:35:26.077 [pool-2-thread-7 ] INFO  Step3QualitySupervisorNode - 
+💡 改进建议:
+26-04-16.16:35:26.078 [pool-2-thread-7 ] INFO  Step3QualitySupervisorNode - 
+📊 质量评分: 10
+26-04-16.16:35:26.086 [pool-2-thread-7 ] INFO  Step3QualitySupervisorNode - 
+✅ 检查结果: 通过
+26-04-16.16:35:26.089 [pool-2-thread-7 ] ERROR AbstractExecuteSupport - send sse result failed: ServletOutputStream failed to flush: java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+org.springframework.web.context.request.async.AsyncRequestNotUsableException: ServletOutputStream failed to flush: java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+	at org.springframework.web.context.request.async.StandardServletAsyncWebRequest$LifecycleHttpServletResponse.handleIOException(StandardServletAsyncWebRequest.java:346)
+	at org.springframework.web.context.request.async.StandardServletAsyncWebRequest$LifecycleServletOutputStream.flush(StandardServletAsyncWebRequest.java:418)
+	at org.springframework.util.StreamUtils.copy(StreamUtils.java:136)
+	at org.springframework.http.converter.StringHttpMessageConverter.writeInternal(StringHttpMessageConverter.java:128)
+	at org.springframework.http.converter.StringHttpMessageConverter.writeInternal(StringHttpMessageConverter.java:44)
+	at org.springframework.http.converter.AbstractHttpMessageConverter.write(AbstractHttpMessageConverter.java:235)
+	at org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitterReturnValueHandler$DefaultSseEmitterHandler.sendInternal(ResponseBodyEmitterReturnValueHandler.java:310)
+	at org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitterReturnValueHandler$DefaultSseEmitterHandler.send(ResponseBodyEmitterReturnValueHandler.java:290)
+	at org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter.send(ResponseBodyEmitter.java:193)
+	at org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter.send(ResponseBodyEmitter.java:177)
+	at com.tkck.domain.agent.service.execute.auto.step.AbstractExecuteSupport.sendSseResult(AbstractExecuteSupport.java:56)
+	at com.tkck.domain.agent.service.execute.auto.step.Step3QualitySupervisorNode.sendSupervisionSubResult(Step3QualitySupervisorNode.java:238)
+	at com.tkck.domain.agent.service.execute.auto.step.Step3QualitySupervisorNode.parseSupervisionResult(Step3QualitySupervisorNode.java:213)
+	at com.tkck.domain.agent.service.execute.auto.step.Step3QualitySupervisorNode.doApply(Step3QualitySupervisorNode.java:73)
+	at com.tkck.domain.agent.service.execute.auto.step.Step3QualitySupervisorNode.doApply(Step3QualitySupervisorNode.java:20)
+	at cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter.apply(AbstractMultiThreadStrategyRouter.java:31)
+	at cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter.router(AbstractMultiThreadStrategyRouter.java:22)
+	at com.tkck.domain.agent.service.execute.auto.step.Step2PrecisionExecutorNode.doApply(Step2PrecisionExecutorNode.java:93)
+	at com.tkck.domain.agent.service.execute.auto.step.Step2PrecisionExecutorNode.doApply(Step2PrecisionExecutorNode.java:20)
+	at cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter.apply(AbstractMultiThreadStrategyRouter.java:31)
+	at cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter.router(AbstractMultiThreadStrategyRouter.java:22)
+	at com.tkck.domain.agent.service.execute.auto.step.Step1AnalyzerNode.doApply(Step1AnalyzerNode.java:94)
+	at com.tkck.domain.agent.service.execute.auto.step.Step1AnalyzerNode.doApply(Step1AnalyzerNode.java:14)
+	at cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter.apply(AbstractMultiThreadStrategyRouter.java:31)
+	at cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter.router(AbstractMultiThreadStrategyRouter.java:22)
+	at com.tkck.domain.agent.service.execute.auto.step.RootNode.doApply(RootNode.java:40)
+	at com.tkck.domain.agent.service.execute.auto.step.RootNode.doApply(RootNode.java:1)
+	at cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter.apply(AbstractMultiThreadStrategyRouter.java:31)
+	at com.tkck.domain.agent.service.execute.auto.AutoAgentExecuteStrategy.execute(AutoAgentExecuteStrategy.java:35)
+	at com.tkck.trigger.http.ResumeWorkflowController.lambda$executeWithSse$0(ResumeWorkflowController.java:127)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: org.apache.catalina.connector.ClientAbortException: java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+	at org.apache.catalina.connector.OutputBuffer.doFlush(OutputBuffer.java:308)
+	at org.apache.catalina.connector.OutputBuffer.flush(OutputBuffer.java:270)
+	at org.apache.catalina.connector.CoyoteOutputStream.flush(CoyoteOutputStream.java:133)
+	at org.springframework.web.context.request.async.StandardServletAsyncWebRequest$LifecycleServletOutputStream.flush(StandardServletAsyncWebRequest.java:415)
+	... 31 common frames omitted
+Caused by: java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:54)
+	at java.base/sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:132)
+	at java.base/sun.nio.ch.IOUtil.write(IOUtil.java:97)
+	at java.base/sun.nio.ch.IOUtil.write(IOUtil.java:53)
+	at java.base/sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:532)
+	at org.apache.tomcat.util.net.NioChannel.write(NioChannel.java:122)
+	at org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper.doWrite(NioEndpoint.java:1380)
+	at org.apache.tomcat.util.net.SocketWrapperBase.doWrite(SocketWrapperBase.java:764)
+	at org.apache.tomcat.util.net.SocketWrapperBase.flushBlocking(SocketWrapperBase.java:728)
+	at org.apache.tomcat.util.net.SocketWrapperBase.flush(SocketWrapperBase.java:712)
+	at org.apache.coyote.http11.Http11OutputBuffer$SocketOutputBuffer.flush(Http11OutputBuffer.java:574)
+	at org.apache.coyote.http11.filters.ChunkedOutputFilter.flush(ChunkedOutputFilter.java:156)
+	at org.apache.coyote.http11.Http11OutputBuffer.flush(Http11OutputBuffer.java:216)
+	at org.apache.coyote.http11.Http11Processor.flush(Http11Processor.java:1274)
+	at org.apache.coyote.AbstractProcessor.action(AbstractProcessor.java:408)
+	at org.apache.coyote.Response.action(Response.java:208)
+	at org.apache.catalina.connector.OutputBuffer.doFlush(OutputBuffer.java:304)
+	... 34 common frames omitted
+26-04-16.16:35:26.096 [pool-2-thread-7 ] WARN  AbstractExecuteSupport - sse emitter already completed, skip current event: ResponseBodyEmitter has already completed
+26-04-16.16:35:26.096 [pool-2-thread-7 ] INFO  Step3QualitySupervisorNode - ✅ 质量检查通过
+26-04-16.16:35:26.098 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 
+🏁 === 执行第 2 步 ===
+26-04-16.16:35:26.098 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 
+📝 阶段4: 执行总结分析
+26-04-16.16:35:26.099 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 
+📋 === 动态多轮执行总结 ===
+26-04-16.16:35:26.099 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 🧮 总执行步数: 2 步
+26-04-16.16:35:26.100 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 📌 任务完成状态: 已完成
+26-04-16.16:35:26.099 [http-nio-8091-exec-2] ERROR [dispatcherServlet]    - Servlet.service() for servlet [dispatcherServlet] threw exception
+java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:54)
+	at java.base/sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:132)
+	at java.base/sun.nio.ch.IOUtil.write(IOUtil.java:97)
+	at java.base/sun.nio.ch.IOUtil.write(IOUtil.java:53)
+	at java.base/sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:532)
+	at org.apache.tomcat.util.net.NioChannel.write(NioChannel.java:122)
+	at org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper.doWrite(NioEndpoint.java:1380)
+	at org.apache.tomcat.util.net.SocketWrapperBase.doWrite(SocketWrapperBase.java:764)
+	at org.apache.tomcat.util.net.SocketWrapperBase.flushBlocking(SocketWrapperBase.java:728)
+	at org.apache.tomcat.util.net.SocketWrapperBase.flush(SocketWrapperBase.java:712)
+	at org.apache.coyote.http11.Http11OutputBuffer$SocketOutputBuffer.flush(Http11OutputBuffer.java:574)
+	at org.apache.coyote.http11.filters.ChunkedOutputFilter.flush(ChunkedOutputFilter.java:156)
+	at org.apache.coyote.http11.Http11OutputBuffer.flush(Http11OutputBuffer.java:216)
+	at org.apache.coyote.http11.Http11Processor.flush(Http11Processor.java:1274)
+	at org.apache.coyote.AbstractProcessor.action(AbstractProcessor.java:408)
+	at org.apache.coyote.Response.action(Response.java:208)
+	at org.apache.catalina.connector.OutputBuffer.doFlush(OutputBuffer.java:304)
+	at org.apache.catalina.connector.OutputBuffer.flush(OutputBuffer.java:270)
+	at org.apache.catalina.connector.CoyoteOutputStream.flush(CoyoteOutputStream.java:133)
+	at org.springframework.web.context.request.async.StandardServletAsyncWebRequest$LifecycleServletOutputStream.flush(StandardServletAsyncWebRequest.java:415)
+	at org.springframework.util.StreamUtils.copy(StreamUtils.java:136)
+	at org.springframework.http.converter.StringHttpMessageConverter.writeInternal(StringHttpMessageConverter.java:128)
+	at org.springframework.http.converter.StringHttpMessageConverter.writeInternal(StringHttpMessageConverter.java:44)
+	at org.springframework.http.converter.AbstractHttpMessageConverter.write(AbstractHttpMessageConverter.java:235)
+	at org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitterReturnValueHandler$DefaultSseEmitterHandler.sendInternal(ResponseBodyEmitterReturnValueHandler.java:310)
+	at org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitterReturnValueHandler$DefaultSseEmitterHandler.send(ResponseBodyEmitterReturnValueHandler.java:290)
+	at org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter.send(ResponseBodyEmitter.java:193)
+	at org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter.send(ResponseBodyEmitter.java:177)
+	at com.tkck.domain.agent.service.execute.auto.step.AbstractExecuteSupport.sendSseResult(AbstractExecuteSupport.java:56)
+	at com.tkck.domain.agent.service.execute.auto.step.Step3QualitySupervisorNode.sendSupervisionSubResult(Step3QualitySupervisorNode.java:238)
+	at com.tkck.domain.agent.service.execute.auto.step.Step3QualitySupervisorNode.parseSupervisionResult(Step3QualitySupervisorNode.java:213)
+	at com.tkck.domain.agent.service.execute.auto.step.Step3QualitySupervisorNode.doApply(Step3QualitySupervisorNode.java:73)
+	at com.tkck.domain.agent.service.execute.auto.step.Step3QualitySupervisorNode.doApply(Step3QualitySupervisorNode.java:20)
+	at cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter.apply(AbstractMultiThreadStrategyRouter.java:31)
+	at cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter.router(AbstractMultiThreadStrategyRouter.java:22)
+	at com.tkck.domain.agent.service.execute.auto.step.Step2PrecisionExecutorNode.doApply(Step2PrecisionExecutorNode.java:93)
+	at com.tkck.domain.agent.service.execute.auto.step.Step2PrecisionExecutorNode.doApply(Step2PrecisionExecutorNode.java:20)
+	at cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter.apply(AbstractMultiThreadStrategyRouter.java:31)
+	at cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter.router(AbstractMultiThreadStrategyRouter.java:22)
+	at com.tkck.domain.agent.service.execute.auto.step.Step1AnalyzerNode.doApply(Step1AnalyzerNode.java:94)
+	at com.tkck.domain.agent.service.execute.auto.step.Step1AnalyzerNode.doApply(Step1AnalyzerNode.java:14)
+	at cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter.apply(AbstractMultiThreadStrategyRouter.java:31)
+	at cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter.router(AbstractMultiThreadStrategyRouter.java:22)
+	at com.tkck.domain.agent.service.execute.auto.step.RootNode.doApply(RootNode.java:40)
+	at com.tkck.domain.agent.service.execute.auto.step.RootNode.doApply(RootNode.java:1)
+	at cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter.apply(AbstractMultiThreadStrategyRouter.java:31)
+	at com.tkck.domain.agent.service.execute.auto.AutoAgentExecuteStrategy.execute(AutoAgentExecuteStrategy.java:35)
+	at com.tkck.trigger.http.ResumeWorkflowController.lambda$executeWithSse$0(ResumeWorkflowController.java:127)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+26-04-16.16:35:26.100 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 📈 执行效率: 40.0%
+26-04-16.16:35:26.100 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 
+--- 生成已完成任务的最终答案 ---
+26-04-16.16:35:26.102 [http-nio-8091-exec-2] ERROR [dispatcherServlet]    - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+java.io.IOException: 你的主机中的软件中止了一个已建立的连接。
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method)
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:54)
+	at java.base/sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:132)
+	at java.base/sun.nio.ch.IOUtil.write(IOUtil.java:97)
+	at java.base/sun.nio.ch.IOUtil.write(IOUtil.java:53)
+	at java.base/sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:532)
+	at org.apache.tomcat.util.net.NioChannel.write(NioChannel.java:122)
+	at org.apache.tomcat.util.net.NioEndpoint$NioSocketWrapper.doWrite(NioEndpoint.java:1380)
+	at org.apache.tomcat.util.net.SocketWrapperBase.doWrite(SocketWrapperBase.java:764)
+	at org.apache.tomcat.util.net.SocketWrapperBase.flushBlocking(SocketWrapperBase.java:728)
+	at org.apache.tomcat.util.net.SocketWrapperBase.flush(SocketWrapperBase.java:712)
+	at org.apache.coyote.http11.Http11OutputBuffer$SocketOutputBuffer.flush(Http11OutputBuffer.java:574)
+	at org.apache.coyote.http11.filters.ChunkedOutputFilter.flush(ChunkedOutputFilter.java:156)
+	at org.apache.coyote.http11.Http11OutputBuffer.flush(Http11OutputBuffer.java:216)
+	at org.apache.coyote.http11.Http11Processor.flush(Http11Processor.java:1274)
+	at org.apache.coyote.AbstractProcessor.action(AbstractProcessor.java:408)
+	at org.apache.coyote.Response.action(Response.java:208)
+	at org.apache.catalina.connector.OutputBuffer.doFlush(OutputBuffer.java:304)
+	at org.apache.catalina.connector.OutputBuffer.flush(OutputBuffer.java:270)
+	at org.apache.catalina.connector.CoyoteOutputStream.flush(CoyoteOutputStream.java:133)
+	at org.springframework.web.context.request.async.StandardServletAsyncWebRequest$LifecycleServletOutputStream.flush(StandardServletAsyncWebRequest.java:415)
+	at org.springframework.util.StreamUtils.copy(StreamUtils.java:136)
+	at org.springframework.http.converter.StringHttpMessageConverter.writeInternal(StringHttpMessageConverter.java:128)
+	at org.springframework.http.converter.StringHttpMessageConverter.writeInternal(StringHttpMessageConverter.java:44)
+	at org.springframework.http.converter.AbstractHttpMessageConverter.write(AbstractHttpMessageConverter.java:235)
+	at org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitterReturnValueHandler$DefaultSseEmitterHandler.sendInternal(ResponseBodyEmitterReturnValueHandler.java:310)
+	at org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitterReturnValueHandler$DefaultSseEmitterHandler.send(ResponseBodyEmitterReturnValueHandler.java:290)
+	at org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter.send(ResponseBodyEmitter.java:193)
+	at org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter.send(ResponseBodyEmitter.java:177)
+	at com.tkck.domain.agent.service.execute.auto.step.AbstractExecuteSupport.sendSseResult(AbstractExecuteSupport.java:56)
+	at com.tkck.domain.agent.service.execute.auto.step.Step3QualitySupervisorNode.sendSupervisionSubResult(Step3QualitySupervisorNode.java:238)
+	at com.tkck.domain.agent.service.execute.auto.step.Step3QualitySupervisorNode.parseSupervisionResult(Step3QualitySupervisorNode.java:213)
+	at com.tkck.domain.agent.service.execute.auto.step.Step3QualitySupervisorNode.doApply(Step3QualitySupervisorNode.java:73)
+	at com.tkck.domain.agent.service.execute.auto.step.Step3QualitySupervisorNode.doApply(Step3QualitySupervisorNode.java:20)
+	at cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter.apply(AbstractMultiThreadStrategyRouter.java:31)
+	at cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter.router(AbstractMultiThreadStrategyRouter.java:22)
+	at com.tkck.domain.agent.service.execute.auto.step.Step2PrecisionExecutorNode.doApply(Step2PrecisionExecutorNode.java:93)
+	at com.tkck.domain.agent.service.execute.auto.step.Step2PrecisionExecutorNode.doApply(Step2PrecisionExecutorNode.java:20)
+	at cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter.apply(AbstractMultiThreadStrategyRouter.java:31)
+	at cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter.router(AbstractMultiThreadStrategyRouter.java:22)
+	at com.tkck.domain.agent.service.execute.auto.step.Step1AnalyzerNode.doApply(Step1AnalyzerNode.java:94)
+	at com.tkck.domain.agent.service.execute.auto.step.Step1AnalyzerNode.doApply(Step1AnalyzerNode.java:14)
+	at cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter.apply(AbstractMultiThreadStrategyRouter.java:31)
+	at cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter.router(AbstractMultiThreadStrategyRouter.java:22)
+	at com.tkck.domain.agent.service.execute.auto.step.RootNode.doApply(RootNode.java:40)
+	at com.tkck.domain.agent.service.execute.auto.step.RootNode.doApply(RootNode.java:1)
+	at cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter.apply(AbstractMultiThreadStrategyRouter.java:31)
+	at com.tkck.domain.agent.service.execute.auto.AutoAgentExecuteStrategy.execute(AutoAgentExecuteStrategy.java:35)
+	at com.tkck.trigger.http.ResumeWorkflowController.lambda$executeWithSse$0(ResumeWorkflowController.java:127)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+26-04-16.16:35:54.971 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 
+📝 === 最终总结报告 ===
+26-04-16.16:35:54.971 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 📌 本轮评分：7/10
+26-04-16.16:35:54.972 [pool-2-thread-7 ] WARN  AbstractExecuteSupport - sse emitter already completed, skip current event: ResponseBodyEmitter has already completed
+26-04-16.16:35:54.972 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 📌 本轮点评：方案契合简历，大方向正确，但未覆盖一致性关键细节。
+26-04-16.16:35:54.973 [pool-2-thread-7 ] WARN  AbstractExecuteSupport - sse emitter already completed, skip current event: ResponseBodyEmitter has already completed
+26-04-16.16:35:54.973 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 📌 薄弱点：未提及MQ幂等、库存回滚及Lua参数校验风险。
+26-04-16.16:35:54.973 [pool-2-thread-7 ] WARN  AbstractExecuteSupport - sse emitter already completed, skip current event: ResponseBodyEmitter has already completed
+26-04-16.16:35:54.974 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 📌 下一轮问题：若MQ消息积压导致延迟下单，如何结合Redis过期时间防超卖？
+26-04-16.16:35:54.974 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 📌 面试状态：CONTINUE
+26-04-16.16:35:54.975 [pool-2-thread-7 ] WARN  AbstractExecuteSupport - sse emitter already completed, skip current event: ResponseBodyEmitter has already completed
+26-04-16.16:35:54.975 [pool-2-thread-7 ] WARN  AbstractExecuteSupport - sse emitter already completed, skip current event: ResponseBodyEmitter has already completed
+26-04-16.16:35:54.976 [pool-2-thread-7 ] WARN  AbstractExecuteSupport - sse emitter already completed, skip current event: ResponseBodyEmitter has already completed
+26-04-16.16:35:54.977 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - ✅ 已发送完成标识
+26-04-16.16:35:54.977 [pool-2-thread-7 ] INFO  Step4LogExecutionSummaryNode - 
+🏁 === 动态多轮执行结束 ===
+26-04-16.16:35:54.977 [pool-2-thread-7 ] INFO  AutoAgentExecuteStrategy - auto agent execute result: ai agent execution summary completed!
+26-04-16.16:35:55.001 [pool-2-thread-7 ] ERROR AutoAgentExecuteStrategy - send complete result failed: ResponseBodyEmitter has already completed
+java.lang.IllegalStateException: ResponseBodyEmitter has already completed
+	at org.springframework.util.Assert.state(Assert.java:101)
+	at org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter.send(ResponseBodyEmitter.java:189)
+	at org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter.send(ResponseBodyEmitter.java:177)
+	at com.tkck.domain.agent.service.execute.auto.AutoAgentExecuteStrategy.execute(AutoAgentExecuteStrategy.java:45)
+	at com.tkck.trigger.http.ResumeWorkflowController.lambda$executeWithSse$0(ResumeWorkflowController.java:127)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+26-04-16.16:36:37.130 [http-nio-8091-exec-10] WARN  DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'interviewSessionId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "active"]
+26-04-16.16:37:01.399 [http-nio-8091-exec-4] WARN  DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'interviewSessionId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "active"]
+26-04-16.16:37:01.412 [http-nio-8091-exec-6] WARN  DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'interviewSessionId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "active"]
+26-04-16.16:38:22.317 [http-nio-8091-exec-9] WARN  DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'interviewSessionId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "active"]
+26-04-16.16:38:22.328 [http-nio-8091-exec-10] WARN  DefaultHandlerExceptionResolver - Resolved [org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Method parameter 'interviewSessionId': Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long'; For input string: "active"]

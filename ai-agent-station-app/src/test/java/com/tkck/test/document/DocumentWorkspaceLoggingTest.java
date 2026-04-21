@@ -5,7 +5,11 @@ import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.read.ListAppender;
 import com.tkck.app.document.DocumentWorkspaceServiceImpl;
+import com.tkck.domain.document.adapter.repository.IDocumentWorkspaceRepository;
+import com.tkck.domain.document.model.entity.DocumentQueryRewriteCommandEntity;
+import com.tkck.domain.document.model.entity.DocumentQueryRewriteResultEntity;
 import com.tkck.domain.document.model.entity.DocumentTaskResultEntity;
+import com.tkck.domain.document.service.IQueryRewriteService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
@@ -13,14 +17,12 @@ import org.springframework.ai.document.Document;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.contains;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -28,27 +30,23 @@ public class DocumentWorkspaceLoggingTest {
 
     @Test
     public void shouldLogDocumentTaskLifecycleForAsk() {
-        JdbcTemplate mysqlJdbcTemplate = mock(JdbcTemplate.class);
+        IDocumentWorkspaceRepository repository = mock(IDocumentWorkspaceRepository.class);
         VectorStore documentVectorStore = mock(VectorStore.class);
         TokenTextSplitter tokenTextSplitter = mock(TokenTextSplitter.class);
+        IQueryRewriteService queryRewriteService = mock(IQueryRewriteService.class);
 
-        when(mysqlJdbcTemplate.queryForObject(
-                contains("SELECT COUNT(1) FROM ai_knowledge_space"),
-                eq(Integer.class),
-                eq("dws_001"))).thenReturn(1);
-        when(mysqlJdbcTemplate.queryForList(
-                contains("SELECT doc_id FROM ai_knowledge_document"),
-                eq("dws_001"))).thenReturn(List.of(
-                Map.of("doc_id", "doc_001"),
-                Map.of("doc_id", "doc_002")
-        ));
+        when(repository.existsWorkspace("dws_001")).thenReturn(true);
+        when(repository.queryActiveDocumentIds("dws_001")).thenReturn(Set.of("doc_001", "doc_002"));
+        when(queryRewriteService.rewrite(any(DocumentQueryRewriteCommandEntity.class))).thenReturn(
+                DocumentQueryRewriteResultEntity.builder().rewrittenQuery("rewritten ask query").build()
+        );
 
         when(documentVectorStore.similaritySearch(any(SearchRequest.class))).thenReturn(List.of(
-                new Document("第一份文档提到系统采用分层架构。", Map.of("spaceId", "dws_001", "docId", "doc_001")),
-                new Document("第二份文档提到缓存放在应用层与数据层之间。", Map.of("spaceId", "dws_001", "docId", "doc_002"))
+                new Document("绗竴浠芥枃妗ｆ彁鍒扮郴缁熼噰鐢ㄥ垎灞傛灦鏋勩€?", Map.of("spaceId", "dws_001", "docId", "doc_001")),
+                new Document("绗簩浠芥枃妗ｆ彁鍒扮紦瀛樻斁鍦ㄥ簲鐢ㄥ眰涓庢暟鎹眰涔嬮棿銆?", Map.of("spaceId", "dws_001", "docId", "doc_002"))
         ));
 
-        DocumentWorkspaceServiceImpl service = new DocumentWorkspaceServiceImpl(mysqlJdbcTemplate, documentVectorStore, tokenTextSplitter) {
+        DocumentWorkspaceServiceImpl service = new DocumentWorkspaceServiceImpl(repository, documentVectorStore, tokenTextSplitter, queryRewriteService) {
             @Override
             protected String generateAnswer(String traceId,
                                             String taskType,
@@ -56,7 +54,7 @@ public class DocumentWorkspaceLoggingTest {
                                             String sessionId,
                                             String prompt,
                                             List<Document> documents) {
-                return "基于检索结果的回答";
+                return "鍩轰簬妫€绱㈢粨鏋滅殑鍥炵瓟";
             }
         };
 
@@ -66,9 +64,9 @@ public class DocumentWorkspaceLoggingTest {
         logger.addAppender(listAppender);
 
         try {
-            DocumentTaskResultEntity result = service.ask("dws_001", null, "这套系统的核心架构是什么？");
+            DocumentTaskResultEntity result = service.ask("dws_001", null, "杩欏绯荤粺鐨勬牳蹇冩灦鏋勬槸浠€涔堬紵");
 
-            Assert.assertEquals("基于检索结果的回答", result.getAnswer());
+            Assert.assertEquals("鍩轰簬妫€绱㈢粨鏋滅殑鍥炵瓟", result.getAnswer());
             Assert.assertTrue(listAppender.list.stream().anyMatch(event ->
                     event.getLevel() == Level.INFO
                             && event.getFormattedMessage().contains("document task start")

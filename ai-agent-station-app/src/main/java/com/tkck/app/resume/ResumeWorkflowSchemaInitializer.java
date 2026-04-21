@@ -452,15 +452,26 @@ public class ResumeWorkflowSchemaInitializer implements InitializingBean {
      */
     private void syncAutoRuntimeClientModel() {
         ensureContentPublishClients();
+        ensureDocumentClients();
+        ensureInterviewStep1Client();
         mysqlJdbcTemplate.update("""
                 UPDATE ai_client_config
                 SET target_id = '2004', update_time = NOW()
                 WHERE source_type = 'client'
                   AND target_type = 'model'
-                  AND source_id IN ('5101', '5104', '5201', '5204')
+                  AND source_id IN ('5101', '5104', '5204')
                   AND status = 1
                   AND target_id <> '2004'
                 """);
+    }
+
+    private void ensureInterviewStep1Client() {
+        ensureClientModelConfig("5201", "2008");
+    }
+
+    private void ensureDocumentClients() {
+        ensureClient("5401", "文档知识助手-通用处理", "文档知识助手通用问答与摘要客户端");
+        ensureClientModelConfig("5401", "2008");
     }
 
     private void ensureContentPublishClients() {

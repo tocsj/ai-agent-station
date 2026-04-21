@@ -1,82 +1,71 @@
 package com.tkck.test.content;
 
 import com.tkck.app.content.ContentAutomationServiceImpl;
+import com.tkck.domain.content.adapter.repository.IContentTaskRepository;
 import com.tkck.domain.content.model.entity.ContentCreateCommandEntity;
 import com.tkck.domain.content.model.entity.ContentTaskEntity;
 import com.tkck.domain.content.model.entity.ContentTaskStepEntity;
 import com.tkck.domain.content.model.entity.PublishResultEntity;
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
-import java.util.Map;
 
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class ContentAutomationServiceTest {
 
     @Test
     public void shouldCreateQueryActiveHistoryAndListTaskSteps() {
-        JdbcTemplate jdbcTemplate = mock(JdbcTemplate.class);
+        IContentTaskRepository repository = mock(IContentTaskRepository.class);
         ContentAutomationServiceImpl service = new ContentAutomationServiceImpl();
-        ReflectionTestUtils.setField(service, "mysqlJdbcTemplate", jdbcTemplate);
+        ReflectionTestUtils.setField(service, "contentTaskRepository", repository);
 
-        Map<String, Object> taskRow = Map.of(
-                "id", 11L,
-                "task_code", "ct_001",
-                "execution_mode", "STRUCTURED_PLAN_EXECUTE",
-                "topic", "AI Agent Platform",
-                "platform", "dev.to",
-                "style", "professional",
-                "keywords", "AI,Agent",
-                "channel", "mock",
-                "status", "CREATED",
-                "current_step", "CREATED"
-        );
-        Map<String, Object> activeTaskRow = Map.of(
-                "id", 11L,
-                "task_code", "ct_001",
-                "execution_mode", "STRUCTURED_PLAN_EXECUTE",
-                "topic", "AI Agent Platform",
-                "platform", "dev.to",
-                "style", "professional",
-                "keywords", "AI,Agent",
-                "channel", "mock",
-                "status", "RUNNING",
-                "current_step", "draft"
-        );
+        ContentTaskEntity createdTask = ContentTaskEntity.builder()
+                .taskId(11L)
+                .taskCode("ct_001")
+                .executionMode("STRUCTURED_PLAN_EXECUTE")
+                .topic("AI Agent Platform")
+                .platform("dev.to")
+                .style("professional")
+                .keywords("AI,Agent")
+                .channel("mock")
+                .status("CREATED")
+                .currentStep("CREATED")
+                .build();
+        ContentTaskEntity activeTaskRow = ContentTaskEntity.builder()
+                .taskId(11L)
+                .taskCode("ct_001")
+                .executionMode("STRUCTURED_PLAN_EXECUTE")
+                .topic("AI Agent Platform")
+                .platform("dev.to")
+                .style("professional")
+                .keywords("AI,Agent")
+                .channel("mock")
+                .status("RUNNING")
+                .currentStep("draft")
+                .build();
 
-        when(jdbcTemplate.queryForObject(eq("SELECT id FROM content_task WHERE task_code = ?"), eq(Long.class), anyString()))
-                .thenReturn(11L);
-        when(jdbcTemplate.queryForMap("SELECT * FROM content_task WHERE id = ?", 11L))
-                .thenReturn(taskRow);
-        when(jdbcTemplate.queryForList("SELECT * FROM content_task ORDER BY update_time DESC, id DESC LIMIT ?", 20))
-                .thenReturn(List.of(activeTaskRow));
-        when(jdbcTemplate.queryForList("""
-                SELECT *
-                FROM content_task
-                WHERE status IN ('CREATED', 'RUNNING', 'COMPLETED', 'FAILED')
-                ORDER BY update_time DESC, id DESC
-                LIMIT 1
-                """))
-                .thenReturn(List.of(activeTaskRow));
-        when(jdbcTemplate.queryForList("SELECT * FROM content_task_step WHERE task_id = ? ORDER BY step_no ASC, id ASC", 11L))
-                .thenReturn(List.of(
-                        Map.of(
-                                "id", 1L,
-                                "task_id", 11L,
-                                "step_no", 1,
-                                "step_name", "topic_plan",
-                                "step_status", "COMPLETED",
-                                "output_text", "title",
-                                "metadata_json", "{}"
-                        )
-                ));
+        when(repository.saveTask(any(ContentTaskEntity.class))).thenReturn(createdTask);
+        when(repository.queryTask(11L)).thenReturn(createdTask);
+        when(repository.queryTaskHistory(20)).thenReturn(List.of(activeTaskRow));
+        when(repository.queryLatestActiveTask()).thenReturn(activeTaskRow);
+        when(repository.queryTaskSteps(11L)).thenReturn(List.of(
+                ContentTaskStepEntity.builder()
+                        .id(1L)
+                        .taskId(11L)
+                        .stepNo(1)
+                        .stepName("topic_plan")
+                        .stepStatus("COMPLETED")
+                        .outputText("title")
+                        .metadataJson("{}")
+                        .build()
+        ));
 
         ContentTaskEntity task = service.createTask(ContentCreateCommandEntity.builder()
                 .topic("AI Agent Platform")
@@ -102,5 +91,6 @@ public class ContentAutomationServiceTest {
         Assert.assertEquals("RUNNING", activeTask.getStatus());
         Assert.assertEquals(1, steps.size());
         Assert.assertEquals("topic_plan", steps.get(0).getStepName());
+        verify(repository).completeTask(eq(11L), eq("final"), eq("summary"), any(PublishResultEntity.class));
     }
 }

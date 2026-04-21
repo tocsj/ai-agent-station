@@ -1,0 +1,440 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.tkck:ai-agent-station-app >--------------------
+[INFO] Building ai-agent-station-app 1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot-maven-plugin:3.4.3:run (default-cli) > test-compile @ ai-agent-station-app >>>
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:resources (default-resources) @ ai-agent-station-app ---
+[debug] execute contextualize
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 19 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.0:compile (default-compile) @ ai-agent-station-app ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 48 source files to D:\JAVA\study-project\ai-agent-station-new\ai-agent-station-app\target\classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowNode.java:[3,56] 程序包com.tkck.domain.agent.service.runtime.resilience不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowNode.java:[11,5] 找不到符号
+  符号:   类 ExecutionStage
+  位置: 接口 com.tkck.app.content.workflow.ContentWorkflowNode
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[3,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[4,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[5,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[21,13] 找不到符号
+  符号:   类 ContentTaskEntity
+  位置: 类 com.tkck.app.content.workflow.ContentWorkflowContext
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[28,13] 找不到符号
+  符号:   类 PublishCommandEntity
+  位置: 类 com.tkck.app.content.workflow.ContentWorkflowContext
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[30,13] 找不到符号
+  符号:   类 PublishResultEntity
+  位置: 类 com.tkck.app.content.workflow.ContentWorkflowContext
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[21,31] 找不到符号
+  符号:   类 ContentTaskEntity
+  位置: 类 com.tkck.app.content.workflow.ContentWorkflowContext
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[28,34] 找不到符号
+  符号:   类 PublishCommandEntity
+  位置: 类 com.tkck.app.content.workflow.ContentWorkflowContext
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[30,33] 找不到符号
+  符号:   类 PublishResultEntity
+  位置: 类 com.tkck.app.content.workflow.ContentWorkflowContext
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[15,1] 找不到符号
+  符号:   类 ContentTaskEntity
+  位置: 类 com.tkck.app.content.workflow.ContentWorkflowContext
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[17,1] 找不到符号
+  符号:   类 ContentTaskEntity
+  位置: 类 com.tkck.app.content.workflow.ContentWorkflowContext
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[16,1] 找不到符号
+  符号:   类 ContentTaskEntity
+  位置: 类 com.tkck.app.content.workflow.ContentWorkflowContext.ContentWorkflowContextBuilder
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[7,43] 程序包com.tkck.domain.resume.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[8,43] 程序包com.tkck.domain.resume.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[9,43] 程序包com.tkck.domain.resume.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[10,43] 程序包com.tkck.domain.resume.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[11,43] 程序包com.tkck.domain.resume.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[12,38] 程序包com.tkck.domain.resume.service不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[40,51] 找不到符号
+  符号: 类 IResumeWorkflowService
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[59,12] 找不到符号
+  符号:   类 ResumeUploadResultEntity
+  位置: 类 com.tkck.app.resume.ResumeWorkflowServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[89,17] 找不到符号
+  符号:   类 ResumeUploadResultEntity
+  位置: 类 com.tkck.app.resume.ResumeWorkflowServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[126,12] 找不到符号
+  符号:   类 ResumeEvaluationTaskEntity
+  位置: 类 com.tkck.app.resume.ResumeWorkflowServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[136,17] 找不到符号
+  符号:   类 ResumeEvaluationTaskEntity
+  位置: 类 com.tkck.app.resume.ResumeWorkflowServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[166,12] 找不到符号
+  符号:   类 ResumeInterviewStartEntity
+  位置: 类 com.tkck.app.resume.ResumeWorkflowServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[301,12] 找不到符号
+  符号:   类 ResumeInterviewDetailEntity
+  位置: 类 com.tkck.app.resume.ResumeWorkflowServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[346,12] 找不到符号
+  符号:   类 ResumeInterviewDetailEntity
+  位置: 类 com.tkck.app.resume.ResumeWorkflowServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[545,13] 找不到符号
+  符号:   类 ResumeUploadResultEntity
+  位置: 类 com.tkck.app.resume.ResumeWorkflowServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[557,13] 找不到符号
+  符号:   类 ResumeEvaluationTaskEntity
+  位置: 类 com.tkck.app.resume.ResumeWorkflowServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ComplianceReviewerNode.java:[4,56] 程序包com.tkck.domain.agent.service.runtime.resilience不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/AbstractContentWorkflowNode.java:[4,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/AbstractContentWorkflowNode.java:[5,37] 程序包com.tkck.domain.audit.service不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ComplianceReviewerNode.java:[23,12] 找不到符号
+  符号:   类 ExecutionStage
+  位置: 类 com.tkck.app.content.workflow.ComplianceReviewerNode
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/AbstractContentWorkflowNode.java:[18,15] 找不到符号
+  符号:   类 IAuditMonitoringService
+  位置: 类 com.tkck.app.content.workflow.AbstractContentWorkflowNode
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/publish/MockPublishAdapter.java:[3,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/publish/MockPublishAdapter.java:[4,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/publish/MockPublishAdapter.java:[5,47] 程序包com.tkck.domain.content.service.publish不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/publish/MockPublishAdapter.java:[9,44] 找不到符号
+  符号: 类 IPublishAdapter
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/publish/MockPublishAdapter.java:[17,40] 找不到符号
+  符号:   类 PublishCommandEntity
+  位置: 类 com.tkck.app.content.publish.MockPublishAdapter
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/publish/MockPublishAdapter.java:[17,12] 找不到符号
+  符号:   类 PublishResultEntity
+  位置: 类 com.tkck.app.content.publish.MockPublishAdapter
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[4,42] 找不到符号
+  符号:   类 ExecutionMode
+  位置: 程序包 com.tkck.domain.agent.model.valobj
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[5,50] 程序包com.tkck.domain.content.adapter.repository不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[6,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[7,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[8,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[9,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[10,39] 程序包com.tkck.domain.content.service不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[18,54] 找不到符号
+  符号: 类 IContentAutomationService
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[21,13] 找不到符号
+  符号:   类 IContentTaskRepository
+  位置: 类 com.tkck.app.content.ContentAutomationServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[24,41] 找不到符号
+  符号:   类 ContentCreateCommandEntity
+  位置: 类 com.tkck.app.content.ContentAutomationServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[24,12] 找不到符号
+  符号:   类 ContentTaskEntity
+  位置: 类 com.tkck.app.content.ContentAutomationServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[40,12] 找不到符号
+  符号:   类 ContentTaskEntity
+  位置: 类 com.tkck.app.content.ContentAutomationServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[45,12] 找不到符号
+  符号:   类 ContentTaskEntity
+  位置: 类 com.tkck.app.content.ContentAutomationServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[50,17] 找不到符号
+  符号:   类 ContentTaskEntity
+  位置: 类 com.tkck.app.content.ContentAutomationServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[56,17] 找不到符号
+  符号:   类 ContentTaskStepEntity
+  位置: 类 com.tkck.app.content.ContentAutomationServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[61,12] 找不到符号
+  符号:   类 ContentTaskEntity
+  位置: 类 com.tkck.app.content.ContentAutomationServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[93,84] 找不到符号
+  符号:   类 PublishResultEntity
+  位置: 类 com.tkck.app.content.ContentAutomationServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[4,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[5,37] 程序包com.tkck.domain.audit.service不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[6,56] 程序包com.tkck.domain.agent.service.runtime.resilience不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[7,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[8,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[9,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[10,39] 程序包com.tkck.domain.content.service不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[11,47] 程序包com.tkck.domain.content.service.publish不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[26,13] 找不到符号
+  符号:   类 IAuditMonitoringService
+  位置: 类 com.tkck.app.content.workflow.PublishExecutorNode
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[28,31] 找不到符号
+  符号:   类 IPublishAdapter
+  位置: 类 com.tkck.app.content.workflow.PublishExecutorNode
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[29,19] 找不到符号
+  符号:   类 IContentPublishChannelService
+  位置: 类 com.tkck.app.content.workflow.PublishExecutorNode
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[31,37] 找不到符号
+  符号:   类 IPublishAdapter
+  位置: 类 com.tkck.app.content.workflow.PublishExecutorNode
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[31,71] 找不到符号
+  符号:   类 IContentPublishChannelService
+  位置: 类 com.tkck.app.content.workflow.PublishExecutorNode
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[48,12] 找不到符号
+  符号:   类 ExecutionStage
+  位置: 类 com.tkck.app.content.workflow.PublishExecutorNode
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishPlannerNode.java:[3,56] 程序包com.tkck.domain.agent.service.runtime.resilience不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishPlannerNode.java:[4,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishPlannerNode.java:[25,12] 找不到符号
+  符号:   类 ExecutionStage
+  位置: 类 com.tkck.app.content.workflow.PublishPlannerNode
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[3,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[4,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[5,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[6,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[7,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[8,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[9,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[10,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[11,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[12,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[13,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[14,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[15,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[16,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[17,37] 程序包com.tkck.domain.audit.service不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[30,52] 找不到符号
+  符号: 类 IAuditMonitoringService
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[39,29] 找不到符号
+  符号:   类 AuditEventEntity
+  位置: 类 com.tkck.app.audit.AuditMonitoringServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[66,32] 找不到符号
+  符号:   类 AuditExecutionMetricEntity
+  位置: 类 com.tkck.app.audit.AuditMonitoringServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[93,28] 找不到符号
+  符号:   类 AuditStepMetricEntity
+  位置: 类 com.tkck.app.audit.AuditMonitoringServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[121,31] 找不到符号
+  符号:   类 AuditLlmCallMetricEntity
+  位置: 类 com.tkck.app.audit.AuditMonitoringServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[202,12] 找不到符号
+  符号:   类 AuditDashboardOverviewEntity
+  位置: 类 com.tkck.app.audit.AuditMonitoringServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[252,17] 找不到符号
+  符号:   类 AuditTaskTrendEntity
+  位置: 类 com.tkck.app.audit.AuditMonitoringServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[288,17] 找不到符号
+  符号:   类 AuditTaskTypeMetricEntity
+  位置: 类 com.tkck.app.audit.AuditMonitoringServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[324,17] 找不到符号
+  符号:   类 AuditStepMetricSummaryEntity
+  位置: 类 com.tkck.app.audit.AuditMonitoringServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[379,17] 找不到符号
+  符号:   类 AuditModelMetricEntity
+  位置: 类 com.tkck.app.audit.AuditMonitoringServiceImpl
+[INFO] 100 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  13.740 s
+[INFO] Finished at: 2026-04-16T16:27:35+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.0:compile (default-compile) on project ai-agent-station-app: Compilation failure: Compilation failure: 
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowNode.java:[3,56] 程序包com.tkck.domain.agent.service.runtime.resilience不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowNode.java:[11,5] 找不到符号
+[ERROR]   符号:   类 ExecutionStage
+[ERROR]   位置: 接口 com.tkck.app.content.workflow.ContentWorkflowNode
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[3,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[4,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[5,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[21,13] 找不到符号
+[ERROR]   符号:   类 ContentTaskEntity
+[ERROR]   位置: 类 com.tkck.app.content.workflow.ContentWorkflowContext
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[28,13] 找不到符号
+[ERROR]   符号:   类 PublishCommandEntity
+[ERROR]   位置: 类 com.tkck.app.content.workflow.ContentWorkflowContext
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[30,13] 找不到符号
+[ERROR]   符号:   类 PublishResultEntity
+[ERROR]   位置: 类 com.tkck.app.content.workflow.ContentWorkflowContext
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[21,31] 找不到符号
+[ERROR]   符号:   类 ContentTaskEntity
+[ERROR]   位置: 类 com.tkck.app.content.workflow.ContentWorkflowContext
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[28,34] 找不到符号
+[ERROR]   符号:   类 PublishCommandEntity
+[ERROR]   位置: 类 com.tkck.app.content.workflow.ContentWorkflowContext
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[30,33] 找不到符号
+[ERROR]   符号:   类 PublishResultEntity
+[ERROR]   位置: 类 com.tkck.app.content.workflow.ContentWorkflowContext
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[15,1] 找不到符号
+[ERROR]   符号:   类 ContentTaskEntity
+[ERROR]   位置: 类 com.tkck.app.content.workflow.ContentWorkflowContext
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[17,1] 找不到符号
+[ERROR]   符号:   类 ContentTaskEntity
+[ERROR]   位置: 类 com.tkck.app.content.workflow.ContentWorkflowContext
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ContentWorkflowContext.java:[16,1] 找不到符号
+[ERROR]   符号:   类 ContentTaskEntity
+[ERROR]   位置: 类 com.tkck.app.content.workflow.ContentWorkflowContext.ContentWorkflowContextBuilder
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[7,43] 程序包com.tkck.domain.resume.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[8,43] 程序包com.tkck.domain.resume.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[9,43] 程序包com.tkck.domain.resume.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[10,43] 程序包com.tkck.domain.resume.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[11,43] 程序包com.tkck.domain.resume.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[12,38] 程序包com.tkck.domain.resume.service不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[40,51] 找不到符号
+[ERROR]   符号: 类 IResumeWorkflowService
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[59,12] 找不到符号
+[ERROR]   符号:   类 ResumeUploadResultEntity
+[ERROR]   位置: 类 com.tkck.app.resume.ResumeWorkflowServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[89,17] 找不到符号
+[ERROR]   符号:   类 ResumeUploadResultEntity
+[ERROR]   位置: 类 com.tkck.app.resume.ResumeWorkflowServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[126,12] 找不到符号
+[ERROR]   符号:   类 ResumeEvaluationTaskEntity
+[ERROR]   位置: 类 com.tkck.app.resume.ResumeWorkflowServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[136,17] 找不到符号
+[ERROR]   符号:   类 ResumeEvaluationTaskEntity
+[ERROR]   位置: 类 com.tkck.app.resume.ResumeWorkflowServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[166,12] 找不到符号
+[ERROR]   符号:   类 ResumeInterviewStartEntity
+[ERROR]   位置: 类 com.tkck.app.resume.ResumeWorkflowServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[301,12] 找不到符号
+[ERROR]   符号:   类 ResumeInterviewDetailEntity
+[ERROR]   位置: 类 com.tkck.app.resume.ResumeWorkflowServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[346,12] 找不到符号
+[ERROR]   符号:   类 ResumeInterviewDetailEntity
+[ERROR]   位置: 类 com.tkck.app.resume.ResumeWorkflowServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[545,13] 找不到符号
+[ERROR]   符号:   类 ResumeUploadResultEntity
+[ERROR]   位置: 类 com.tkck.app.resume.ResumeWorkflowServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/resume/ResumeWorkflowServiceImpl.java:[557,13] 找不到符号
+[ERROR]   符号:   类 ResumeEvaluationTaskEntity
+[ERROR]   位置: 类 com.tkck.app.resume.ResumeWorkflowServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ComplianceReviewerNode.java:[4,56] 程序包com.tkck.domain.agent.service.runtime.resilience不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/AbstractContentWorkflowNode.java:[4,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/AbstractContentWorkflowNode.java:[5,37] 程序包com.tkck.domain.audit.service不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/ComplianceReviewerNode.java:[23,12] 找不到符号
+[ERROR]   符号:   类 ExecutionStage
+[ERROR]   位置: 类 com.tkck.app.content.workflow.ComplianceReviewerNode
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/AbstractContentWorkflowNode.java:[18,15] 找不到符号
+[ERROR]   符号:   类 IAuditMonitoringService
+[ERROR]   位置: 类 com.tkck.app.content.workflow.AbstractContentWorkflowNode
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/publish/MockPublishAdapter.java:[3,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/publish/MockPublishAdapter.java:[4,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/publish/MockPublishAdapter.java:[5,47] 程序包com.tkck.domain.content.service.publish不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/publish/MockPublishAdapter.java:[9,44] 找不到符号
+[ERROR]   符号: 类 IPublishAdapter
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/publish/MockPublishAdapter.java:[17,40] 找不到符号
+[ERROR]   符号:   类 PublishCommandEntity
+[ERROR]   位置: 类 com.tkck.app.content.publish.MockPublishAdapter
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/publish/MockPublishAdapter.java:[17,12] 找不到符号
+[ERROR]   符号:   类 PublishResultEntity
+[ERROR]   位置: 类 com.tkck.app.content.publish.MockPublishAdapter
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[4,42] 找不到符号
+[ERROR]   符号:   类 ExecutionMode
+[ERROR]   位置: 程序包 com.tkck.domain.agent.model.valobj
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[5,50] 程序包com.tkck.domain.content.adapter.repository不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[6,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[7,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[8,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[9,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[10,39] 程序包com.tkck.domain.content.service不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[18,54] 找不到符号
+[ERROR]   符号: 类 IContentAutomationService
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[21,13] 找不到符号
+[ERROR]   符号:   类 IContentTaskRepository
+[ERROR]   位置: 类 com.tkck.app.content.ContentAutomationServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[24,41] 找不到符号
+[ERROR]   符号:   类 ContentCreateCommandEntity
+[ERROR]   位置: 类 com.tkck.app.content.ContentAutomationServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[24,12] 找不到符号
+[ERROR]   符号:   类 ContentTaskEntity
+[ERROR]   位置: 类 com.tkck.app.content.ContentAutomationServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[40,12] 找不到符号
+[ERROR]   符号:   类 ContentTaskEntity
+[ERROR]   位置: 类 com.tkck.app.content.ContentAutomationServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[45,12] 找不到符号
+[ERROR]   符号:   类 ContentTaskEntity
+[ERROR]   位置: 类 com.tkck.app.content.ContentAutomationServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[50,17] 找不到符号
+[ERROR]   符号:   类 ContentTaskEntity
+[ERROR]   位置: 类 com.tkck.app.content.ContentAutomationServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[56,17] 找不到符号
+[ERROR]   符号:   类 ContentTaskStepEntity
+[ERROR]   位置: 类 com.tkck.app.content.ContentAutomationServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[61,12] 找不到符号
+[ERROR]   符号:   类 ContentTaskEntity
+[ERROR]   位置: 类 com.tkck.app.content.ContentAutomationServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/ContentAutomationServiceImpl.java:[93,84] 找不到符号
+[ERROR]   符号:   类 PublishResultEntity
+[ERROR]   位置: 类 com.tkck.app.content.ContentAutomationServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[4,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[5,37] 程序包com.tkck.domain.audit.service不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[6,56] 程序包com.tkck.domain.agent.service.runtime.resilience不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[7,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[8,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[9,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[10,39] 程序包com.tkck.domain.content.service不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[11,47] 程序包com.tkck.domain.content.service.publish不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[26,13] 找不到符号
+[ERROR]   符号:   类 IAuditMonitoringService
+[ERROR]   位置: 类 com.tkck.app.content.workflow.PublishExecutorNode
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[28,31] 找不到符号
+[ERROR]   符号:   类 IPublishAdapter
+[ERROR]   位置: 类 com.tkck.app.content.workflow.PublishExecutorNode
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[29,19] 找不到符号
+[ERROR]   符号:   类 IContentPublishChannelService
+[ERROR]   位置: 类 com.tkck.app.content.workflow.PublishExecutorNode
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[31,37] 找不到符号
+[ERROR]   符号:   类 IPublishAdapter
+[ERROR]   位置: 类 com.tkck.app.content.workflow.PublishExecutorNode
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[31,71] 找不到符号
+[ERROR]   符号:   类 IContentPublishChannelService
+[ERROR]   位置: 类 com.tkck.app.content.workflow.PublishExecutorNode
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishExecutorNode.java:[48,12] 找不到符号
+[ERROR]   符号:   类 ExecutionStage
+[ERROR]   位置: 类 com.tkck.app.content.workflow.PublishExecutorNode
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishPlannerNode.java:[3,56] 程序包com.tkck.domain.agent.service.runtime.resilience不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishPlannerNode.java:[4,44] 程序包com.tkck.domain.content.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/content/workflow/PublishPlannerNode.java:[25,12] 找不到符号
+[ERROR]   符号:   类 ExecutionStage
+[ERROR]   位置: 类 com.tkck.app.content.workflow.PublishPlannerNode
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[3,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[4,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[5,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[6,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[7,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[8,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[9,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[10,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[11,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[12,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[13,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[14,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[15,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[16,42] 程序包com.tkck.domain.audit.model.entity不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[17,37] 程序包com.tkck.domain.audit.service不存在
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[30,52] 找不到符号
+[ERROR]   符号: 类 IAuditMonitoringService
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[39,29] 找不到符号
+[ERROR]   符号:   类 AuditEventEntity
+[ERROR]   位置: 类 com.tkck.app.audit.AuditMonitoringServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[66,32] 找不到符号
+[ERROR]   符号:   类 AuditExecutionMetricEntity
+[ERROR]   位置: 类 com.tkck.app.audit.AuditMonitoringServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[93,28] 找不到符号
+[ERROR]   符号:   类 AuditStepMetricEntity
+[ERROR]   位置: 类 com.tkck.app.audit.AuditMonitoringServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[121,31] 找不到符号
+[ERROR]   符号:   类 AuditLlmCallMetricEntity
+[ERROR]   位置: 类 com.tkck.app.audit.AuditMonitoringServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[202,12] 找不到符号
+[ERROR]   符号:   类 AuditDashboardOverviewEntity
+[ERROR]   位置: 类 com.tkck.app.audit.AuditMonitoringServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[252,17] 找不到符号
+[ERROR]   符号:   类 AuditTaskTrendEntity
+[ERROR]   位置: 类 com.tkck.app.audit.AuditMonitoringServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[288,17] 找不到符号
+[ERROR]   符号:   类 AuditTaskTypeMetricEntity
+[ERROR]   位置: 类 com.tkck.app.audit.AuditMonitoringServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[324,17] 找不到符号
+[ERROR]   符号:   类 AuditStepMetricSummaryEntity
+[ERROR]   位置: 类 com.tkck.app.audit.AuditMonitoringServiceImpl
+[ERROR] /D:/JAVA/study-project/ai-agent-station-new/ai-agent-station-app/src/main/java/com/tkck/app/audit/AuditMonitoringServiceImpl.java:[379,17] 找不到符号
+[ERROR]   符号:   类 AuditModelMetricEntity
+[ERROR]   位置: 类 com.tkck.app.audit.AuditMonitoringServiceImpl
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

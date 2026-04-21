@@ -76,7 +76,10 @@ public class ResumeWorkflowController {
 
     @PostMapping("/interview/start")
     public Response<ResumeInterviewStartResponseDTO> startInterview(@RequestBody ResumeInterviewStartRequestDTO request) throws Exception {
-        ResumeInterviewStartEntity result = resumeWorkflowService.startInterview(request.getResumeId(), request.getKnowledgeSpaceId());
+        ResumeInterviewStartEntity result = resumeWorkflowService.startInterview(
+                request.getResumeId(),
+                request.getKnowledgeSpaceId(),
+                request.getTotalRounds());
         return Response.<ResumeInterviewStartResponseDTO>builder()
                 .code(ResponseCode.SUCCESS.getCode())
                 .info(ResponseCode.SUCCESS.getInfo())
@@ -175,6 +178,10 @@ public class ResumeWorkflowController {
             try {
                 autoAgentExecuteStrategy.execute(executeCommandEntity, emitter);
             } catch (Exception e) {
+                if (shouldIgnoreSseException(emitter, e)) {
+                    log.warn("resume workflow stream closed, skip error push: {}", simplifyMessage(e));
+                    return;
+                }
                 log.error("resume workflow execute error", e);
                 try {
                     String errorMessage = e.getMessage() == null ? "resume workflow execute error" : e.getMessage();
@@ -188,7 +195,9 @@ public class ResumeWorkflowController {
                     );
                     emitter.safeSend("data: " + com.alibaba.fastjson.JSON.toJSONString(errorResult) + "\n\n");
                 } catch (Exception sendEx) {
-                    log.error("resume workflow send error", sendEx);
+                    if (!shouldIgnoreSseException(emitter, sendEx)) {
+                        log.error("resume workflow send error", sendEx);
+                    }
                 }
             } finally {
                 try {
@@ -199,6 +208,33 @@ public class ResumeWorkflowController {
             }
         });
         return emitter;
+    }
+
+    private boolean shouldIgnoreSseException(SafeSseEmitter emitter, Throwable throwable) {
+        if (emitter != null && emitter.isClosed()) {
+            return true;
+        }
+        Throwable current = throwable;
+        while (current != null && current.getCause() != current) {
+            if (current instanceof IllegalStateException
+                    && current.getMessage() != null
+                    && current.getMessage().contains("ResponseBodyEmitter has already completed")) {
+                return true;
+            }
+            current = current.getCause();
+        }
+        return false;
+    }
+
+    private String simplifyMessage(Throwable throwable) {
+        Throwable current = throwable;
+        while (current != null && current.getCause() != null && current.getCause() != current) {
+            current = current.getCause();
+        }
+        if (current == null) {
+            return "";
+        }
+        return current.getClass().getSimpleName() + ": " + (current.getMessage() == null ? "" : current.getMessage());
     }
 
     private ResumeInterviewDetailResponseDTO.RoundItem toRoundItem(ResumeInterviewRoundEntity round) {

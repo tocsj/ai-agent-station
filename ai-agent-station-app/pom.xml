@@ -155,12 +155,23 @@
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
+                    <excludes>
+                        <!-- Manual / external integration tests; keep them out of the default automated suite. -->
+                        <exclude>**/ApiTest.java</exclude>
+                        <exclude>**/AgentTest.java</exclude>
+                        <exclude>**/AutoAgentTest.java</exclude>
+                        <exclude>**/OpenAiTest.java</exclude>
+                        <exclude>**/FlowAgentMCPTest.java</exclude>
+                        <exclude>**/ElkBlacklistDataTest.java</exclude>
+                        <exclude>**/PrometheusMetricsGeneratorTest.java</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <skip>false</skip>
                     <mainClass>com.tkck.Application</mainClass>
                     <layout>JAR</layout>
                 </configuration>

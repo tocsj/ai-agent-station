@@ -8,13 +8,17 @@ import com.tkck.domain.audit.model.entity.AuditExecutionMetricEntity;
 import com.tkck.domain.audit.model.entity.AuditLlmCallMetricEntity;
 import com.tkck.domain.audit.model.entity.AuditStepMetricEntity;
 import com.tkck.domain.audit.service.IAuditMonitoringService;
+import com.tkck.domain.document.adapter.repository.IDocumentWorkspaceRepository;
 import com.tkck.domain.document.model.entity.DocumentFileEntity;
+import com.tkck.domain.document.model.entity.DocumentQueryRewriteCommandEntity;
+import com.tkck.domain.document.model.entity.DocumentQueryRewriteResultEntity;
 import com.tkck.domain.document.model.entity.DocumentRetrievedChunkEntity;
 import com.tkck.domain.document.model.entity.DocumentTaskRecordEntity;
 import com.tkck.domain.document.model.entity.DocumentTaskResultEntity;
 import com.tkck.domain.document.model.entity.DocumentWorkspaceDetailEntity;
 import com.tkck.domain.document.model.entity.DocumentWorkspaceEntity;
 import com.tkck.domain.document.service.IDocumentWorkspaceService;
+import com.tkck.domain.document.service.IQueryRewriteService;
 import jakarta.annotation.Resource;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.metadata.Usage;
@@ -27,7 +31,6 @@ import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,6 +38,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -45,39 +49,37 @@ import java.util.stream.Collectors;
 @Service
 public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
 
+    static final String DOCUMENT_CHAT_CLIENT_ID = "5401";
+    static final String DOCUMENT_CHAT_MODEL_CODE = "2008";
     private static final int DEFAULT_TOP_K = 6;
     private static final double DEFAULT_SIMILARITY_THRESHOLD = 0.1D;
     private static final int MAX_CONTEXT_LENGTH = 280;
 
-    private final JdbcTemplate mysqlJdbcTemplate;
+    private final IDocumentWorkspaceRepository documentWorkspaceRepository;
     private final VectorStore documentVectorStore;
     private final TokenTextSplitter tokenTextSplitter;
+    private final IQueryRewriteService queryRewriteService;
 
     @Resource
     private ApplicationContext applicationContext;
     @Resource
     private IAuditMonitoringService auditMonitoringService;
 
-    public DocumentWorkspaceServiceImpl(@Qualifier("mysqlJdbcTemplate") JdbcTemplate mysqlJdbcTemplate,
+    public DocumentWorkspaceServiceImpl(IDocumentWorkspaceRepository documentWorkspaceRepository,
                                         @Qualifier("documentVectorStore") VectorStore documentVectorStore,
-                                        TokenTextSplitter tokenTextSplitter) {
-        this.mysqlJdbcTemplate = mysqlJdbcTemplate;
+                                        TokenTextSplitter tokenTextSplitter,
+                                        IQueryRewriteService queryRewriteService) {
+        this.documentWorkspaceRepository = documentWorkspaceRepository;
         this.documentVectorStore = documentVectorStore;
         this.tokenTextSplitter = tokenTextSplitter;
+        this.queryRewriteService = queryRewriteService;
     }
 
     @Override
     public DocumentWorkspaceEntity createWorkspace(String workspaceName, String description) {
         String workspaceId = "dws_" + UUID.randomUUID().toString().replace("-", "").substring(0, 12);
         log.info("document workspace create start, workspaceName={}, description={}", workspaceName, description);
-        mysqlJdbcTemplate.update(
-                "INSERT INTO ai_knowledge_space (space_id, space_name, space_type, description, status) VALUES (?, ?, ?, ?, ?)",
-                workspaceId,
-                workspaceName,
-                "document",
-                description,
-                1
-        );
+        documentWorkspaceRepository.saveWorkspace(workspaceId, workspaceName, description);
         DocumentWorkspaceEntity workspace = DocumentWorkspaceEntity.builder()
                 .workspaceId(workspaceId)
                 .workspaceName(workspaceName)
@@ -90,22 +92,7 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
 
     @Override
     public List<DocumentWorkspaceEntity> listWorkspaces() {
-        List<Map<String, Object>> rows = mysqlJdbcTemplate.queryForList("""
-                SELECT s.space_id,
-                       s.space_name,
-                       s.description,
-                       s.status,
-                       s.update_time,
-                       COUNT(d.doc_id) AS document_count
-                FROM ai_knowledge_space s
-                LEFT JOIN ai_knowledge_document d ON s.space_id = d.space_id AND d.status = 1
-                WHERE s.space_type = 'document' AND s.status = 1
-                GROUP BY s.space_id, s.space_name, s.description, s.status, s.update_time
-                ORDER BY s.update_time DESC, s.id DESC
-                """);
-        return rows.stream()
-                .map(this::toWorkspaceEntity)
-                .collect(Collectors.toList());
+        return documentWorkspaceRepository.queryWorkspaceList();
     }
 
     @Override
@@ -131,18 +118,16 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
         String rawText = readDocumentText(bytes, fileName);
         log.info("document parse completed, workspaceId={}, docId={}, textLength={}", workspaceId, docId, rawText.length());
 
-        mysqlJdbcTemplate.update(
-                "INSERT INTO ai_knowledge_document (doc_id, space_id, file_name, file_type, file_size, parse_status, chunk_count, vector_status, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                docId,
-                workspaceId,
-                fileName,
-                fileType,
-                file.getSize(),
-                "PARSING",
-                0,
-                "PENDING",
-                1
-        );
+        documentWorkspaceRepository.saveDocument(DocumentFileEntity.builder()
+                .docId(docId)
+                .workspaceId(workspaceId)
+                .fileName(fileName)
+                .fileType(fileType)
+                .fileSize(file.getSize())
+                .parseStatus("PARSING")
+                .chunkCount(0)
+                .vectorStatus("PENDING")
+                .build());
 
         List<Document> splitDocuments = tokenTextSplitter.apply(List.of(new Document(rawText)));
         log.info("document split completed, workspaceId={}, docId={}, chunkCount={}", workspaceId, docId, splitDocuments.size());
@@ -150,8 +135,7 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
             Document document = splitDocuments.get(i);
             Map<String, Object> metadata = DocumentWorkspaceMetadataSupport.buildChunkMetadata(workspaceId, docId, fileName, i);
             metadata.forEach(document.getMetadata()::put);
-            mysqlJdbcTemplate.update(
-                    "INSERT INTO ai_knowledge_chunk (chunk_id, doc_id, space_id, chunk_index, chunk_text, metadata_json) VALUES (?, ?, ?, ?, ?, ?)",
+            documentWorkspaceRepository.saveChunk(
                     "chunk_" + UUID.randomUUID().toString().replace("-", "").substring(0, 16),
                     docId,
                     workspaceId,
@@ -164,13 +148,7 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
         log.info("document vector store write start, workspaceId={}, docId={}, chunkCount={}", workspaceId, docId, splitDocuments.size());
         documentVectorStore.accept(splitDocuments);
 
-        mysqlJdbcTemplate.update(
-                "UPDATE ai_knowledge_document SET parse_status = ?, chunk_count = ?, vector_status = ?, update_time = NOW() WHERE doc_id = ?",
-                "COMPLETED",
-                splitDocuments.size(),
-                "COMPLETED",
-                docId
-        );
+        documentWorkspaceRepository.updateDocumentParseResult(docId, "COMPLETED", splitDocuments.size(), "COMPLETED");
 
         DocumentFileEntity result = DocumentFileEntity.builder()
                 .docId(docId)
@@ -189,35 +167,7 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
 
     @Override
     public DocumentWorkspaceDetailEntity queryWorkspaceDetail(String workspaceId) {
-        Map<String, Object> workspaceRow = mysqlJdbcTemplate.queryForMap(
-                "SELECT space_id, space_name, description, status FROM ai_knowledge_space WHERE space_id = ?",
-                workspaceId
-        );
-        List<Map<String, Object>> documentRows = mysqlJdbcTemplate.queryForList(
-                "SELECT doc_id, file_name, file_type, file_size, parse_status, chunk_count, vector_status FROM ai_knowledge_document WHERE space_id = ? ORDER BY create_time DESC",
-                workspaceId
-        );
-        List<DocumentFileEntity> documents = new ArrayList<>();
-        for (Map<String, Object> row : documentRows) {
-            documents.add(DocumentFileEntity.builder()
-                    .docId((String) row.get("doc_id"))
-                    .workspaceId(workspaceId)
-                    .fileName((String) row.get("file_name"))
-                    .fileType((String) row.get("file_type"))
-                    .fileSize(row.get("file_size") == null ? 0L : ((Number) row.get("file_size")).longValue())
-                    .parseStatus((String) row.get("parse_status"))
-                    .chunkCount(row.get("chunk_count") == null ? 0 : ((Number) row.get("chunk_count")).intValue())
-                    .vectorStatus((String) row.get("vector_status"))
-                    .build());
-        }
-        return DocumentWorkspaceDetailEntity.builder()
-                .workspaceId((String) workspaceRow.get("space_id"))
-                .workspaceName((String) workspaceRow.get("space_name"))
-                .description((String) workspaceRow.get("description"))
-                .status(String.valueOf(workspaceRow.get("status")))
-                .documentCount(documents.size())
-                .documents(documents)
-                .build();
+        return documentWorkspaceRepository.queryWorkspaceDetail(workspaceId);
     }
 
     @Override
@@ -271,24 +221,7 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
     @Override
     public List<DocumentTaskRecordEntity> queryRecentTasks(String workspaceId, Integer limit) {
         int actualLimit = normalizeLimit(limit, 10, 50);
-        List<Map<String, Object>> rows;
-        if (StringUtils.hasText(workspaceId)) {
-            rows = mysqlJdbcTemplate.queryForList("""
-                    SELECT *
-                    FROM document_task_record
-                    WHERE workspace_id = ?
-                    ORDER BY create_time DESC, id DESC
-                    LIMIT ?
-                    """, workspaceId, actualLimit);
-        } else {
-            rows = mysqlJdbcTemplate.queryForList("""
-                    SELECT *
-                    FROM document_task_record
-                    ORDER BY create_time DESC, id DESC
-                    LIMIT ?
-                    """, actualLimit);
-        }
-        return rows.stream().map(this::toDocumentTaskRecord).collect(Collectors.toList());
+        return documentWorkspaceRepository.queryRecentTasks(workspaceId, actualLimit);
     }
 
     protected String readDocumentText(byte[] bytes, String fileName) {
@@ -321,7 +254,7 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
         }
 
         long startTime = System.currentTimeMillis();
-        ChatClient chatClient = getChatClient("5201");
+        ChatClient chatClient = getChatClient(DOCUMENT_CHAT_CLIENT_ID);
         ChatResponse response = chatClient.prompt(prompt + "\n\n检索到的文档上下文:\n" + finalContext)
                 .call()
                 .chatResponse();
@@ -338,8 +271,8 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
                     .sessionId(sessionId)
                     .stepName(taskType)
                     .stage("DOCUMENT_" + taskType.toUpperCase())
-                    .clientId("5201")
-                    .modelCode("5201")
+                    .clientId(DOCUMENT_CHAT_CLIENT_ID)
+                    .modelCode(DOCUMENT_CHAT_MODEL_CODE)
                     .status("SUCCESS")
                     .durationMs(System.currentTimeMillis() - startTime)
                     .promptTokens(usage == null ? 0L : usage.getPromptTokens())
@@ -387,7 +320,7 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
             validateWorkspace(workspaceId);
             validateDocument(workspaceId, docId);
 
-            String rewrittenQuery = rewriteQuery(query);
+            String rewrittenQuery = resolveRewrittenQuery(taskType, workspaceId, docId, query);
             log.info("document query rewritten, taskType={}, workspaceId={}, docId={}, rewrittenQuery={}",
                     taskType, workspaceId, docId == null ? "ALL" : docId, rewrittenQuery);
             List<Document> retrievedDocuments = retrieveDocuments(workspaceId, docId, rewrittenQuery);
@@ -414,8 +347,8 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
                         .stepNo(1)
                         .stepName(taskType)
                         .stage("DOCUMENT_" + taskType.toUpperCase())
-                        .clientId("5201")
-                        .modelCode("5201")
+                        .clientId(DOCUMENT_CHAT_CLIENT_ID)
+                        .modelCode(DOCUMENT_CHAT_MODEL_CODE)
                         .status("SUCCESS")
                         .durationMs(System.currentTimeMillis() - startTime)
                         .retryCount(0)
@@ -448,8 +381,8 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
                         .stepNo(1)
                         .stepName(taskType)
                         .stage("DOCUMENT_" + taskType.toUpperCase())
-                        .clientId("5201")
-                        .modelCode("5201")
+                        .clientId(DOCUMENT_CHAT_CLIENT_ID)
+                        .modelCode(DOCUMENT_CHAT_MODEL_CODE)
                         .status("FAILED")
                         .durationMs(System.currentTimeMillis() - startTime)
                         .retryCount(0)
@@ -484,33 +417,24 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
                                            DocumentTaskResultEntity result,
                                            String status,
                                            String errorMessage) {
-        mysqlJdbcTemplate.update("""
-                        INSERT INTO document_task_record
-                        (workspace_id, doc_id, mode, question, answer, rewritten_query, retrieval_scope, final_context,
-                         retrieved_chunks_json, retrieved_chunk_details_json, status, error_message)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                        """,
-                workspaceId,
-                docId,
-                mode,
-                question,
-                result == null ? null : result.getAnswer(),
-                result == null ? null : result.getRewrittenQuery(),
-                result == null ? null : result.getRetrievalScope(),
-                result == null ? null : result.getFinalContext(),
-                result == null ? null : JSON.toJSONString(result.getRetrievedChunks()),
-                result == null ? null : JSON.toJSONString(result.getRetrievedChunkDetails()),
-                status,
-                errorMessage);
+        documentWorkspaceRepository.saveTaskRecord(DocumentTaskRecordEntity.builder()
+                .workspaceId(workspaceId)
+                .docId(docId)
+                .mode(mode)
+                .question(question)
+                .answer(result == null ? null : result.getAnswer())
+                .rewrittenQuery(result == null ? null : result.getRewrittenQuery())
+                .retrievalScope(result == null ? null : result.getRetrievalScope())
+                .finalContext(result == null ? null : result.getFinalContext())
+                .retrievedChunks(result == null ? null : result.getRetrievedChunks())
+                .retrievedChunkDetails(result == null ? null : result.getRetrievedChunkDetails())
+                .status(status)
+                .errorMessage(errorMessage)
+                .build());
     }
 
     private void validateWorkspace(String workspaceId) {
-        Integer count = mysqlJdbcTemplate.queryForObject(
-                "SELECT COUNT(1) FROM ai_knowledge_space WHERE space_id = ? AND space_type = 'document'",
-                Integer.class,
-                workspaceId
-        );
-        if (count == null || count == 0) {
+        if (!documentWorkspaceRepository.existsWorkspace(workspaceId)) {
             throw new IllegalArgumentException("document workspace not found: " + workspaceId);
         }
     }
@@ -519,13 +443,7 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
         if (!StringUtils.hasText(docId)) {
             return;
         }
-        Integer count = mysqlJdbcTemplate.queryForObject(
-                "SELECT COUNT(1) FROM ai_knowledge_document WHERE space_id = ? AND doc_id = ? AND status = 1",
-                Integer.class,
-                workspaceId,
-                docId
-        );
-        if (count == null || count == 0) {
+        if (!documentWorkspaceRepository.existsDocument(workspaceId, docId)) {
             throw new IllegalArgumentException("document not found in workspace: " + docId);
         }
     }
@@ -579,18 +497,7 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
         if (StringUtils.hasText(docId)) {
             return Set.of(docId);
         }
-        List<Map<String, Object>> rows = mysqlJdbcTemplate.queryForList(
-                "SELECT doc_id FROM ai_knowledge_document WHERE space_id = ? AND status = 1",
-                workspaceId
-        );
-        Set<String> allowedDocumentIds = new HashSet<>();
-        for (Map<String, Object> row : rows) {
-            Object value = row.get("doc_id");
-            if (value != null) {
-                allowedDocumentIds.add(String.valueOf(value));
-            }
-        }
-        return allowedDocumentIds;
+        return new HashSet<>(documentWorkspaceRepository.queryActiveDocumentIds(workspaceId));
     }
 
     private String buildFilterExpression(String workspaceId, String docId) {
@@ -599,11 +506,33 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
                 : DocumentWorkspaceMetadataSupport.buildWorkspaceFilterExpression(workspaceId);
     }
 
-    private String rewriteQuery(String question) {
+    private String resolveRewrittenQuery(String taskType, String workspaceId, String docId, String question) {
         if (!StringUtils.hasText(question)) {
             throw new IllegalArgumentException("document question is empty");
         }
-        return question.trim();
+        try {
+            DocumentQueryRewriteResultEntity result = queryRewriteService.rewrite(DocumentQueryRewriteCommandEntity.builder()
+                    .taskType(taskType)
+                    .taskParams(buildTaskParams(workspaceId, docId))
+                    .originalQuestion(question)
+                    .build());
+            if (result == null || !StringUtils.hasText(result.getRewrittenQuery())) {
+                return question.trim();
+            }
+            return result.getRewrittenQuery().trim();
+        } catch (Exception e) {
+            log.warn("document query rewrite degraded, taskType={}, message={}", taskType, e.getMessage());
+            return question.trim();
+        }
+    }
+
+    private Map<String, Object> buildTaskParams(String workspaceId, String docId) {
+        Map<String, Object> taskParams = new LinkedHashMap<>();
+        taskParams.put("workspaceId", workspaceId);
+        if (StringUtils.hasText(docId)) {
+            taskParams.put("docId", docId);
+        }
+        return taskParams;
     }
 
     private String buildFinalContext(List<Document> documents) {
@@ -691,38 +620,6 @@ public class DocumentWorkspaceServiceImpl implements IDocumentWorkspaceService {
     private String stringMetadata(Document document, String key) {
         Object value = document.getMetadata().get(key);
         return value == null ? null : String.valueOf(value);
-    }
-
-    private DocumentWorkspaceEntity toWorkspaceEntity(Map<String, Object> row) {
-        return DocumentWorkspaceEntity.builder()
-                .workspaceId((String) row.get("space_id"))
-                .workspaceName((String) row.get("space_name"))
-                .description((String) row.get("description"))
-                .status(String.valueOf(row.get("status")))
-                .documentCount(row.get("document_count") == null ? 0 : ((Number) row.get("document_count")).intValue())
-                .updateTime(row.get("update_time") == null ? null : String.valueOf(row.get("update_time")))
-                .build();
-    }
-
-    private DocumentTaskRecordEntity toDocumentTaskRecord(Map<String, Object> row) {
-        String retrievedChunksJson = (String) row.get("retrieved_chunks_json");
-        String retrievedChunkDetailsJson = (String) row.get("retrieved_chunk_details_json");
-        return DocumentTaskRecordEntity.builder()
-                .taskId(((Number) row.get("id")).longValue())
-                .workspaceId((String) row.get("workspace_id"))
-                .docId((String) row.get("doc_id"))
-                .mode((String) row.get("mode"))
-                .question((String) row.get("question"))
-                .answer((String) row.get("answer"))
-                .rewrittenQuery((String) row.get("rewritten_query"))
-                .retrievalScope((String) row.get("retrieval_scope"))
-                .finalContext((String) row.get("final_context"))
-                .retrievedChunks(retrievedChunksJson == null ? List.of() : JSON.parseArray(retrievedChunksJson, String.class))
-                .retrievedChunkDetails(retrievedChunkDetailsJson == null ? List.of() : JSON.parseArray(retrievedChunkDetailsJson, DocumentRetrievedChunkEntity.class))
-                .status((String) row.get("status"))
-                .errorMessage((String) row.get("error_message"))
-                .createTime(row.get("create_time") == null ? null : String.valueOf(row.get("create_time")))
-                .build();
     }
 
     private int normalizeLimit(Integer limit, int defaultValue, int maxValue) {

@@ -1,21 +1,24 @@
 package com.tkck.test.document;
 
 import com.tkck.app.document.DocumentWorkspaceServiceImpl;
+import com.tkck.domain.document.adapter.repository.IDocumentWorkspaceRepository;
+import com.tkck.domain.document.model.entity.DocumentQueryRewriteCommandEntity;
+import com.tkck.domain.document.model.entity.DocumentQueryRewriteResultEntity;
 import com.tkck.domain.document.model.entity.DocumentTaskResultEntity;
+import com.tkck.domain.document.service.IQueryRewriteService;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.contains;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -24,11 +27,17 @@ public class DocumentWorkspaceAskServiceTest {
 
     @Test
     public void shouldBuildWorkspaceScopedAnswerWithRetrievedChunks() {
-        JdbcTemplate mysqlJdbcTemplate = mock(JdbcTemplate.class);
+        IDocumentWorkspaceRepository repository = mock(IDocumentWorkspaceRepository.class);
         VectorStore documentVectorStore = mock(VectorStore.class);
         TokenTextSplitter tokenTextSplitter = mock(TokenTextSplitter.class);
+        IQueryRewriteService queryRewriteService = mock(IQueryRewriteService.class);
 
-        DocumentWorkspaceServiceImpl service = new DocumentWorkspaceServiceImpl(mysqlJdbcTemplate, documentVectorStore, tokenTextSplitter) {
+        DocumentWorkspaceServiceImpl service = new DocumentWorkspaceServiceImpl(
+                repository,
+                documentVectorStore,
+                tokenTextSplitter,
+                queryRewriteService
+        ) {
             @Override
             protected String generateAnswer(String traceId,
                                             String taskType,
@@ -40,17 +49,14 @@ public class DocumentWorkspaceAskServiceTest {
             }
         };
 
-        when(mysqlJdbcTemplate.queryForObject(
-                contains("SELECT COUNT(1) FROM ai_knowledge_space"),
-                eq(Integer.class),
-                eq("dws_001"))).thenReturn(1);
-        when(mysqlJdbcTemplate.queryForList(
-                contains("SELECT doc_id FROM ai_knowledge_document"),
-                eq("dws_001"))).thenReturn(List.of(
-                Map.of("doc_id", "doc_001"),
-                Map.of("doc_id", "doc_002")
-        ));
-
+        when(repository.existsWorkspace("dws_001")).thenReturn(true);
+        when(repository.queryActiveDocumentIds("dws_001")).thenReturn(Set.of("doc_001", "doc_002"));
+        when(queryRewriteService.rewrite(any(DocumentQueryRewriteCommandEntity.class))).thenReturn(
+                DocumentQueryRewriteResultEntity.builder()
+                        .originalQuestion("what is the core architecture?")
+                        .rewrittenQuery("java backend core architecture design")
+                        .build()
+        );
         when(documentVectorStore.similaritySearch(any(SearchRequest.class))).thenReturn(List.of(
                 new Document("doc-1 matched chunk", Map.of("spaceId", "dws_001", "docId", "doc_001")),
                 new Document("foreign workspace chunk", Map.of("spaceId", "dws_other", "docId", "doc_other")),
@@ -61,7 +67,7 @@ public class DocumentWorkspaceAskServiceTest {
         DocumentTaskResultEntity result = service.ask("dws_001", null, "what is the core architecture?");
 
         Assert.assertEquals("based-on-retrieval", result.getAnswer());
-        Assert.assertEquals("what is the core architecture?", result.getRewrittenQuery());
+        Assert.assertEquals("java backend core architecture design", result.getRewrittenQuery());
         Assert.assertEquals("workspace:dws_001,vectorTable=document_vector_store", result.getRetrievalScope());
         Assert.assertEquals(2, result.getRetrievedChunks().size());
         Assert.assertEquals(2, result.getRetrievedChunkDetails().size());
@@ -71,6 +77,9 @@ public class DocumentWorkspaceAskServiceTest {
         Assert.assertFalse(result.getFinalContext().contains("stale metadata chunk"));
         Assert.assertEquals("a.txt", result.getRetrievedChunkDetails().get(1).getFileName());
         Assert.assertEquals("2", result.getRetrievedChunkDetails().get(1).getChunkIndex());
-        verify(documentVectorStore).similaritySearch(any(SearchRequest.class));
+
+        ArgumentCaptor<SearchRequest> requestCaptor = ArgumentCaptor.forClass(SearchRequest.class);
+        verify(documentVectorStore).similaritySearch(requestCaptor.capture());
+        Assert.assertEquals("java backend core architecture design", requestCaptor.getValue().getQuery());
     }
 }

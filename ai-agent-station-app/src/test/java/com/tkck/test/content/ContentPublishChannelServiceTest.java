@@ -3,21 +3,18 @@ package com.tkck.test.content;
 import com.tkck.app.content.ContentPublishChannelServiceImpl;
 import com.tkck.app.content.publish.CnblogsMetaWeblogClient;
 import com.tkck.app.content.publish.DevtoApiClient;
+import com.tkck.domain.content.adapter.repository.IContentPublishChannelRepository;
 import com.tkck.domain.content.model.entity.ChannelVerifyResultEntity;
 import com.tkck.domain.content.model.entity.ContentPublishChannelConfigEntity;
 import com.tkck.domain.content.model.entity.ContentPublishRecordEntity;
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 
 import java.util.List;
-import java.util.Map;
 
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -25,35 +22,32 @@ public class ContentPublishChannelServiceTest {
 
     @Test
     public void shouldSaveQueryVerifyAndRecordChannelConfig() {
-        JdbcTemplate jdbcTemplate = mock(JdbcTemplate.class);
+        IContentPublishChannelRepository repository = mock(IContentPublishChannelRepository.class);
         RestClient restClient = mock(RestClient.class);
         ContentPublishChannelServiceImpl service = new ContentPublishChannelServiceImpl(restClient);
-        ReflectionTestUtils.setField(service, "mysqlJdbcTemplate", jdbcTemplate);
+        ReflectionTestUtils.setField(service, "contentPublishChannelRepository", repository);
 
-        when(jdbcTemplate.queryForMap("SELECT * FROM content_publish_channel_config WHERE channel_code = ?", "juejin"))
-                .thenReturn(Map.of(
-                        "id", 1L,
-                        "channel_code", "juejin",
-                        "channel_name", "掘金",
-                        "auth_type", "token",
-                        "credential_json", "{\"token\":\"abc\"}",
-                        "verify_status", "VERIFIED",
-                        "verify_message", "token 可用",
-                        "status", 1
-                ));
-        when(jdbcTemplate.queryForObject(eq("SELECT COUNT(1) FROM content_publish_channel_config WHERE channel_code = ?"), eq(Integer.class), eq("juejin")))
-                .thenReturn(1);
-        when(jdbcTemplate.queryForList("SELECT * FROM content_publish_record WHERE task_id = ? ORDER BY id ASC", 21L))
-                .thenReturn(List.of(
-                        Map.of(
-                                "id", 10L,
-                                "task_id", 21L,
-                                "channel_code", "juejin",
-                                "action", "save_draft",
-                                "status", "BLOCKED",
-                                "error_message", "官方公开 API 暂不支持文章发布"
-                        )
-                ));
+        when(repository.existsChannelConfig("juejin")).thenReturn(true);
+        when(repository.queryConfig("juejin"))
+                .thenReturn(ContentPublishChannelConfigEntity.builder()
+                        .id(1L)
+                        .channelCode("juejin")
+                        .channelName("掘金")
+                        .authType("token")
+                        .credentialJson("{\"token\":\"abc\"}")
+                        .verifyStatus("VERIFIED")
+                        .verifyMessage("token 可用")
+                        .status(1)
+                        .build());
+        when(repository.queryPublishRecords(21L))
+                .thenReturn(List.of(ContentPublishRecordEntity.builder()
+                        .id(10L)
+                        .taskId(21L)
+                        .channelCode("juejin")
+                        .action("save_draft")
+                        .status("BLOCKED")
+                        .errorMessage("官方公开 API 暂不支持文章发布")
+                        .build()));
 
         ContentPublishChannelConfigEntity config = service.saveOrUpdateConfig("juejin", "abc");
         ContentPublishChannelConfigEntity queried = service.queryConfig("juejin");
@@ -76,26 +70,26 @@ public class ContentPublishChannelServiceTest {
 
     @Test
     public void shouldClassifyDevtoForbiddenErrorClearly() {
-        JdbcTemplate jdbcTemplate = mock(JdbcTemplate.class);
+        IContentPublishChannelRepository repository = mock(IContentPublishChannelRepository.class);
         RestClient restClient = mock(RestClient.class);
         DevtoApiClient devtoApiClient = mock(DevtoApiClient.class);
         ContentPublishChannelServiceImpl service = new ContentPublishChannelServiceImpl(
                 restClient,
                 mock(CnblogsMetaWeblogClient.class),
                 devtoApiClient);
-        ReflectionTestUtils.setField(service, "mysqlJdbcTemplate", jdbcTemplate);
+        ReflectionTestUtils.setField(service, "contentPublishChannelRepository", repository);
 
-        when(jdbcTemplate.queryForMap("SELECT * FROM content_publish_channel_config WHERE channel_code = ?", "devto"))
-                .thenReturn(Map.of(
-                        "id", 2L,
-                        "channel_code", "devto",
-                        "channel_name", "Dev.to",
-                        "auth_type", "api_key",
-                        "credential_json", "{\"token\":\"devto-token\",\"baseUrl\":\"https://dev.to\",\"username\":\"tester\"}",
-                        "verify_status", "UNVERIFIED",
-                        "verify_message", "待验证",
-                        "status", 1
-                ));
+        when(repository.queryConfig("devto"))
+                .thenReturn(ContentPublishChannelConfigEntity.builder()
+                        .id(2L)
+                        .channelCode("devto")
+                        .channelName("Dev.to")
+                        .authType("api_key")
+                        .credentialJson("{\"token\":\"devto-token\",\"baseUrl\":\"https://dev.to\",\"username\":\"tester\"}")
+                        .verifyStatus("UNVERIFIED")
+                        .verifyMessage("待验证")
+                        .status(1)
+                        .build());
         when(devtoApiClient.verify("https://dev.to", "devto-token"))
                 .thenThrow(new HttpClientErrorException(org.springframework.http.HttpStatus.FORBIDDEN, "Forbidden"));
 

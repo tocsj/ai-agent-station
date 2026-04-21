@@ -2,12 +2,15 @@ package com.tkck.test.resume;
 
 import com.tkck.api.dto.ResumeEvaluationTaskResponseDTO;
 import com.tkck.api.dto.ResumeInterviewDetailResponseDTO;
+import com.tkck.api.dto.ResumeInterviewStartRequestDTO;
+import com.tkck.api.dto.ResumeInterviewStartResponseDTO;
 import com.tkck.api.dto.ResumeProfileItemDTO;
 import com.tkck.api.response.Response;
 import com.tkck.domain.agent.service.execute.IExecuteStrategy;
 import com.tkck.domain.resume.model.entity.ResumeEvaluationTaskEntity;
 import com.tkck.domain.resume.model.entity.ResumeInterviewDetailEntity;
 import com.tkck.domain.resume.model.entity.ResumeInterviewRoundEntity;
+import com.tkck.domain.resume.model.entity.ResumeInterviewStartEntity;
 import com.tkck.domain.resume.model.entity.ResumeUploadResultEntity;
 import com.tkck.domain.resume.service.IResumeWorkflowService;
 import com.tkck.trigger.http.ResumeWorkflowController;
@@ -18,7 +21,9 @@ import org.springframework.test.util.ReflectionTestUtils;
 import java.util.List;
 import java.util.concurrent.Executors;
 
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class ResumeWorkflowControllerContractTest {
@@ -76,5 +81,31 @@ public class ResumeWorkflowControllerContractTest {
         Assert.assertEquals(1, recentEvaluations.getData().size());
         Assert.assertEquals(Long.valueOf(12L), activeInterview.getData().getInterviewSessionId());
         Assert.assertEquals(1, activeInterview.getData().getRounds().size());
+    }
+
+    @Test
+    public void shouldForwardSelectedRoundsWhenStartingInterview() throws Exception {
+        IResumeWorkflowService resumeWorkflowService = mock(IResumeWorkflowService.class);
+        ResumeWorkflowController controller = new ResumeWorkflowController();
+        ReflectionTestUtils.setField(controller, "resumeWorkflowService", resumeWorkflowService);
+        ReflectionTestUtils.setField(controller, "autoAgentExecuteStrategy", mock(IExecuteStrategy.class));
+        ReflectionTestUtils.setField(controller, "threadPoolExecutor", Executors.newFixedThreadPool(1));
+
+        when(resumeWorkflowService.startInterview(7L, 8L, 5)).thenReturn(ResumeInterviewStartEntity.builder()
+                .interviewSessionId(15L)
+                .currentRound(1)
+                .totalRounds(5)
+                .status("STARTED")
+                .openingQuestions("question")
+                .build());
+
+        Response<ResumeInterviewStartResponseDTO> response = controller.startInterview(ResumeInterviewStartRequestDTO.builder()
+                .resumeId(7L)
+                .knowledgeSpaceId(8L)
+                .totalRounds(5)
+                .build());
+
+        verify(resumeWorkflowService).startInterview(eq(7L), eq(8L), eq(5));
+        Assert.assertEquals(Integer.valueOf(5), response.getData().getTotalRounds());
     }
 }

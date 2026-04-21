@@ -27,7 +27,7 @@ public interface IResumeWorkflowService {
                                        String status,
                                        String errorMessage) throws Exception;
 
-    ResumeInterviewStartEntity startInterview(Long resumeId, Long knowledgeSpaceId) throws Exception;
+    ResumeInterviewStartEntity startInterview(Long resumeId, Long knowledgeSpaceId, Integer totalRounds) throws Exception;
 
     ExecuteCommandEntity buildInterviewAnswerCommand(Long interviewSessionId, Integer roundNo, String answer, String sessionId, Integer maxStep) throws Exception;
 

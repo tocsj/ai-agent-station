@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.tkck.app.content.publish.CnblogsMetaWeblogClient;
 import com.tkck.app.content.publish.CnblogsPublishRequest;
 import com.tkck.app.content.publish.DevtoApiClient;
+import com.tkck.domain.content.adapter.repository.IContentPublishChannelRepository;
 import com.tkck.domain.content.model.entity.ChannelVerifyResultEntity;
 import com.tkck.domain.content.model.entity.ContentPublishChannelConfigEntity;
 import com.tkck.domain.content.model.entity.ContentPublishRecordEntity;
@@ -12,15 +13,12 @@ import com.tkck.domain.content.service.IContentPublishChannelService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -28,8 +26,8 @@ public class ContentPublishChannelServiceImpl implements IContentPublishChannelS
 
     private static final String JUEJIN_VERIFY_URL = "https://api.juejin.cn/aicoding_api/v1/verify_token";
 
-    @Resource(name = "mysqlJdbcTemplate")
-    private JdbcTemplate mysqlJdbcTemplate;
+    @Resource
+    private IContentPublishChannelRepository contentPublishChannelRepository;
 
     private final RestClient restClient;
     private final CnblogsMetaWeblogClient cnblogsMetaWeblogClient;
@@ -60,40 +58,26 @@ public class ContentPublishChannelServiceImpl implements IContentPublishChannelS
     }
 
     @Override
-    public ContentPublishChannelConfigEntity saveOrUpdateConfig(String channel, String token, String blogApp, String blogId, String username, String endpoint) {
+    public ContentPublishChannelConfigEntity saveOrUpdateConfig(String channel,
+                                                                String token,
+                                                                String blogApp,
+                                                                String blogId,
+                                                                String username,
+                                                                String endpoint) {
         String normalizedChannel = normalizeChannel(channel);
-        Integer count = mysqlJdbcTemplate.queryForObject(
-                "SELECT COUNT(1) FROM content_publish_channel_config WHERE channel_code = ?",
-                Integer.class,
-                normalizedChannel);
-        String credentialJson = buildCredentialJson(normalizedChannel, token, blogApp, blogId, username, endpoint);
-        if (count != null && count > 0) {
-            mysqlJdbcTemplate.update("""
-                    UPDATE content_publish_channel_config
-                    SET channel_name = ?, auth_type = ?, credential_json = ?, verify_status = ?, verify_message = ?, status = 1, update_time = NOW()
-                    WHERE channel_code = ?
-                    """,
-                    channelName(normalizedChannel),
-                    authType(normalizedChannel),
-                    credentialJson,
-                    "UNVERIFIED",
-                    "待验证",
-                    normalizedChannel
-            );
+        ContentPublishChannelConfigEntity config = ContentPublishChannelConfigEntity.builder()
+                .channelCode(normalizedChannel)
+                .channelName(channelName(normalizedChannel))
+                .authType(authType(normalizedChannel))
+                .credentialJson(buildCredentialJson(normalizedChannel, token, blogApp, blogId, username, endpoint))
+                .verifyStatus("UNVERIFIED")
+                .verifyMessage("待验证")
+                .status(1)
+                .build();
+        if (contentPublishChannelRepository.existsChannelConfig(normalizedChannel)) {
+            contentPublishChannelRepository.updateChannelConfig(config);
         } else {
-            mysqlJdbcTemplate.update("""
-                    INSERT INTO content_publish_channel_config (
-                        channel_code, channel_name, auth_type, credential_json, verify_status, verify_message, status
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?)
-                    """,
-                    normalizedChannel,
-                    channelName(normalizedChannel),
-                    authType(normalizedChannel),
-                    credentialJson,
-                    "UNVERIFIED",
-                    "待验证",
-                    1
-            );
+            contentPublishChannelRepository.insertChannelConfig(config);
         }
         return queryConfig(normalizedChannel);
     }
@@ -101,21 +85,18 @@ public class ContentPublishChannelServiceImpl implements IContentPublishChannelS
     @Override
     public ContentPublishChannelConfigEntity queryConfig(String channel) {
         String normalizedChannel = normalizeChannel(channel);
-        try {
-            Map<String, Object> row = mysqlJdbcTemplate.queryForMap(
-                    "SELECT * FROM content_publish_channel_config WHERE channel_code = ?",
-                    normalizedChannel);
-            return toConfigEntity(row);
-        } catch (EmptyResultDataAccessException ex) {
-            return ContentPublishChannelConfigEntity.builder()
-                    .channelCode(normalizedChannel)
-                    .channelName(channelName(normalizedChannel))
-                    .authType(authType(normalizedChannel))
-                    .verifyStatus("UNCONFIGURED")
-                    .verifyMessage("未配置")
-                    .status(0)
-                    .build();
+        ContentPublishChannelConfigEntity config = contentPublishChannelRepository.queryConfig(normalizedChannel);
+        if (config != null) {
+            return config;
         }
+        return ContentPublishChannelConfigEntity.builder()
+                .channelCode(normalizedChannel)
+                .channelName(channelName(normalizedChannel))
+                .authType(authType(normalizedChannel))
+                .verifyStatus("UNCONFIGURED")
+                .verifyMessage("未配置")
+                .status(0)
+                .build();
     }
 
     @Override
@@ -221,10 +202,7 @@ public class ContentPublishChannelServiceImpl implements IContentPublishChannelS
         String baseUrl = read(jsonObject, "baseUrl");
         String username = read(jsonObject, "username");
         log.info("开始验证 Dev.to 配置, channel=devto, baseUrl={}, username={}, tokenLength={}, tokenPrefix={}",
-                baseUrl,
-                username,
-                token.length(),
-                maskTokenPrefix(token));
+                baseUrl, username, token.length(), maskTokenPrefix(token));
         if (token.isBlank()) {
             updateVerifyStatus("devto", "UNCONFIGURED", "Dev.to API Key 未配置");
             log.warn("Dev.to 配置验证失败, 原因=未配置 API Key, baseUrl={}, username={}", baseUrl, username);
@@ -250,10 +228,7 @@ public class ContentPublishChannelServiceImpl implements IContentPublishChannelS
             String message = formatDevtoVerifyError(ex);
             updateVerifyStatus("devto", "FAILED", message);
             log.warn("Dev.to 配置验证失败, channel=devto, baseUrl={}, username={}, errorType={}, message={}",
-                    baseUrl,
-                    username,
-                    ex.getClass().getSimpleName(),
-                    message);
+                    baseUrl, username, ex.getClass().getSimpleName(), message);
             return ChannelVerifyResultEntity.builder()
                     .channel("devto")
                     .verified(false)
@@ -265,40 +240,16 @@ public class ContentPublishChannelServiceImpl implements IContentPublishChannelS
 
     @Override
     public void recordPublishAttempt(ContentPublishRecordEntity record) {
-        mysqlJdbcTemplate.update("""
-                INSERT INTO content_publish_record (
-                    task_id, channel_code, action, request_snapshot, response_snapshot, status, external_id, external_url, error_message
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """,
-                record.getTaskId(),
-                record.getChannelCode(),
-                record.getAction(),
-                record.getRequestSnapshot(),
-                record.getResponseSnapshot(),
-                record.getStatus(),
-                record.getExternalId(),
-                record.getExternalUrl(),
-                record.getErrorMessage()
-        );
+        contentPublishChannelRepository.savePublishRecord(record);
     }
 
     @Override
     public List<ContentPublishRecordEntity> queryPublishRecords(Long taskId) {
-        return mysqlJdbcTemplate.queryForList(
-                        "SELECT * FROM content_publish_record WHERE task_id = ? ORDER BY id ASC",
-                        taskId)
-                .stream()
-                .map(this::toRecordEntity)
-                .collect(Collectors.toList());
+        return contentPublishChannelRepository.queryPublishRecords(taskId);
     }
 
     private void updateVerifyStatus(String channel, String verifyStatus, String verifyMessage) {
-        mysqlJdbcTemplate.update(
-                "UPDATE content_publish_channel_config SET verify_status = ?, verify_message = ?, update_time = NOW() WHERE channel_code = ?",
-                verifyStatus,
-                verifyMessage,
-                normalizeChannel(channel)
-        );
+        contentPublishChannelRepository.updateVerifyStatus(normalizeChannel(channel), verifyStatus, verifyMessage);
     }
 
     private String normalizeChannel(String channel) {
@@ -399,47 +350,18 @@ public class ContentPublishChannelServiceImpl implements IContentPublishChannelS
     }
 
     private String formatDevtoVerifyError(Exception ex) {
-        if (ex instanceof HttpClientErrorException.Forbidden || (ex instanceof HttpClientErrorException httpEx && httpEx.getStatusCode().value() == 403)) {
-            return "Dev.to 配置验证失败，HTTP 403 Forbidden。请检查 API Key 是否具有访问权限，或服务器出口网络/请求特征是否被 Dev.to 拒绝。";
+        if (ex instanceof HttpClientErrorException.Forbidden
+                || (ex instanceof HttpClientErrorException httpEx && httpEx.getStatusCode().value() == 403)) {
+            return "Dev.to 配置验证失败，HTTP 403 Forbidden。请检查 API Key 是否具备访问权限，或请求特征是否被 Dev.to 拒绝。";
         }
-        if (ex instanceof HttpClientErrorException.Unauthorized || (ex instanceof HttpClientErrorException httpEx && httpEx.getStatusCode().value() == 401)) {
+        if (ex instanceof HttpClientErrorException.Unauthorized
+                || (ex instanceof HttpClientErrorException httpEx && httpEx.getStatusCode().value() == 401)) {
             return "Dev.to 配置验证失败，HTTP 401 Unauthorized。请检查 API Key 是否正确或已失效。";
         }
         String message = ex.getMessage() == null ? "" : ex.getMessage().trim();
         if (message.isBlank()) {
             return "Dev.to API Key 验证失败";
         }
-        return "Dev.to API Key 验证失败：" + message;
-    }
-
-    private ContentPublishChannelConfigEntity toConfigEntity(Map<String, Object> row) {
-        return ContentPublishChannelConfigEntity.builder()
-                .id(((Number) row.get("id")).longValue())
-                .channelCode((String) row.get("channel_code"))
-                .channelName((String) row.get("channel_name"))
-                .authType((String) row.get("auth_type"))
-                .credentialJson((String) row.get("credential_json"))
-                .verifyStatus((String) row.get("verify_status"))
-                .verifyMessage((String) row.get("verify_message"))
-                .status(row.get("status") == null ? 0 : ((Number) row.get("status")).intValue())
-                .createTime(row.get("create_time") == null ? null : String.valueOf(row.get("create_time")))
-                .updateTime(row.get("update_time") == null ? null : String.valueOf(row.get("update_time")))
-                .build();
-    }
-
-    private ContentPublishRecordEntity toRecordEntity(Map<String, Object> row) {
-        return ContentPublishRecordEntity.builder()
-                .id(((Number) row.get("id")).longValue())
-                .taskId(((Number) row.get("task_id")).longValue())
-                .channelCode((String) row.get("channel_code"))
-                .action((String) row.get("action"))
-                .requestSnapshot((String) row.get("request_snapshot"))
-                .responseSnapshot((String) row.get("response_snapshot"))
-                .status((String) row.get("status"))
-                .externalId((String) row.get("external_id"))
-                .externalUrl((String) row.get("external_url"))
-                .errorMessage((String) row.get("error_message"))
-                .createTime(row.get("create_time") == null ? null : String.valueOf(row.get("create_time")))
-                .build();
+        return "Dev.to API Key 验证失败: " + message;
     }
 }

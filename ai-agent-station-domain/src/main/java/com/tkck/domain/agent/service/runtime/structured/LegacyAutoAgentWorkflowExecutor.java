@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.UUID;
@@ -174,6 +175,10 @@ public class LegacyAutoAgentWorkflowExecutor implements StructuredWorkflowExecut
         } catch (NoSuchMethodException ignored) {
             // fallback to regular emitter send
         }
-        emitter.send(payload);
+        try {
+            emitter.send(payload);
+        } catch (IllegalStateException | IOException e) {
+            log.info("sse emitter already disconnected, skip completion event: {}", e.getMessage());
+        }
     }
 }

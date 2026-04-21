@@ -20,4 +20,6 @@ public class ResumeInterviewStartRequestDTO implements Serializable {
     private Long resumeId;
 
     private Long knowledgeSpaceId;
+
+    private Integer totalRounds;
 }

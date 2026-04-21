@@ -1,6 +1,7 @@
 package com.tkck.test.audit;
 
 import com.tkck.app.audit.AuditMonitoringServiceImpl;
+import com.tkck.domain.audit.adapter.repository.IAuditMonitoringRepository;
 import com.tkck.domain.audit.model.entity.AuditDashboardOverviewEntity;
 import com.tkck.domain.audit.model.entity.AuditEventEntity;
 import com.tkck.domain.audit.model.entity.AuditLlmCallMetricEntity;
@@ -8,15 +9,10 @@ import com.tkck.domain.audit.model.entity.AuditModelMetricEntity;
 import com.tkck.domain.audit.model.entity.AuditStepMetricEntity;
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
-import java.util.Map;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -24,12 +20,12 @@ import static org.mockito.Mockito.when;
 public class AuditMonitoringServiceTest {
 
     @Test
-    public void shouldRecordAuditEventAndStepMetric() {
-        JdbcTemplate jdbcTemplate = mock(JdbcTemplate.class);
+    public void shouldDelegateWriteOperationsToRepository() {
+        IAuditMonitoringRepository repository = mock(IAuditMonitoringRepository.class);
         AuditMonitoringServiceImpl service = new AuditMonitoringServiceImpl();
-        ReflectionTestUtils.setField(service, "mysqlJdbcTemplate", jdbcTemplate);
+        ReflectionTestUtils.setField(service, "auditMonitoringRepository", repository);
 
-        service.recordEvent(AuditEventEntity.builder()
+        AuditEventEntity event = AuditEventEntity.builder()
                 .eventType("CONTENT_TASK_START")
                 .bizType("content_automation")
                 .bizId("21")
@@ -38,8 +34,8 @@ public class AuditMonitoringServiceTest {
                 .status("RUNNING")
                 .location("ContentAutomationWorkflowExecutor#execute")
                 .metadataJson("{}")
-                .build());
-        service.recordStep(AuditStepMetricEntity.builder()
+                .build();
+        AuditStepMetricEntity step = AuditStepMetricEntity.builder()
                 .traceId("trace-1")
                 .taskId("21")
                 .sessionId("content-21")
@@ -50,12 +46,9 @@ public class AuditMonitoringServiceTest {
                 .modelCode("2007")
                 .status("SUCCESS")
                 .durationMs(1000L)
-                .retryCount(0)
-                .timeoutFlag(false)
-                .degradedFlag(false)
                 .location("TopicPlannerNode#apply")
-                .build());
-        service.recordLlmCall(AuditLlmCallMetricEntity.builder()
+                .build();
+        AuditLlmCallMetricEntity call = AuditLlmCallMetricEntity.builder()
                 .traceId("trace-1")
                 .taskType("content_automation")
                 .taskId("21")
@@ -70,55 +63,33 @@ public class AuditMonitoringServiceTest {
                 .completionTokens(80L)
                 .totalTokens(200L)
                 .location("TopicPlannerNode#apply")
-                .build());
+                .build();
 
-        verify(jdbcTemplate).update(eq("""
-                INSERT INTO audit_event (
-                    event_id, event_type, biz_type, biz_id, session_id, execution_mode,
-                    operator_id, operator_name, request_uri, request_method, status,
-                    error_code, error_message, location, metadata_json
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CAST(? AS JSON))
-                """), any(Object[].class));
-        verify(jdbcTemplate).update(eq("""
-                INSERT INTO agent_step_metric (
-                    trace_id, task_id, session_id, step_no, step_name, stage, client_id, model_code,
-                    status, duration_ms, retry_count, timeout_flag, degraded_flag,
-                    error_code, error_message, location
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """), any(Object[].class));
-        verify(jdbcTemplate).update(eq("""
-                INSERT INTO agent_llm_call_metric (
-                    call_id, trace_id, task_type, task_sub_type, task_id, session_id,
-                    step_name, stage, client_id, model_code, status, duration_ms,
-                    prompt_tokens, completion_tokens, total_tokens,
-                    error_code, error_message, location
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """), any(Object[].class));
+        service.recordEvent(event);
+        service.recordStep(step);
+        service.recordLlmCall(call);
+
+        verify(repository).recordEvent(event);
+        verify(repository).recordStep(step);
+        verify(repository).recordLlmCall(call);
     }
 
     @Test
-    public void shouldQueryOverviewMetrics() {
-        JdbcTemplate jdbcTemplate = mock(JdbcTemplate.class);
+    public void shouldReturnOverviewMetricsFromRepository() {
+        IAuditMonitoringRepository repository = mock(IAuditMonitoringRepository.class);
         AuditMonitoringServiceImpl service = new AuditMonitoringServiceImpl();
-        ReflectionTestUtils.setField(service, "mysqlJdbcTemplate", jdbcTemplate);
+        ReflectionTestUtils.setField(service, "auditMonitoringRepository", repository);
 
-        when(jdbcTemplate.queryForMap(any(String.class))).thenReturn(Map.ofEntries(
-                Map.entry("task_total", 10),
-                Map.entry("success_total", 8),
-                Map.entry("failed_total", 1),
-                Map.entry("running_total", 1),
-                Map.entry("avg_duration_ms", 1500),
-                Map.entry("timeout_total", 2),
-                Map.entry("degraded_total", 3),
-                Map.entry("model_calls", 6),
-                Map.entry("prompt_tokens", 1000),
-                Map.entry("completion_tokens", 700),
-                Map.entry("total_tokens", 1700)
-        ));
-        when(jdbcTemplate.queryForList(any(String.class))).thenReturn(List.of(Map.of(
-                "success_total", 4,
-                "failed_total", 1
-        )));
+        when(repository.queryOverview("today", "all")).thenReturn(AuditDashboardOverviewEntity.builder()
+                .range("today")
+                .taskTotal(10)
+                .successTotal(8)
+                .successRate(80.0)
+                .modelCalls(6)
+                .totalTokens(1700L)
+                .publishSuccessTotal(4)
+                .publishFailedTotal(1)
+                .build());
 
         AuditDashboardOverviewEntity overview = service.queryOverview("today", "all");
 
@@ -132,22 +103,23 @@ public class AuditMonitoringServiceTest {
     }
 
     @Test
-    public void shouldQueryModelMetrics() {
-        JdbcTemplate jdbcTemplate = mock(JdbcTemplate.class);
+    public void shouldReturnModelMetricsFromRepository() {
+        IAuditMonitoringRepository repository = mock(IAuditMonitoringRepository.class);
         AuditMonitoringServiceImpl service = new AuditMonitoringServiceImpl();
-        ReflectionTestUtils.setField(service, "mysqlJdbcTemplate", jdbcTemplate);
+        ReflectionTestUtils.setField(service, "auditMonitoringRepository", repository);
 
-        when(jdbcTemplate.queryForList(anyString(), any(Object[].class))).thenReturn(List.of(Map.of(
-                "client_id", "5301",
-                "model_code", "2007",
-                "call_total", 8,
-                "success_total", 7,
-                "failed_total", 1,
-                "avg_duration_ms", 3200,
-                "prompt_tokens", 1200,
-                "completion_tokens", 900,
-                "total_tokens", 2100
-        )));
+        when(repository.queryModelMetrics("7d", "all")).thenReturn(List.of(AuditModelMetricEntity.builder()
+                .clientId("5301")
+                .modelCode("2007")
+                .callTotal(8)
+                .successTotal(7)
+                .failedTotal(1)
+                .avgDurationMs(3200L)
+                .promptTokens(1200L)
+                .completionTokens(900L)
+                .totalTokens(2100L)
+                .avgTotalTokens(262L)
+                .build()));
 
         List<AuditModelMetricEntity> items = service.queryModelMetrics("7d", "all");
 
