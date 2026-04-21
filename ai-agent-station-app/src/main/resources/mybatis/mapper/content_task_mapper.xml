@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tkck.infrastructure.dao.IContentTaskDao">
+
+    <resultMap id="ContentTaskMap" type="com.tkck.infrastructure.dao.po.ContentTaskPO">
+        <id column="id" property="id"/>
+        <result column="task_code" property="taskCode"/>
+        <result column="execution_mode" property="executionMode"/>
+        <result column="topic" property="topic"/>
+        <result column="platform" property="platform"/>
+        <result column="style" property="style"/>
+        <result column="keywords" property="keywords"/>
+        <result column="channel" property="channel"/>
+        <result column="status" property="status"/>
+        <result column="current_step" property="currentStep"/>
+        <result column="title" property="title"/>
+        <result column="outline_text" property="outlineText"/>
+        <result column="draft_content" property="draftContent"/>
+        <result column="final_content" property="finalContent"/>
+        <result column="compliance_result" property="complianceResult"/>
+        <result column="publish_status" property="publishStatus"/>
+        <result column="publish_external_id" property="publishExternalId"/>
+        <result column="publish_external_url" property="publishExternalUrl"/>
+        <result column="summary_text" property="summaryText"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <resultMap id="ContentTaskStepMap" type="com.tkck.infrastructure.dao.po.ContentTaskStepPO">
+        <id column="id" property="id"/>
+        <result column="task_id" property="taskId"/>
+        <result column="step_no" property="stepNo"/>
+        <result column="step_name" property="stepName"/>
+        <result column="step_status" property="stepStatus"/>
+        <result column="output_text" property="outputText"/>
+        <result column="metadata_json" property="metadataJson"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <insert id="insertTask" parameterType="com.tkck.infrastructure.dao.po.ContentTaskPO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO content_task (
+            task_code, execution_mode, topic, platform, style, keywords, channel, status, current_step
+        ) VALUES (
+            #{taskCode}, #{executionMode}, #{topic}, #{platform}, #{style}, #{keywords}, #{channel}, #{status}, #{currentStep}
+        )
+    </insert>
+
+    <select id="queryTaskByTaskCode" resultMap="ContentTaskMap">
+        SELECT * FROM content_task WHERE task_code = #{taskCode}
+    </select>
+
+    <select id="queryTaskById" resultMap="ContentTaskMap">
+        SELECT * FROM content_task WHERE id = #{taskId}
+    </select>
+
+    <select id="queryLatestActiveTask" resultMap="ContentTaskMap">
+        SELECT *
+        FROM content_task
+        WHERE status IN ('CREATED', 'RUNNING', 'COMPLETED', 'FAILED')
+        ORDER BY update_time DESC, id DESC
+        LIMIT 1
+    </select>
+
+    <select id="queryTaskHistory" resultMap="ContentTaskMap">
+        SELECT * FROM content_task ORDER BY update_time DESC, id DESC LIMIT #{limit}
+    </select>
+
+    <select id="queryTaskSteps" resultMap="ContentTaskStepMap">
+        SELECT * FROM content_task_step WHERE task_id = #{taskId} ORDER BY step_no ASC, id ASC
+    </select>
+
+    <update id="updateTaskStatus">
+        UPDATE content_task
+        SET status = #{status}, current_step = #{currentStep}, update_time = NOW()
+        WHERE id = #{taskId}
+    </update>
+
+    <insert id="insertTaskStep" parameterType="com.tkck.infrastructure.dao.po.ContentTaskStepPO">
+        INSERT INTO content_task_step (task_id, step_no, step_name, step_status, output_text, metadata_json)
+        VALUES (#{taskId}, #{stepNo}, #{stepName}, #{stepStatus}, #{outputText}, CAST(#{metadataJson} AS JSON))
+    </insert>
+
+    <update id="updateTaskArtifact">
+        UPDATE content_task
+        SET ${columnName} = #{fieldValue}, current_step = #{currentStep}, update_time = NOW()
+        WHERE id = #{taskId}
+    </update>
+
+    <update id="completeTask">
+        UPDATE content_task
+        SET status = 'COMPLETED',
+            current_step = 'COMPLETED',
+            final_content = #{finalContent},
+            summary_text = #{summaryText},
+            publish_status = #{publishStatus},
+            publish_external_id = #{publishExternalId},
+            publish_external_url = #{publishExternalUrl},
+            update_time = NOW()
+        WHERE id = #{taskId}
+    </update>
+
+</mapper>

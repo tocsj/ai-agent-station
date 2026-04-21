@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tkck.infrastructure.dao.IContentPublishChannelDao">
+
+    <resultMap id="ContentPublishChannelConfigMap" type="com.tkck.infrastructure.dao.po.ContentPublishChannelConfigPO">
+        <id column="id" property="id"/>
+        <result column="channel_code" property="channelCode"/>
+        <result column="channel_name" property="channelName"/>
+        <result column="auth_type" property="authType"/>
+        <result column="credential_json" property="credentialJson"/>
+        <result column="verify_status" property="verifyStatus"/>
+        <result column="verify_message" property="verifyMessage"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <resultMap id="ContentPublishRecordMap" type="com.tkck.infrastructure.dao.po.ContentPublishRecordPO">
+        <id column="id" property="id"/>
+        <result column="task_id" property="taskId"/>
+        <result column="channel_code" property="channelCode"/>
+        <result column="action" property="action"/>
+        <result column="request_snapshot" property="requestSnapshot"/>
+        <result column="response_snapshot" property="responseSnapshot"/>
+        <result column="status" property="status"/>
+        <result column="external_id" property="externalId"/>
+        <result column="external_url" property="externalUrl"/>
+        <result column="error_message" property="errorMessage"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="countConfigByChannelCode" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM content_publish_channel_config
+        WHERE channel_code = #{channelCode}
+    </select>
+
+    <insert id="insertChannelConfig" parameterType="com.tkck.infrastructure.dao.po.ContentPublishChannelConfigPO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO content_publish_channel_config (
+            channel_code, channel_name, auth_type, credential_json, verify_status, verify_message, status
+        ) VALUES (
+            #{channelCode}, #{channelName}, #{authType}, #{credentialJson}, #{verifyStatus}, #{verifyMessage}, #{status}
+        )
+    </insert>
+
+    <update id="updateChannelConfig" parameterType="com.tkck.infrastructure.dao.po.ContentPublishChannelConfigPO">
+        UPDATE content_publish_channel_config
+        SET channel_name = #{channelName},
+            auth_type = #{authType},
+            credential_json = #{credentialJson},
+            verify_status = #{verifyStatus},
+            verify_message = #{verifyMessage},
+            status = #{status},
+            update_time = NOW()
+        WHERE channel_code = #{channelCode}
+    </update>
+
+    <select id="queryConfigByChannelCode" resultMap="ContentPublishChannelConfigMap">
+        SELECT *
+        FROM content_publish_channel_config
+        WHERE channel_code = #{channelCode}
+    </select>
+
+    <update id="updateVerifyStatus">
+        UPDATE content_publish_channel_config
+        SET verify_status = #{verifyStatus},
+            verify_message = #{verifyMessage},
+            update_time = NOW()
+        WHERE channel_code = #{channelCode}
+    </update>
+
+    <insert id="insertPublishRecord" parameterType="com.tkck.infrastructure.dao.po.ContentPublishRecordPO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO content_publish_record (
+            task_id, channel_code, action, request_snapshot, response_snapshot, status, external_id, external_url, error_message
+        ) VALUES (
+            #{taskId}, #{channelCode}, #{action}, #{requestSnapshot}, #{responseSnapshot}, #{status}, #{externalId}, #{externalUrl}, #{errorMessage}
+        )
+    </insert>
+
+    <select id="queryPublishRecords" resultMap="ContentPublishRecordMap">
+        SELECT *
+        FROM content_publish_record
+        WHERE task_id = #{taskId}
+        ORDER BY id ASC
+    </select>
+
+</mapper>

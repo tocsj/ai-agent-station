@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tkck.infrastructure.dao.IDocumentWorkspaceDao">
+
+    <resultMap id="AiKnowledgeSpaceMap" type="com.tkck.infrastructure.dao.po.AiKnowledgeSpace">
+        <id column="id" property="id"/>
+        <result column="space_id" property="spaceId"/>
+        <result column="space_name" property="spaceName"/>
+        <result column="space_type" property="spaceType"/>
+        <result column="description" property="description"/>
+        <result column="status" property="status"/>
+        <result column="document_count" property="documentCount"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <resultMap id="AiKnowledgeDocumentMap" type="com.tkck.infrastructure.dao.po.AiKnowledgeDocument">
+        <id column="id" property="id"/>
+        <result column="doc_id" property="docId"/>
+        <result column="space_id" property="spaceId"/>
+        <result column="file_name" property="fileName"/>
+        <result column="file_type" property="fileType"/>
+        <result column="file_size" property="fileSize"/>
+        <result column="parse_status" property="parseStatus"/>
+        <result column="chunk_count" property="chunkCount"/>
+        <result column="vector_status" property="vectorStatus"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <resultMap id="DocumentTaskRecordMap" type="com.tkck.infrastructure.dao.po.DocumentTaskRecordPO">
+        <id column="id" property="id"/>
+        <result column="workspace_id" property="workspaceId"/>
+        <result column="doc_id" property="docId"/>
+        <result column="mode" property="mode"/>
+        <result column="question" property="question"/>
+        <result column="answer" property="answer"/>
+        <result column="rewritten_query" property="rewrittenQuery"/>
+        <result column="retrieval_scope" property="retrievalScope"/>
+        <result column="final_context" property="finalContext"/>
+        <result column="retrieved_chunks_json" property="retrievedChunksJson"/>
+        <result column="retrieved_chunk_details_json" property="retrievedChunkDetailsJson"/>
+        <result column="status" property="status"/>
+        <result column="error_message" property="errorMessage"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <insert id="insertKnowledgeSpace" parameterType="com.tkck.infrastructure.dao.po.AiKnowledgeSpace">
+        INSERT INTO ai_knowledge_space (space_id, space_name, space_type, description, status)
+        VALUES (#{spaceId}, #{spaceName}, #{spaceType}, #{description}, #{status})
+    </insert>
+
+    <select id="queryWorkspaceList" resultMap="AiKnowledgeSpaceMap">
+        SELECT s.id,
+               s.space_id,
+               s.space_name,
+               s.space_type,
+               s.description,
+               s.status,
+               s.create_time,
+               s.update_time,
+               COUNT(d.doc_id) AS document_count
+        FROM ai_knowledge_space s
+        LEFT JOIN ai_knowledge_document d ON s.space_id = d.space_id AND d.status = 1
+        WHERE s.space_type = 'document' AND s.status = 1
+        GROUP BY s.id, s.space_id, s.space_name, s.space_type, s.description, s.status, s.create_time, s.update_time
+        ORDER BY s.update_time DESC, s.id DESC
+    </select>
+
+    <insert id="insertKnowledgeDocument" parameterType="com.tkck.infrastructure.dao.po.AiKnowledgeDocument">
+        INSERT INTO ai_knowledge_document
+        (doc_id, space_id, file_name, file_type, file_size, parse_status, chunk_count, vector_status, status)
+        VALUES
+        (#{docId}, #{spaceId}, #{fileName}, #{fileType}, #{fileSize}, #{parseStatus}, #{chunkCount}, #{vectorStatus}, #{status})
+    </insert>
+
+    <insert id="insertKnowledgeChunk" parameterType="com.tkck.infrastructure.dao.po.AiKnowledgeChunk">
+        INSERT INTO ai_knowledge_chunk
+        (chunk_id, doc_id, space_id, chunk_index, chunk_text, metadata_json)
+        VALUES
+        (#{chunkId}, #{docId}, #{spaceId}, #{chunkIndex}, #{chunkText}, #{metadataJson})
+    </insert>
+
+    <update id="updateKnowledgeDocumentParseResult">
+        UPDATE ai_knowledge_document
+        SET parse_status = #{parseStatus},
+            chunk_count = #{chunkCount},
+            vector_status = #{vectorStatus},
+            update_time = NOW()
+        WHERE doc_id = #{docId}
+    </update>
+
+    <select id="queryKnowledgeSpaceBySpaceId" resultMap="AiKnowledgeSpaceMap">
+        SELECT id, space_id, space_name, space_type, description, status, create_time, update_time
+        FROM ai_knowledge_space
+        WHERE space_id = #{spaceId}
+    </select>
+
+    <select id="queryKnowledgeDocumentsBySpaceId" resultMap="AiKnowledgeDocumentMap">
+        SELECT id, doc_id, space_id, file_name, file_type, file_size, parse_status, chunk_count, vector_status, status, create_time, update_time
+        FROM ai_knowledge_document
+        WHERE space_id = #{spaceId}
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="countWorkspace" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM ai_knowledge_space
+        WHERE space_id = #{spaceId} AND space_type = 'document'
+    </select>
+
+    <select id="countDocument" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM ai_knowledge_document
+        WHERE space_id = #{spaceId} AND doc_id = #{docId} AND status = 1
+    </select>
+
+    <insert id="insertDocumentTaskRecord" parameterType="com.tkck.infrastructure.dao.po.DocumentTaskRecordPO">
+        INSERT INTO document_task_record
+        (workspace_id, doc_id, mode, question, answer, rewritten_query, retrieval_scope, final_context,
+         retrieved_chunks_json, retrieved_chunk_details_json, status, error_message)
+        VALUES
+        (#{workspaceId}, #{docId}, #{mode}, #{question}, #{answer}, #{rewrittenQuery}, #{retrievalScope}, #{finalContext},
+         #{retrievedChunksJson}, #{retrievedChunkDetailsJson}, #{status}, #{errorMessage})
+    </insert>
+
+    <select id="queryRecentTaskRecords" resultMap="DocumentTaskRecordMap">
+        SELECT id, workspace_id, doc_id, mode, question, answer, rewritten_query, retrieval_scope, final_context,
+               retrieved_chunks_json, retrieved_chunk_details_json, status, error_message, create_time
+        FROM document_task_record
+        <where>
+            <if test="workspaceId != null and workspaceId != ''">
+                workspace_id = #{workspaceId}
+            </if>
+        </where>
+        ORDER BY create_time DESC, id DESC
+        LIMIT #{limit}
+    </select>
+
+    <select id="queryActiveDocumentIds" resultType="java.lang.String">
+        SELECT doc_id
+        FROM ai_knowledge_document
+        WHERE space_id = #{spaceId} AND status = 1
+    </select>
+
+</mapper>

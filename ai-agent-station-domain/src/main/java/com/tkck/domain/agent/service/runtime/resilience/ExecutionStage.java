@@ -1,0 +1,18 @@
+package com.tkck.domain.agent.service.runtime.resilience;
+
+public enum ExecutionStage {
+    ROOT,
+    STEP1_ANALYZE,
+    STEP2_EXECUTE,
+    STEP3_VERIFY,
+    STEP4_SUMMARIZE,
+    CONTENT_TOPIC_PLAN,
+    CONTENT_OUTLINE,
+    CONTENT_DRAFT,
+    CONTENT_POLISH,
+    CONTENT_COMPLIANCE,
+    CONTENT_PUBLISH_PLAN,
+    CONTENT_PUBLISH_EXECUTE,
+    CONTENT_PUBLISH_SUMMARY,
+    SSE_PUSH
+}

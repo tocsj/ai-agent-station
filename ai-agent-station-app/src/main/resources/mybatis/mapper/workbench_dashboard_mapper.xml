@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tkck.infrastructure.dao.IWorkbenchDashboardDao">
+
+    <sql id="WorkbenchTimeCondition">
+        <choose>
+            <when test="range == 'today'">
+                create_time &gt;= CURDATE()
+            </when>
+            <when test="range == '30d'">
+                create_time &gt;= DATE_SUB(NOW(), INTERVAL 30 DAY)
+            </when>
+            <otherwise>
+                create_time &gt;= DATE_SUB(NOW(), INTERVAL 7 DAY)
+            </otherwise>
+        </choose>
+    </sql>
+
+    <select id="queryAgentCardRows" resultType="map">
+        SELECT task_type,
+               COUNT(1) AS task_total,
+               SUM(CASE WHEN status = 'SUCCESS' THEN 1 ELSE 0 END) AS success_total,
+               MAX(COALESCE(finish_time, create_time)) AS last_run_time
+        FROM agent_execution_metric
+        WHERE <include refid="WorkbenchTimeCondition"/>
+        GROUP BY task_type
+    </select>
+
+    <select id="queryRecentRunRows" resultType="map">
+        SELECT trace_id,
+               task_id,
+               task_type,
+               task_sub_type,
+               total_duration_ms,
+               total_tokens,
+               status,
+               COALESCE(finish_time, create_time) AS last_time
+        FROM agent_execution_metric
+        ORDER BY COALESCE(finish_time, create_time) DESC, id DESC
+        LIMIT #{limit}
+    </select>
+
+</mapper>

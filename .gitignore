@@ -1,0 +1,69 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### IntelliJ IDEA ###
+.idea/modules.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
+*.iws
+*.iml
+*.ipr
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+
+### Local runtime files ###
+*.log
+**/data/log/
+**/.local-config
+**/.env
+**/.env.*
+!**/.env.example
+
+/super-mario-game/.gitignore
+/super-mario-game/src/game/AudioSystem.ts
+/super-mario-game/src/game/constants.ts
+/super-mario-game/src/counter.ts
+/super-mario-game/src/game/Entity.ts
+/super-mario-game/src/game/Game.ts
+/super-mario-game/index.html
+/super-mario-game/src/game/InputHandler.ts
+/super-mario-game/src/game/Level.ts
+/super-mario-game/src/levels/level1.ts
+/super-mario-game/src/levels/level2.ts
+/super-mario-game/src/main.ts
+/super-mario-game/package.json
+/super-mario-game/package-lock.json
+/super-mario-game/public/player.png
+/super-mario-game/src/game/Player.ts
+/super-mario-game/src/style.css
+/super-mario-game/tsconfig.json
+/super-mario-game/src/game/types.ts
+/super-mario-game/src/typescript.svg
+/super-mario-game/vite.config.ts
+/super-mario-game/public/vite.svg
